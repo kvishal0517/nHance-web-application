@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 
@@ -51,19 +51,26 @@ const BuildfastCTO = lazy(() => import('./mocks/tech/BuildfastCTO'));
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen bg-charcoal-950 flex items-center justify-center">
+    <div className="min-h-screen bg-apple-gray flex items-center justify-center">
       <div className="flex flex-col items-center gap-3">
-        <div className="w-8 h-8 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
-        <span className="text-sm text-charcoal-400">Loading...</span>
+        <div className="w-8 h-8 border-2 border-apple-blue border-t-transparent rounded-full animate-spin" />
+        <span className="text-sm text-apple-darkGray">Loading...</span>
       </div>
     </div>
   );
 }
 
 function ScrollToTop() {
-  if (typeof window !== 'undefined') {
-    window.scrollTo(0, 0);
-  }
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
+  }, [pathname]);
+
   return null;
 }
 
@@ -71,7 +78,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="min-h-screen bg-charcoal-950 flex flex-col">
+      <div className="min-h-screen bg-white flex flex-col selection:bg-apple-blue selection:text-white">
         <Navbar />
         <main className="flex-1">
           <Suspense fallback={<LoadingFallback />}>

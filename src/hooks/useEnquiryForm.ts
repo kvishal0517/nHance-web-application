@@ -38,27 +38,57 @@ export function useEnquiryForm() {
 
     try {
       const webhookUrl = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL;
+      console.log('Attempting submission to:', webhookUrl ? 'URL defined' : 'URL UNDEFINED');
 
-      if (webhookUrl) {
-        await fetch(webhookUrl, {
+      if (webhookUrl && webhookUrl !== 'YOUR_DEPLOYED_APPS_SCRIPT_URL_HERE') {
+        // We use exact keys from your list. 
+        // Note: It is best to remove the space in your sheet header ' description'
+        const rowData = {
+          "timestamp": new Date().toLocaleString(),
+          "fullName": formData.fullName.trim(),
+          "email": formData.email.trim(),
+          "phone": formData.phone.trim(),
+          "profession": formData.profession,
+          "serviceInterest": formData.serviceInterest,
+          "description": formData.description.trim(),
+          "budgetRange": formData.budgetRange,
+          "timeline": formData.timeline
+        };
+
+        const payload = { data: [rowData] };
+        console.log('Final Payload for SheetDB:', JSON.stringify(payload));
+
+        const response = await fetch(webhookUrl.trim(), {
           method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            timestamp: new Date().toISOString(),
-            ...formData,
-          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload),
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        console.log('SheetDB Success:', result);
       }
 
       setSubmitStatus('success');
       setFormData(initialFormData);
-    } catch {
+    } catch (error) {
+      console.error('Submission error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  return { formData, handleChange, handleSubmit, isSubmitting, submitStatus };
+  const resetForm = () => {
+    setSubmitStatus('idle');
+    setFormData(initialFormData);
+  };
+
+  return { formData, handleChange, handleSubmit, isSubmitting, submitStatus, resetForm };
 }

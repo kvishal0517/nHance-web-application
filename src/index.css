@@ -20,27 +20,27 @@
 
 @layer components {
   .section-padding {
-    @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24;
+    @apply px-6 sm:px-12 lg:px-24 py-20 sm:py-28 lg:py-36;
   }
 
   .container-narrow {
-    @apply max-w-5xl mx-auto;
+    @apply max-w-4xl mx-auto;
   }
 
   .container-wide {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-[1440px] mx-auto;
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-brand-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-b from-brand-600 to-brand-400;
   }
 
   .card-base {
-    @apply rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-soft;
+    @apply rounded-[32px] overflow-hidden bg-white border border-slate-100/50 shadow-sm backdrop-blur-sm;
   }
 
   .card-hover {
-    @apply hover:shadow-medium hover:border-slate-200 transition-all duration-300;
+    @apply hover:shadow-xl hover:translate-y-[-4px] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)];
   }
 
   .glow-node {
@@ -53,16 +53,83 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-brand active:scale-[0.98];
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-apple-blue hover:bg-[#0077ed] text-white font-semibold rounded-full transition-all duration-300 active:scale-[0.98] shadow-sm hover:shadow-md;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-xl border border-slate-200 hover:border-slate-300 transition-all duration-200;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-white/80 backdrop-blur hover:bg-white text-apple-black font-semibold rounded-full border border-slate-200 transition-all duration-300;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center gap-2 px-4 py-2 text-brand-600 hover:bg-brand-50 font-medium rounded-xl transition-all duration-200;
+    @apply inline-flex items-center gap-2 px-4 py-2 text-apple-blue hover:underline font-medium transition-all duration-300;
   }
+}
+
+@layer utilities {
+  .animate-text-reveal {
+    @apply text-apple-black;
+    background: linear-gradient(
+      to right,
+      #1d1d1f 20%,
+      #0071e3 40%,
+      #0071e3 60%,
+      #1d1d1f 80%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-reveal 4s linear infinite;
+  }
+
+  .hero-glow {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] pointer-events-none opacity-0;
+    background: radial-gradient(circle at center, rgba(0, 113, 227, 0.12) 0%, transparent 70%);
+    filter: blur(80px);
+    animation: hero-glow-reveal 2s ease-out forwards;
+    will-change: transform, opacity;
+  }
+}
+
+@keyframes text-reveal {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes hero-glow-reveal {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes grow {
+  0%, 100% { transform: scaleY(1); transform-origin: bottom; }
+  50% { transform: scaleY(1.4); transform-origin: bottom; }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(120vh); opacity: 0; }
+}
+
+@keyframes confetti-shake {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px) rotate(10deg); }
+}
+
+.animate-confetti-fall {
+  animation: confetti-fall 15s linear infinite;
+  will-change: transform;
+}
+
+.animate-confetti-shake {
+  animation: confetti-shake 3s ease-in-out infinite;
 }
 
 @keyframes dash {

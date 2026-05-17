@@ -1,24 +1,21 @@
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 import {
   Trophy,
   Star,
-  Users,
-  BookOpen,
   ChevronRight,
-  Phone,
-  Mail,
-  MapPin,
   Award,
-  TrendingUp,
-  Clock,
   CheckCircle,
+  Zap,
+  Users,
+  Timer,
+  ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 
 const accentGold = '#F5A623';
-const navyDark = '#0A1628';
-const navyMid = '#1A2744';
 
 const admissionsWorkflow: AgentWorkflow = {
   title: 'Admissions & Doubt Resolution Agent',
@@ -99,6 +96,7 @@ const courses = [
     fee: '₹1,20,000',
     features: ['Daily 6-hr sessions', 'Weekly mock tests', 'Personal mentorship', 'Study material included'],
     highlight: false,
+    status: 'Limited Seats'
   },
   {
     name: 'JEE Advanced',
@@ -108,6 +106,7 @@ const courses = [
     fee: '₹2,40,000',
     features: ['Intensive problem solving', 'IIT faculty guest sessions', 'AIR-focused strategy', 'Hostel facility'],
     highlight: true,
+    status: 'Filling Fast'
   },
   {
     name: 'NEET',
@@ -117,6 +116,7 @@ const courses = [
     fee: '₹1,10,000',
     features: ['NCERT deep-dive', 'Biology lab sessions', 'Previous year analysis', 'Online revision portal'],
     highlight: false,
+    status: 'Enrollment Open'
   },
   {
     name: 'Foundation',
@@ -126,6 +126,7 @@ const courses = [
     fee: '₹75,000/yr',
     features: ['Olympiad preparation', 'Concept-first approach', 'Parent progress reports', 'Scholarship tests'],
     highlight: false,
+    status: 'New Batch'
   },
 ];
 
@@ -136,430 +137,321 @@ const faculty = [
     credentials: 'IIT Bombay Alumni • 18 Years Experience',
     achievement: '12 students with AIR < 100',
     initials: 'AS',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200'
   },
   {
     name: 'Dr. Kavitha Nair',
     subject: 'Chemistry',
     credentials: 'IISER PhD • Former CBSE Examiner',
-    achievement: 'Author of "Organic Edge" textbook',
+    achievement: 'Author of "Organic Edge"',
     initials: 'KN',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200'
   },
   {
     name: 'Prof. Rajesh Gupta',
     subject: 'Mathematics',
     credentials: 'IIT Delhi Alumni • 22 Years Experience',
-    achievement: 'Trained 3 AIR Top-10 rankers',
+    achievement: '3 AIR Top-10 rankers',
     initials: 'RG',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200'
   },
 ];
 
-const results = [
-  { label: 'Total Selections', value: '1,500+', subtext: 'IIT + NEET Combined' },
-  { label: 'Top AIR', value: 'AIR 1', subtext: 'JEE Advanced 2022' },
-  { label: 'IIT Selections 2024', value: '312', subtext: 'Across all IITs' },
-  { label: 'NEET 690+ Scorers', value: '87', subtext: 'In batch of 2024' },
-];
-
 const topRankers = [
-  { name: 'Aryan Mehta', air: 'AIR 7', year: 'JEE Adv. 2024', college: 'IIT Bombay' },
-  { name: 'Sneha Pillai', air: 'AIR 23', year: 'JEE Adv. 2024', college: 'IIT Delhi' },
-  { name: 'Rohan Verma', air: 'AIR 1', year: 'JEE Adv. 2022', college: 'IIT Bombay' },
-  { name: 'Priya Krishnan', air: '698/720', year: 'NEET 2024', college: 'AIIMS Delhi' },
-  { name: 'Karthik Iyer', air: 'AIR 41', year: 'JEE Adv. 2023', college: 'IIT Madras' },
-  { name: 'Aisha Siddiqui', air: 'AIR 12', year: 'JEE Adv. 2023', college: 'IIT Kharagpur' },
+  { name: 'Aryan Mehta', air: 'AIR 7', year: 'JEE Adv. 2024', college: 'IIT Bombay', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=200' },
+  { name: 'Sneha Pillai', air: 'AIR 23', year: 'JEE Adv. 2024', college: 'IIT Delhi', image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=200' },
+  { name: 'Rohan Verma', air: 'AIR 1', year: 'JEE Adv. 2022', college: 'IIT Bombay', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200' },
 ];
 
 export default function PinnacleCoaching() {
   return (
     <MockLayout projectName="Pinnacle IIT Coaching" accentColor={accentGold} categoryId="academic">
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${navyDark} 0%, ${navyMid} 60%, #0F1E38 100%)` }}
-      >
-        {/* Grid decoration */}
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `linear-gradient(${accentGold} 1px, transparent 1px), linear-gradient(90deg, ${accentGold} 1px, transparent 1px)`,
-            backgroundSize: '48px 48px',
-          }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* Left content */}
-            <div className="flex-1 text-center lg:text-left">
-              <div
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full mb-6"
-                style={{ backgroundColor: `${accentGold}20`, color: accentGold, border: `1px solid ${accentGold}40` }}
-              >
-                <Trophy size={14} />
-                India's Premier IIT-JEE & NEET Institute
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4">
-                Pinnacle
-                <br />
-                <span style={{ color: accentGold }}>IIT Coaching</span>
-              </h1>
-              <p className="text-lg text-slate-300 mb-8 max-w-xl">
-                Where AIR 1 is not just a dream. Join 1,500+ students who cracked IIT and AIIMS with Pinnacle's
-                proven methodology, world-class faculty, and relentless support.
-              </p>
-
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start mb-10">
-                <button
-                  className="px-8 py-3 rounded-lg font-bold text-sm text-black transition-transform hover:scale-105"
-                  style={{ backgroundColor: accentGold }}
-                >
-                  Apply for 2025 Batch
-                </button>
-                <button className="px-8 py-3 rounded-lg font-bold text-sm text-white border border-white/30 hover:border-white/60 transition-colors">
-                  Download Brochure
-                </button>
-              </div>
-
-              <div className="flex flex-wrap gap-6 justify-center lg:justify-start text-sm text-slate-400">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle size={15} style={{ color: accentGold }} />
-                  Est. 2003 — 22 Years of Excellence
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle size={15} style={{ color: accentGold }} />
-                  NAAC A+ Certified Institute
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle size={15} style={{ color: accentGold }} />
-                  Hostel & Day Scholar Options
-                </span>
-              </div>
-            </div>
-
-            {/* Rank board */}
-            <div className="flex-shrink-0 w-full lg:w-80">
-              <div
-                className="rounded-2xl p-5 border"
-                style={{ backgroundColor: `${navyDark}CC`, borderColor: `${accentGold}40` }}
-              >
-                <div
-                  className="flex items-center gap-2 mb-4 text-sm font-semibold uppercase tracking-wider"
-                  style={{ color: accentGold }}
-                >
-                  <Award size={16} />
-                  2024 Hall of Fame
-                </div>
-                <div className="space-y-2">
-                  {topRankers.map((ranker, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between py-2.5 px-3 rounded-lg"
-                      style={{ backgroundColor: i === 0 ? `${accentGold}15` : 'rgba(255,255,255,0.04)' }}
-                    >
-                      <div>
-                        <p className="text-white text-sm font-semibold">{ranker.name}</p>
-                        <p className="text-slate-400 text-xs">{ranker.college}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-sm" style={{ color: accentGold }}>
-                          {ranker.air}
-                        </p>
-                        <p className="text-slate-500 text-xs">{ranker.year}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Results counter strip */}
-      <div style={{ backgroundColor: accentGold }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-            {results.map((r, i) => (
-              <div key={i}>
-                <p className="text-3xl font-black text-black">{r.value}</p>
-                <p className="text-sm font-bold text-black/70">{r.label}</p>
-                <p className="text-xs text-black/50">{r.subtext}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Course Catalog */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: accentGold }}>
-              Academic Programmes
-            </p>
-            <h2 className="text-3xl font-black text-gray-900">Course Catalog 2025</h2>
-            <p className="text-gray-500 mt-2">Choose the programme built for your target exam and timeline.</p>
+      <div className="bg-white text-apple-black overflow-hidden">
+        {/* Immersive Hero Section */}
+        <section className="relative min-h-[90vh] flex flex-col justify-center bg-apple-black">
+          {/* Advanced Background with Particles feel */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1523050338691-c5e70721883f?auto=format&fit=crop&q=80&w=2400" 
+              alt="Coaching Center" 
+              className="w-full h-full object-cover opacity-20 scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-apple-black via-apple-black/80 to-transparent" />
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {courses.map((course, i) => (
-              <div
-                key={i}
-                className="relative rounded-2xl overflow-hidden flex flex-col"
-                style={{
-                  border: course.highlight ? `2px solid ${accentGold}` : '2px solid #E5E7EB',
-                  backgroundColor: course.highlight ? navyDark : '#FFFFFF',
-                }}
-              >
-                {course.highlight && (
-                  <div
-                    className="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full text-black"
-                    style={{ backgroundColor: accentGold }}
-                  >
-                    Most Popular
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="grid lg:grid-cols-12 gap-16 items-center">
+              <div className="lg:col-span-7">
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold uppercase tracking-[0.2em] mb-8">
+                    <Sparkles size={14} className="text-accent-500" />
+                    Admissions Open for 2025-26
                   </div>
-                )}
-                <div className="p-6 flex-1">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{
-                      backgroundColor: course.highlight ? `${accentGold}20` : `${navyDark}10`,
-                    }}
-                  >
-                    <BookOpen size={20} style={{ color: course.highlight ? accentGold : navyDark }} />
-                  </div>
-                  <h3
-                    className="text-xl font-black mb-1"
-                    style={{ color: course.highlight ? '#FFFFFF' : '#111827' }}
-                  >
-                    {course.name}
-                  </h3>
-                  <p className="text-sm mb-4" style={{ color: course.highlight ? '#94A3B8' : '#6B7280' }}>
-                    {course.tagline}
+
+                  <h1 className="text-7xl lg:text-[100px] font-bold text-white leading-[0.95] tracking-tight mb-8">
+                    Built for
+                    <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-500 to-amber-200">the top 1%.</span>
+                  </h1>
+
+                  <p className="text-xl text-slate-400 max-w-xl mb-12 font-medium leading-relaxed">
+                    India's most selective coaching institute for JEE and NEET. We don't just teach; we engineer top ranks through precision and discipline.
                   </p>
 
-                  <ul className="space-y-2 mb-6">
-                    {course.features.map((f, j) => (
-                      <li key={j} className="flex items-start gap-2 text-sm">
-                        <CheckCircle
-                          size={14}
-                          className="flex-shrink-0 mt-0.5"
-                          style={{ color: accentGold }}
-                        />
-                        <span style={{ color: course.highlight ? '#CBD5E1' : '#4B5563' }}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex items-center gap-4 text-xs mb-4" style={{ color: course.highlight ? '#94A3B8' : '#9CA3AF' }}>
-                    <span className="flex items-center gap-1">
-                      <Clock size={12} />
-                      {course.duration}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Users size={12} />
-                      {course.seats}
-                    </span>
+                  <div className="flex flex-col sm:flex-row gap-6">
+                    <button className="px-10 py-5 bg-accent-500 hover:bg-accent-600 text-apple-black font-bold rounded-full transition-all hover:scale-105 shadow-2xl active:scale-95 flex items-center justify-center gap-2">
+                      Start Your Journey
+                      <ArrowRight size={18} />
+                    </button>
+                    <button className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 font-bold rounded-full transition-all flex items-center justify-center gap-2">
+                      View Results
+                    </button>
                   </div>
-                </div>
-
-                <div className="px-6 pb-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-2xl font-black" style={{ color: course.highlight ? accentGold : navyDark }}>
-                      {course.fee}
-                    </span>
-                  </div>
-                  <button
-                    className="w-full py-2.5 rounded-lg text-sm font-bold transition-colors"
-                    style={{
-                      backgroundColor: course.highlight ? accentGold : `${navyDark}10`,
-                      color: course.highlight ? '#000000' : navyDark,
-                    }}
-                  >
-                    Enquire Now
-                  </button>
-                </div>
+                </AnimatedSection>
               </div>
-            ))}
+
+              <div className="lg:col-span-5 relative">
+                <AnimatedSection delay={200} animationType="scale">
+                  <div className="relative p-1 rounded-[48px] bg-gradient-to-br from-white/20 to-transparent backdrop-blur-3xl border border-white/10 shadow-2xl overflow-hidden">
+                    <div className="bg-white/5 rounded-[44px] p-8">
+                      <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center gap-2 text-accent-500 font-bold uppercase tracking-widest text-[11px]">
+                          <Trophy size={16} />
+                          Live Success Wall
+                        </div>
+                        <div className="flex -space-x-3">
+                          {[1, 2, 3, 4].map(i => (
+                            <div key={i} className="w-8 h-8 rounded-full border-2 border-apple-black bg-slate-800" />
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        {topRankers.map((ranker, i) => (
+                          <div key={i} className="flex items-center gap-4 p-4 rounded-3xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <img src={ranker.image} className="w-12 h-12 rounded-2xl object-cover" />
+                            <div className="flex-1">
+                              <h4 className="text-white font-bold text-sm">{ranker.name}</h4>
+                              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">{ranker.college}</p>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-accent-500 font-black text-lg">{ranker.air}</span>
+                              <p className="text-[8px] text-white/30 uppercase tracking-tighter mt-1">{ranker.year}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
+                        <div className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Global Ranking</div>
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => <Star key={i} size={10} className="fill-accent-500 text-accent-500" />)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Live Stats Strip */}
+        <div className="bg-white border-y border-slate-100 py-12">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+              {[
+                { label: 'Total Selections', val: '1,500+', icon: Users },
+                { label: 'Avg Rank Improvement', val: '40%', icon: Timer },
+                { label: 'PhD Educators', val: '18+', icon: Award },
+                { label: 'Success Rate', val: '92%', icon: CheckCircle },
+              ].map((stat, i) => (
+                <div key={i} className="group cursor-default">
+                  <div className="w-10 h-10 rounded-full bg-apple-gray flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <stat.icon size={18} className="text-accent-500" />
+                  </div>
+                  <p className="text-3xl font-black text-apple-black tracking-tight mb-1">{stat.val}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* Faculty */}
-      <section
-        className="py-20"
-        style={{ background: `linear-gradient(180deg, ${navyDark} 0%, ${navyMid} 100%)` }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: accentGold }}>
-              Our Educators
-            </p>
-            <h2 className="text-3xl font-black text-white">World-Class Faculty</h2>
-            <p className="text-slate-400 mt-2">IIT alumni and subject matter experts with decades of results.</p>
-          </div>
+        {/* Course Discovery Section */}
+        <section className="section-padding bg-apple-gray">
+          <div className="container-wide">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-8">
+              <div className="max-w-2xl">
+                <AnimatedSection>
+                  <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-8">
+                    Precision Engineered
+                    <br />
+                    <span className="text-slate-400">Curriculums.</span>
+                  </h2>
+                  <p className="text-xl text-apple-darkGray font-medium leading-relaxed">
+                    Every course is a meticulously planned roadmap. We leverage AI-driven analytics to identify and bridge your concept gaps.
+                  </p>
+                </AnimatedSection>
+              </div>
+              <div className="flex gap-4">
+                <button className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-white transition-all shadow-sm">
+                  <ChevronRight size={20} className="rotate-180" />
+                </button>
+                <button className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-white transition-all shadow-sm">
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {faculty.map((f, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-6 border"
-                style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: `${accentGold}25` }}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-black text-black flex-shrink-0"
-                    style={{ backgroundColor: accentGold }}
-                  >
-                    {f.initials}
-                  </div>
-                  <div>
-                    <p className="font-bold text-white">{f.name}</p>
-                    <p className="text-sm font-semibold" style={{ color: accentGold }}>
-                      {f.subject}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {courses.map((course, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group relative bg-white rounded-[40px] p-10 flex flex-col h-full border border-transparent hover:border-slate-100 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-500">
+                    <div className="flex items-center justify-between mb-10">
+                      <div className={`px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
+                        course.highlight ? 'bg-accent-500 text-apple-black' : 'bg-apple-gray text-slate-400'
+                      }`}>
+                        {course.status}
+                      </div>
+                      {course.highlight && <Zap size={20} className="text-accent-500 fill-accent-500" />}
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-apple-black mb-2 tracking-tight group-hover:text-accent-500 transition-colors">
+                      {course.name}
+                    </h3>
+                    <p className="text-sm font-semibold text-apple-darkGray mb-8 italic">
+                      {course.tagline}
                     </p>
+
+                    <div className="space-y-4 mb-10 flex-1">
+                      {course.features.map((f, j) => (
+                        <div key={j} className="flex items-start gap-3 text-sm font-medium text-slate-500">
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent-500 mt-1.5 shrink-0" />
+                          {f}
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="pt-8 border-t border-slate-50 mt-auto">
+                      <div className="flex items-baseline gap-2 mb-8">
+                        <span className="text-3xl font-black text-apple-black">{course.fee}</span>
+                        <span className="text-xs text-slate-400 font-bold uppercase">/ session</span>
+                      </div>
+                      <button className={`w-full py-4 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all ${
+                        course.highlight 
+                        ? 'bg-apple-black text-white hover:bg-accent-500 hover:text-apple-black' 
+                        : 'bg-apple-gray text-apple-black hover:bg-slate-200'
+                      }`}>
+                        Reserve Seat
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <p className="text-sm text-slate-400 mb-3">{f.credentials}</p>
-                <div
-                  className="flex items-center gap-2 text-sm rounded-lg px-3 py-2"
-                  style={{ backgroundColor: `${accentGold}12` }}
-                >
-                  <Star size={13} style={{ color: accentGold }} />
-                  <span className="text-slate-300">{f.achievement}</span>
-                </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* The Faculty - High end portrait display */}
+        <section className="py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-24">
+              <AnimatedSection>
+                <h2 className="text-5xl font-bold tracking-tight mb-6">World Class Minds.</h2>
+                <p className="text-lg text-apple-darkGray font-medium">Mentorship by legends who have lived the IIT journey.</p>
+              </AnimatedSection>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-16">
+              {faculty.map((f, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="blur">
+                  <div className="relative group">
+                    <div className="aspect-[4/5] rounded-[48px] overflow-hidden mb-8 bg-apple-gray">
+                      <img src={f.image} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-apple-black via-transparent to-transparent opacity-60" />
+                    </div>
+                    <div className="text-center">
+                      <h4 className="text-2xl font-bold mb-1 tracking-tight">{f.name}</h4>
+                      <p className="text-accent-500 text-[11px] font-bold uppercase tracking-widest mb-4">{f.subject}</p>
+                      <p className="text-sm text-slate-500 font-medium px-4">{f.credentials}</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Agent Workflow - Integrated smoothly */}
+        <section className="py-32 bg-apple-black text-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-500/10 text-accent-500 text-[11px] font-bold uppercase tracking-widest mb-8">
+                    <Zap size={14} />
+                    Proprietary Tech
+                  </div>
+                  <h2 className="text-5xl font-bold tracking-tight mb-8">
+                    Smart Learning,
+                    <br />
+                    Automated.
+                  </h2>
+                  <p className="text-xl text-slate-400 font-medium leading-relaxed mb-12">
+                    Our AI agent handles 24/7 doubt resolution and personalized study planning. We use technology to ensure no question goes unanswered.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      'Instant doubt classification',
+                      'Automated progress tracking',
+                      'Predictive rank modeling',
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-4 text-sm font-bold text-white/60">
+                        <div className="w-2 h-2 rounded-full bg-accent-500" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </AnimatedSection>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Results Wall */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: accentGold }}>
-              Track Record
-            </p>
-            <h2 className="text-3xl font-black text-gray-900">Results Speak Louder</h2>
-            <p className="text-gray-500 mt-2">22 years of consistent selections across India's toughest exams.</p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            {[
-              { icon: TrendingUp, value: '1,500+', label: 'Total Selections', sub: 'IIT + AIIMS since 2003' },
-              { icon: Trophy, value: 'AIR 1', label: 'All India Rank', sub: 'JEE Advanced 2022' },
-              { icon: Users, value: '312', label: 'IITians in 2024', sub: 'Single batch output' },
-              { icon: Award, value: '94%', label: 'Repeat Referrals', sub: 'Parents recommend us' },
-            ].map((stat, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-6 text-center border"
-                style={{ borderColor: `${accentGold}30`, backgroundColor: `${accentGold}05` }}
-              >
-                <stat.icon size={28} className="mx-auto mb-3" style={{ color: accentGold }} />
-                <p className="text-3xl font-black mb-1" style={{ color: navyDark }}>
-                  {stat.value}
-                </p>
-                <p className="text-sm font-bold text-gray-700">{stat.label}</p>
-                <p className="text-xs text-gray-400 mt-1">{stat.sub}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Top ranker grid */}
-          <h3 className="text-center text-lg font-bold text-gray-800 mb-6">Selected Toppers — 2024 Batch</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {topRankers.map((r, i) => (
-              <div
-                key={i}
-                className="rounded-xl p-3 text-center border"
-                style={{
-                  borderColor: i === 0 ? accentGold : '#E5E7EB',
-                  backgroundColor: i === 0 ? `${accentGold}10` : '#F9FAFB',
-                }}
-              >
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white mx-auto mb-2"
-                  style={{ backgroundColor: navyDark }}
-                >
-                  {r.name.split(' ').map(n => n[0]).join('')}
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-8 rounded-[48px] bg-white/5 border border-white/10 shadow-3xl overflow-hidden">
+                  <AgentFlowChart workflow={admissionsWorkflow} />
                 </div>
-                <p className="text-xs font-bold text-gray-800 leading-tight">{r.name}</p>
-                <p className="text-xs font-black mt-1" style={{ color: accentGold }}>{r.air}</p>
-                <p className="text-xs text-gray-400">{r.year}</p>
+              </AnimatedSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-40 bg-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#F5A62308_0%,transparent_70%)]" />
+          <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <AnimatedSection animationType="scale">
+              <Trophy size={64} className="mx-auto text-accent-500 mb-12" />
+              <h2 className="text-6xl sm:text-8xl font-bold tracking-tighter mb-10">
+                Your pinnacle
+                <br />
+                is within reach.
+              </h2>
+              <p className="text-xl text-apple-darkGray font-medium mb-16 leading-relaxed">
+                Join India's most results-driven academic ecosystem.
+                <br />
+                Limited seats available for the 2025 Scholarship Test.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+                <button className="px-12 py-6 bg-apple-black text-white font-bold rounded-full text-lg shadow-2xl hover:bg-accent-500 hover:text-apple-black transition-all hover:scale-105 active:scale-95">
+                  Register for Scholarship
+                </button>
+                <button className="text-lg font-bold text-apple-darkGray hover:text-apple-black transition-colors flex items-center gap-2">
+                  Download Prospectus <ArrowRight size={20} />
+                </button>
               </div>
-            ))}
+            </AnimatedSection>
           </div>
-        </div>
-      </section>
-
-      {/* AI Agent Workflow */}
-      <section
-        className="py-20"
-        style={{ background: `linear-gradient(180deg, #0D1626 0%, ${navyDark} 100%)` }}
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: accentGold }}>
-              Powered by AI
-            </p>
-            <h2 className="text-3xl font-black text-white">Automated Admissions & Support</h2>
-            <p className="text-slate-400 mt-2 max-w-xl mx-auto">
-              Our AI agent handles student enquiries, routes doubts, and keeps the director informed — so faculty
-              can focus on teaching.
-            </p>
-          </div>
-
-          <div
-            className="rounded-2xl p-6 lg:p-10 border"
-            style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: `${accentGold}20` }}
-          >
-            <AgentFlowChart workflow={admissionsWorkflow} />
-          </div>
-        </div>
-      </section>
-
-      {/* Contact / CTA */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-black text-gray-900 mb-4">
-            Admissions Open for{' '}
-            <span style={{ color: accentGold }}>2025–26 Batch</span>
-          </h2>
-          <p className="text-gray-500 mb-8">Limited seats. Early applicants receive scholarship consideration.</p>
-
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 mb-8">
-            <a href="#" className="flex items-center gap-2 hover:text-gray-900">
-              <Phone size={16} style={{ color: accentGold }} />
-              +91 98765 43210
-            </a>
-            <a href="#" className="flex items-center gap-2 hover:text-gray-900">
-              <Mail size={16} style={{ color: accentGold }} />
-              admissions@pinnacle-iit.in
-            </a>
-            <span className="flex items-center gap-2">
-              <MapPin size={16} style={{ color: accentGold }} />
-              Kota, Rajasthan — 324005
-            </span>
-          </div>
-
-          <div className="flex flex-wrap gap-3 justify-center">
-            <button
-              className="px-8 py-3 rounded-lg font-bold text-sm text-black"
-              style={{ backgroundColor: accentGold }}
-            >
-              Apply Now <ChevronRight size={16} className="inline" />
-            </button>
-            <button
-              className="px-8 py-3 rounded-lg font-bold text-sm border"
-              style={{ borderColor: navyDark, color: navyDark }}
-            >
-              Schedule Campus Visit
-            </button>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </MockLayout>
   );
 }

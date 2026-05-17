@@ -1,27 +1,19 @@
-import { UtensilsCrossed, Star, Users, Calendar, ChevronRight, Quote } from 'lucide-react';
+import { Calendar, ArrowRight, Zap, Award, MapPin, ChefHat } from 'lucide-react';
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 
-const RICH_BLACK = '#0A0A0A';
-const NEAR_BLACK = '#111111';
-const WARM_WHITE = '#F5F5F0';
-const OFF_WHITE = '#E8E8E3';
 const FOREST = '#2D6A4F';
-const FOREST_LIGHT = '#3D8A66';
-const TEXT_DIM = '#888880';
-const SURFACE = '#161616';
-const SURFACE_2 = '#1C1C1C';
-const BORDER = '#2A2A2A';
 
 const workflow: AgentWorkflow = {
   title: 'Event Catering Proposal Agent',
   nodes: [
-    { id: '1', label: 'Client Inquiry', description: 'Potential client submits an event inquiry with date, guest count, cuisine preferences, and budget range.', automated: false, x: 20, y: 40 },
-    { id: '2', label: 'Draft Proposal PDF', description: 'AI assembles a tailored proposal PDF with suggested menus, staffing plan, and a transparent cost breakdown.', automated: true, x: 200, y: 40 },
-    { id: '3', label: 'Follow-up if No Response', description: 'If proposal is unopened after 48 hours, the agent sends a polite follow-up with an alternate menu option.', automated: true, x: 380, y: 40 },
-    { id: '4', label: 'Create Planning Doc', description: 'On acceptance, a shared planning document is created covering venue logistics, dietary requirements, and timeline.', automated: true, x: 560, y: 40 },
-    { id: '5', label: 'Final Headcount Reminder', description: '72 hours before the event, the agent requests final headcount and any last-minute dietary updates.', automated: true, x: 380, y: 160 },
+    { id: '1', label: 'Client Inquiry', description: 'Potential client submits an event inquiry with date, guest count, and cuisine preferences.', automated: false, x: 20, y: 40 },
+    { id: '2', label: 'Draft Proposal PDF', description: 'AI assembles a tailored proposal PDF with suggested menus and transparent cost breakdown.', automated: true, x: 200, y: 40 },
+    { id: '3', label: 'Follow-up Sequence', description: 'If proposal is unopened after 48 hours, the agent sends a polite follow-up with alternate options.', automated: true, x: 380, y: 40 },
+    { id: '4', label: 'Planning Doc Sync', description: 'On acceptance, a shared planning document is created covering venue logistics and timeline.', automated: true, x: 560, y: 40 },
+    { id: '5', label: '72h Final Review', description: 'Agent requests final headcount and dietary updates 72 hours before the event.', automated: true, x: 380, y: 160 },
   ],
   edges: [
     { from: '1', to: '2' },
@@ -35,255 +27,252 @@ const experiences = [
   {
     title: 'Intimate Dinners',
     guestRange: '6–16 guests',
-    icon: UtensilsCrossed,
-    desc: 'A private multi-course tasting menu prepared in your home kitchen. Chef Arvind arrives four hours before service, sources the day\'s produce from local suppliers, and leaves your kitchen cleaner than he found it.',
-    detail: 'Menu curated to the occasion. Wine pairing available.',
+    desc: 'A private multi-course tasting menu prepared in your home kitchen. Bespoke curation of local produce.',
+    image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800'
   },
   {
-    title: 'Corporate Offsites',
-    guestRange: '20–80 guests',
-    icon: Users,
-    desc: 'Full-service catering for off-sites, leadership retreats, and product launches. Designed to impress without distracting — the food moves the day forward rather than derailing it.',
-    detail: 'Buffet, live stations, and plated formats.',
+    title: 'Leadership Offsites',
+    guestRange: '20–60 guests',
+    desc: 'Full-service catering for retreats. Designed to impress without distracting from the day\'s goals.',
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800'
   },
   {
-    title: 'Wedding Catering',
-    guestRange: '80–400 guests',
-    icon: Star,
-    desc: 'Multi-day wedding catering with full event coordination. Chef Arvind has worked with properties from Udaipur to Alibaug. The team travels. Minimum 3-month advance booking.',
-    detail: 'Multi-cuisine, multi-course, multi-day.',
-  },
-  {
-    title: 'Cooking Classes',
-    guestRange: '4–8 guests',
-    icon: Calendar,
-    desc: 'Three-hour hands-on sessions in your kitchen or our studio space in Bengaluru. Seasonal menus designed around what is actually at the market. No recipe cards — just technique.',
-    detail: 'Vegetarian, coastal, and Mughal editions.',
+    title: 'Wedding Mastery',
+    guestRange: '80–200 guests',
+    desc: 'Multi-day catering with full coordination. Traveling from Udaipur to Alibaug for exclusive events.',
+    image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&q=80&w=800'
   },
 ];
 
 const dishes = [
   {
-    name: 'Pork Vindaloo with Rice Congee',
-    cuisine: 'Goan',
-    desc: 'Three-day brined pork shoulder, Kashmiri chilli, palm feni vinegar, served alongside a slow-cooked congee that quietly does all the work.',
-    pairing: 'Pairs with: Chilled Verdejo',
+    name: 'Pork Vindaloo',
+    cuisine: 'Goan Heritage',
+    desc: 'Three-day brined shoulder, Kashmiri chilli, palm feni vinegar, served with slow-cooked rice congee.',
+    stat: 'Signature'
   },
   {
-    name: 'Lamb Raan with Saffron Jus',
-    cuisine: 'Mughal',
-    desc: 'A 48-hour marinated leg of lamb, slow-roasted in a sealed handi. The saffron jus is made from the pan reduction — nothing is wasted.',
-    pairing: 'Pairs with: Shiraz or aged Bordeaux',
+    name: 'Saffron Lamb Raan',
+    cuisine: 'Mughal Royal',
+    desc: '48-hour marinated leg, slow-roasted in a handi. Served with a pan-reduction jus.',
+    stat: 'Legendary'
   },
   {
-    name: 'Wild Mushroom & Truffle Kichdi',
-    cuisine: 'Contemporary Indian',
-    desc: 'Short-grain rice, moong dal, foraged forest mushrooms, and the restraint to use truffle oil only at the very end. An honest dish made decadent.',
-    pairing: 'Pairs with: White Burgundy',
-  },
-  {
-    name: 'Mango & Cardamom Semifreddo',
-    cuisine: 'Dessert',
-    desc: 'Alphonso mango mousse, green cardamom, salted caramel tuile. Made day-of from seasonal fruit. This dish does not appear in summer — only when the mangoes are right.',
-    pairing: 'Pairs with: Sauternes or nothing at all',
-  },
-];
-
-const testimonials = [
-  {
-    quote: 'Arvind cooked for our daughter\'s wedding in Udaipur — 280 guests across three days. We had exactly zero problems. The food was exceptional and the team was invisible in the best possible way.',
-    author: 'Sunanda & Rajan Mehta',
-    context: 'Wedding — The Oberoi Udaivilas, Udaipur',
-  },
-  {
-    quote: 'We\'ve done five off-sites with Chef Arvind. At this point, it\'s not optional — it\'s part of how we design the event. The food is a reason people actually engage rather than check their phones.',
-    author: 'Karthik Subramaniam',
-    context: 'CTO — Bangalore-based SaaS company',
+    name: 'Wild Mushroom Kichdi',
+    cuisine: 'Contemporary',
+    desc: 'Short-grain rice, foraged forest mushrooms, finished with fresh truffle oil.',
+    stat: 'Artisan'
   },
 ];
 
 export default function ChefArvind() {
   return (
     <MockLayout projectName="Chef Arvind Krishnan" accentColor={FOREST} categoryId="food">
-      {/* Hero */}
-      <section
-        style={{ backgroundColor: RICH_BLACK }}
-        className="relative min-h-screen flex flex-col justify-end overflow-hidden"
-      >
-        {/* Subtle green glow */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: `radial-gradient(ellipse 45% 55% at 75% 30%, ${FOREST}20 0%, transparent 60%)` }}
-        />
-
-        {/* Horizontal rule lines — tasting menu aesthetic */}
-        <div className="absolute top-0 bottom-0 left-0 pointer-events-none flex flex-col justify-evenly w-full opacity-5">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="w-full h-px" style={{ backgroundColor: WARM_WHITE }} />
-          ))}
-        </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto px-6 pb-28 pt-40">
-          <p className="text-xs uppercase tracking-[0.4em] mb-6" style={{ color: FOREST_LIGHT }}>
-            Private Chef & Event Caterer — Bengaluru / Pan-India
-          </p>
-          <h1 className="text-5xl sm:text-7xl font-serif font-light leading-tight mb-2" style={{ color: WARM_WHITE }}>
-            Chef Arvind
-          </h1>
-          <h1 className="text-5xl sm:text-7xl font-serif font-light leading-tight mb-8" style={{ color: WARM_WHITE }}>
-            <span style={{ color: FOREST_LIGHT }}>Krishnan</span>
-          </h1>
-          <div className="w-16 h-px mb-8" style={{ backgroundColor: FOREST }} />
-          <p className="text-lg max-w-xl mb-10 leading-relaxed" style={{ color: TEXT_DIM }}>
-            Seventeen years in professional kitchens. A decade as a private chef. The kind of food that makes
-            guests put down their phones and look at each other.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <button
-              className="flex items-center gap-2 px-8 py-4 rounded text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ backgroundColor: FOREST, color: WARM_WHITE }}
-            >
-              <Calendar size={16} />
-              Enquire About an Event
-            </button>
-            <button
-              className="flex items-center gap-2 px-8 py-4 rounded text-sm font-semibold border transition-colors hover:bg-white/5"
-              style={{ borderColor: BORDER, color: TEXT_DIM }}
-            >
-              View Menus
-              <ChevronRight size={16} />
-            </button>
+      <div className="bg-black text-white selection:bg-emerald-900/30 overflow-hidden">
+        
+        {/* Luxury Minimal Hero */}
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-black">
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=2400" 
+              className="w-full h-full object-cover opacity-20 grayscale scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black" />
           </div>
-        </div>
 
-        <div
-          className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-          style={{ background: `linear-gradient(to top, ${RICH_BLACK}, transparent)` }}
-        />
-      </section>
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="grid lg:grid-cols-12 gap-16 items-center">
+              <div className="lg:col-span-8">
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white text-[11px] font-bold uppercase tracking-[0.4em] mb-12">
+                    <ChefHat size={14} className="text-emerald-500" />
+                    Private Chef · Bengaluru · Global
+                  </div>
 
-      {/* Experiences */}
-      <section style={{ backgroundColor: NEAR_BLACK }} className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-2">
-            <UtensilsCrossed size={18} style={{ color: FOREST_LIGHT }} />
-            <p className="text-xs uppercase tracking-widest" style={{ color: FOREST_LIGHT }}>Experiences</p>
-          </div>
-          <h2 className="text-3xl font-serif mb-16" style={{ color: WARM_WHITE }}>
-            Four Ways to Work Together
-          </h2>
-          <div className="grid md:grid-cols-2 gap-5">
-            {experiences.map((exp, i) => (
-              <div
-                key={i}
-                className="p-8 rounded-lg border flex flex-col"
-                style={{ backgroundColor: SURFACE, borderColor: BORDER }}
-              >
-                <div className="flex items-start justify-between mb-5">
-                  <exp.icon size={20} style={{ color: FOREST_LIGHT }} />
-                  <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: `${FOREST}20`, color: FOREST_LIGHT }}>
-                    {exp.guestRange}
-                  </span>
-                </div>
-                <h3 className="text-xl font-serif mb-3" style={{ color: WARM_WHITE }}>{exp.title}</h3>
-                <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: TEXT_DIM }}>{exp.desc}</p>
-                <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: BORDER }}>
-                  <p className="text-xs" style={{ color: FOREST_LIGHT }}>{exp.detail}</p>
-                  <ChevronRight size={14} style={{ color: TEXT_DIM }} />
-                </div>
+                  <h1 className="text-7xl lg:text-[130px] font-bold leading-[0.8] tracking-tighter mb-12">
+                    Culinary 
+                    <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-200 italic font-serif">Artistry.</span>
+                  </h1>
+
+                  <p className="text-2xl lg:text-3xl text-slate-400 max-w-2xl mb-16 font-medium leading-relaxed">
+                    Food that makes guests put down their phones. A decade of crafting exclusive dining experiences for the discerning few.
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-8 items-center">
+                    <button className="px-14 py-6 bg-emerald-700 text-white font-bold rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3">
+                      Book an Event
+                      <Calendar size={20} />
+                    </button>
+                    <button className="text-lg font-bold text-slate-400 hover:text-white transition-colors border-b-2 border-transparent hover:border-emerald-600 pb-1">
+                      View Repertoire
+                    </button>
+                  </div>
+                </AnimatedSection>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Signature Dishes */}
-      <section style={{ backgroundColor: RICH_BLACK }} className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-2">
-            <Star size={18} style={{ color: FOREST_LIGHT }} />
-            <p className="text-xs uppercase tracking-widest" style={{ color: FOREST_LIGHT }}>Signature Dishes</p>
+          {/* Floating Accents */}
+          <div className="absolute bottom-12 right-12 hidden lg:flex flex-col gap-10 text-right">
+            <div>
+              <p className="text-5xl font-black text-white tracking-tight">17</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Years of Fire</p>
+            </div>
+            <div>
+              <p className="text-5xl font-black text-white tracking-tight">800+</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Private Events</p>
+            </div>
           </div>
-          <h2 className="text-3xl font-serif mb-4" style={{ color: WARM_WHITE }}>A Sample of the Repertoire</h2>
-          <p className="text-sm mb-14 max-w-xl leading-relaxed" style={{ color: TEXT_DIM }}>
-            Every menu is built to the event, the season, and the guest list. These are recurring signatures —
-            the dishes guests request again.
-          </p>
-          <div className="space-y-0">
-            {dishes.map((dish, i) => (
-              <div
-                key={i}
-                className="grid md:grid-cols-[2fr_3fr] gap-6 py-8 border-t"
-                style={{ borderColor: BORDER }}
-              >
-                <div>
-                  <span className="text-xs uppercase tracking-widest mb-2 block" style={{ color: FOREST_LIGHT }}>
-                    {dish.cuisine}
-                  </span>
-                  <h3 className="text-xl font-serif" style={{ color: WARM_WHITE }}>{dish.name}</h3>
+        </section>
+
+        {/* Experiences Grid */}
+        <section className="py-32 bg-[#050505]">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex items-end justify-between mb-24">
+              <AnimatedSection>
+                <p className="text-[11px] font-bold uppercase tracking-[0.4em] mb-6 text-emerald-900">The Offering</p>
+                <h2 className="text-6xl font-bold tracking-tighter">Curation.</h2>
+              </AnimatedSection>
+              <p className="hidden md:block text-lg text-slate-500 max-w-sm font-medium">Bespoke culinary journeys tailored to the architecture of your evening.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-10">
+              {experiences.map((exp, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group cursor-pointer">
+                    <div className="aspect-[4/5] rounded-[48px] overflow-hidden mb-8 bg-zinc-900 relative shadow-2xl">
+                      <img src={exp.image} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[2000ms] group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60" />
+                      <div className="absolute bottom-10 left-10 right-10">
+                        <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-2">{exp.guestRange}</p>
+                        <h4 className="text-3xl font-bold text-white tracking-tight">{exp.title}</h4>
+                      </div>
+                    </div>
+                    <div className="px-4">
+                      <p className="text-base text-slate-400 font-medium leading-relaxed mb-8">{exp.desc}</p>
+                      <button className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-emerald-500 group-hover:gap-4 transition-all">
+                        Learn More <ArrowRight size={14} />
+                      </button>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* The Repertoire - High contrast list */}
+        <section className="py-32 bg-black text-white relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <div className="text-center mb-24">
+              <AnimatedSection>
+                <p className="text-[11px] font-bold uppercase tracking-[0.4em] mb-6 text-emerald-900">Menu Highlights</p>
+                <h2 className="text-5xl lg:text-6xl font-bold tracking-tighter">The Repertoire.</h2>
+              </AnimatedSection>
+            </div>
+
+            <div className="space-y-0 border-t border-white/5">
+              {dishes.map((dish, i) => (
+                <AnimatedSection key={i} delay={i * 100}>
+                  <div className="group py-16 border-b border-white/5 hover:bg-emerald-950/10 transition-all duration-500 px-8 cursor-default">
+                    <div className="grid md:grid-cols-12 gap-8 items-center">
+                      <div className="md:col-span-1">
+                        <span className="text-2xl font-black text-white/10 group-hover:text-emerald-500 transition-colors">0{i+1}</span>
+                      </div>
+                      <div className="md:col-span-5">
+                        <h3 className="text-3xl font-bold tracking-tight mb-2">{dish.name}</h3>
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-700">{dish.cuisine}</p>
+                      </div>
+                      <div className="md:col-span-4">
+                        <p className="text-slate-400 font-medium leading-relaxed">{dish.desc}</p>
+                      </div>
+                      <div className="md:col-span-2 text-right">
+                        <span className="px-3 py-1 rounded-full border border-white/10 text-[9px] font-bold uppercase tracking-widest text-slate-500 group-hover:border-emerald-500 group-hover:text-emerald-500 transition-all">
+                          {dish.stat}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Proposal Workflow */}
+        <section className="py-32 bg-white text-black">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-zinc-50 border border-zinc-100 shadow-inner overflow-hidden">
+                  <AgentFlowChart workflow={workflow} />
                 </div>
-                <div>
-                  <p className="text-sm leading-relaxed mb-3" style={{ color: TEXT_DIM }}>{dish.desc}</p>
-                  <p className="text-xs" style={{ color: FOREST }}>{dish.pairing}</p>
-                </div>
+              </AnimatedSection>
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-900 text-[11px] font-bold uppercase tracking-[0.25em] mb-10 border border-emerald-100">
+                    <Zap size={16} className="fill-emerald-900" />
+                    Event Intelligence
+                  </div>
+                  <h2 className="text-5xl lg:text-6xl font-bold text-black tracking-tight mb-10 leading-[0.95]">
+                    Complex hosting,
+                    <br />
+                    simple planning.
+                  </h2>
+                  <p className="text-xl text-slate-500 font-medium leading-relaxed mb-12">
+                    High-end catering requires flawless logistics. Our proprietary AI agent manages the overhead — from capturing the initial brief to drafting tailored proposals and managing dietary headcount sync.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="p-8 rounded-[32px] bg-zinc-50 border border-zinc-100 hover:bg-black group transition-all duration-500">
+                      <Award size={24} className="text-emerald-900 group-hover:text-emerald-500 mb-6 transition-colors" />
+                      <h4 className="font-bold text-black group-hover:text-white mb-2 transition-colors">Precision Proposals</h4>
+                      <p className="text-xs text-slate-500 font-medium leading-relaxed">Instant menus based on seasonality and theme.</p>
+                    </div>
+                    <div className="p-8 rounded-[32px] bg-zinc-50 border border-zinc-100 hover:bg-black group transition-all duration-500">
+                      <MapPin size={24} className="text-emerald-900 group-hover:text-emerald-500 mb-6 transition-colors" />
+                      <h4 className="font-bold text-black group-hover:text-white mb-2 transition-colors">Venue Sync</h4>
+                      <p className="text-xs text-slate-500 font-medium leading-relaxed">Automated kitchen audit and logistics mapping.</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
               </div>
-            ))}
-            <div className="py-4 border-t" style={{ borderColor: BORDER }} />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Testimonials */}
-      <section style={{ backgroundColor: SURFACE_2 }} className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-2">
-            <Quote size={18} style={{ color: FOREST_LIGHT }} />
-            <p className="text-xs uppercase tracking-widest" style={{ color: FOREST_LIGHT }}>Testimonials</p>
-          </div>
-          <h2 className="text-3xl font-serif mb-14" style={{ color: WARM_WHITE }}>
-            What Clients Say
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {testimonials.map((t, i) => (
-              <div
-                key={i}
-                className="p-8 rounded-lg border"
-                style={{ backgroundColor: SURFACE, borderColor: BORDER }}
-              >
-                <Quote size={24} className="mb-5" style={{ color: FOREST }} />
-                <p className="text-sm leading-relaxed mb-6 italic" style={{ color: OFF_WHITE }}>"{t.quote}"</p>
-                <div className="border-t pt-5" style={{ borderColor: BORDER }}>
-                  <p className="text-sm font-semibold" style={{ color: WARM_WHITE }}>{t.author}</p>
-                  <p className="text-xs mt-1" style={{ color: TEXT_DIM }}>{t.context}</p>
-                </div>
+        {/* Final CTA */}
+        <section className="py-40 bg-zinc-50 relative overflow-hidden text-center">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <AnimatedSection animationType="scale">
+              <div className="w-24 h-24 rounded-[32px] bg-black flex items-center justify-center mx-auto mb-16 shadow-2xl text-white">
+                <ChefHat size={48} />
               </div>
-            ))}
+              <h2 className="text-6xl lg:text-[100px] font-bold tracking-tighter mb-12 text-black leading-[0.85]">
+                Let's set 
+                <br />
+                the table.
+              </h2>
+              <p className="text-2xl text-slate-500 font-medium mb-16 max-w-2xl mx-auto leading-relaxed">
+                Currently accepting bookings for private events and corporate offsites in Bengaluru and Pan-India. Tell us about your vision.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
+                <button className="px-14 py-6 bg-black text-white font-bold rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Request Proposal
+                </button>
+                <button className="text-lg font-bold text-slate-500 hover:text-black transition-colors flex items-center gap-2">
+                  View Availability <ArrowRight size={20} />
+                </button>
+              </div>
+            </AnimatedSection>
           </div>
-        </div>
-      </section>
+          
+          {/* Subtle Grainy Texture Overlay */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/felt.png')]" />
+        </section>
 
-      {/* AI Agent Workflow */}
-      <section style={{ backgroundColor: NEAR_BLACK }} className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-2">
-            <Calendar size={18} style={{ color: FOREST_LIGHT }} />
-            <p className="text-xs uppercase tracking-widest" style={{ color: FOREST_LIGHT }}>AI-Powered Operations</p>
-          </div>
-          <h2 className="text-3xl font-serif mb-4" style={{ color: WARM_WHITE }}>
-            From Inquiry to Plate, Automated
-          </h2>
-          <p className="text-sm leading-relaxed mb-12 max-w-xl" style={{ color: TEXT_DIM }}>
-            Every client inquiry triggers a structured proposal workflow — tailored PDFs, intelligent follow-ups,
-            and event planning documents generated automatically.
-          </p>
-          <div
-            className="p-6 sm:p-10 rounded-xl border"
-            style={{ backgroundColor: SURFACE, borderColor: BORDER }}
-          >
-            <AgentFlowChart workflow={workflow} />
-          </div>
-        </div>
-      </section>
+      </div>
     </MockLayout>
   );
 }

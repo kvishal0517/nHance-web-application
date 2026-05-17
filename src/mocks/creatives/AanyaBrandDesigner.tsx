@@ -1,64 +1,31 @@
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 import {
   ArrowUpRight,
-  Sparkles,
-  Play,
   Star,
-  Award,
   Zap,
   Eye,
   Layers,
   Film,
   Compass,
+  ArrowRight,
+  Fingerprint,
+  Palette,
+  ChevronRight
 } from 'lucide-react';
 
 const accentBlack = '#111111';
 
 const clientCommunicationWorkflow: AgentWorkflow = {
-  title: 'New Business & Client Communication Agent',
+  title: 'Discovery & Creative Intake Agent',
   nodes: [
-    {
-      id: '1',
-      label: 'Project Inquiry',
-      description: 'Potential client submits a project inquiry via the website contact form.',
-      automated: false,
-      x: 20,
-      y: 40,
-    },
-    {
-      id: '2',
-      label: 'Send Questionnaire',
-      description: 'AI instantly sends a branded discovery questionnaire to qualify the lead.',
-      automated: true,
-      x: 200,
-      y: 40,
-    },
-    {
-      id: '3',
-      label: 'Draft Capabilities Deck',
-      description: 'Relevant case studies are assembled into a tailored capabilities deck automatically.',
-      automated: true,
-      x: 380,
-      y: 40,
-    },
-    {
-      id: '4',
-      label: 'Follow-up Reminder',
-      description: 'If no response in 48 hrs, a gentle follow-up is sent on behalf of Aanya.',
-      automated: true,
-      x: 560,
-      y: 40,
-    },
-    {
-      id: '5',
-      label: 'Create Project Hub',
-      description: 'On client confirmation, a shared Notion workspace and folder structure are created.',
-      automated: true,
-      x: 380,
-      y: 160,
-    },
+    { id: '1', label: 'Project Inquiry', description: 'Founder submits a brief via the website contact form.', automated: false, x: 20, y: 40 },
+    { id: '2', label: 'DNA Questionnaire', description: 'AI instantly sends a discovery questionnaire to qualify brand values.', automated: true, x: 200, y: 40 },
+    { id: '3', label: 'Draft Capabilities', description: 'Relevant case studies are matched and assembled into a tailored deck.', automated: true, x: 380, y: 40 },
+    { id: '4', label: 'Schedule Discovery', description: 'Automated booking for a 45-minute strategy deep-dive.', automated: true, x: 560, y: 40 },
+    { id: '5', label: 'Project Onboarding', description: 'On sign-off, shared workspaces and asset folders are auto-provisioned.', automated: true, x: 380, y: 160 },
   ],
   edges: [
     { from: '1', to: '2' },
@@ -70,333 +37,249 @@ const clientCommunicationWorkflow: AgentWorkflow = {
 
 const projects = [
   {
-    title: 'Mira Skincare Rebrand',
-    category: 'Brand Identity',
+    title: 'Mira Skincare',
+    category: 'Visual Identity',
     year: '2024',
-    problem: 'A D2C skincare brand with loyal customers but packaging that looked generic and failed to justify its premium price point.',
-    outcome: 'Full visual identity overhaul — logo, typography, color system, and packaging. 42% increase in DTC conversion within 3 months of relaunch.',
-    palette: ['#F5EBE0', '#D4A96A', '#2C1810'],
-    tags: ['Brand Strategy', 'Packaging', 'Art Direction'],
-    accent: '#D4A96A',
+    problem: 'A premium D2C brand with generic aesthetics.',
+    outcome: '42% conversion increase through tactile, high-end packaging.',
+    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=800',
+    palette: ['#F5EBE0', '#D4A96A', '#2C1810']
   },
   {
     title: 'Vyom Architecture',
-    category: 'Visual Identity + Motion',
+    category: 'Brand & Motion',
     year: '2024',
-    problem: 'A boutique architecture firm relying on word-of-mouth, with no cohesive brand presence to support pitching institutional clients.',
-    outcome: 'Minimal identity system with animated brand films for pitch decks. Helped secure a ₹3Cr commercial project within weeks of the rebrand.',
-    palette: ['#1A1A1A', '#C8B89A', '#F5F3EF'],
-    tags: ['Identity', 'Motion Design', 'Pitch Decks'],
-    accent: '#C8B89A',
+    problem: 'Lack of cohesive presence for institutional pitches.',
+    outcome: 'Secured ₹3Cr project within weeks of rebrand launch.',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800',
+    palette: ['#1A1A1A', '#C8B89A', '#F5F3EF']
   },
   {
-    title: 'Flux Music Festival',
-    category: 'Event Branding + Motion',
+    title: 'Flux Festival',
+    category: 'Kinetic Identity',
     year: '2023',
-    problem: 'An independent music festival needing a visual identity that could carry the energy of electronic and experimental acts.',
-    outcome: 'Kinetic identity system with generative motion assets, stage visuals, and merchandise. Festival sold out 48 hours after launch.',
-    palette: ['#0A0A0A', '#FF3366', '#00F5D4'],
-    tags: ['Event Branding', 'Motion', 'Merch Design'],
-    accent: '#FF3366',
+    problem: 'Independent festival needing high-energy digital assets.',
+    outcome: 'Sold out 48 hours post-launch. 2M+ social impressions.',
+    image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800',
+    palette: ['#0A0A0A', '#FF3366', '#00F5D4']
   },
-  {
-    title: 'Noor Editorial',
-    category: 'Art Direction',
-    year: '2023',
-    problem: 'A luxury lifestyle magazine launching in print and digital, needing a visual language that balanced editorial authority with modern aesthetics.',
-    outcome: 'Full art direction across 4 issues — layout system, photography direction, and digital edition design. Featured in D&AD New Blood.',
-    palette: ['#1C1C1C', '#B8A99A', '#F9F4EE'],
-    tags: ['Art Direction', 'Editorial', 'Photography'],
-    accent: '#B8A99A',
-  },
-];
-
-const services = [
-  {
-    icon: Compass,
-    title: 'Brand Strategy',
-    description: 'Positioning, naming, messaging architecture, and competitive landscape analysis. The thinking before the making.',
-  },
-  {
-    icon: Layers,
-    title: 'Visual Identity',
-    description: 'Logo systems, typography, color, iconography, and brand guidelines built to scale across every touchpoint.',
-  },
-  {
-    icon: Film,
-    title: 'Motion Graphics',
-    description: 'Brand films, animated logos, social content, and UI micro-animations that make static identities breathe.',
-  },
-  {
-    icon: Eye,
-    title: 'Art Direction',
-    description: 'Creative oversight for campaigns, editorial shoots, and product launches — ensuring every visual decision lands.',
-  },
-];
-
-const clientLogos = [
-  'Mira Skincare', 'Vyom Architecture', 'Flux Festival', 'Noor Editorial',
-  'Kasa Hotels', 'Deepika Menon', 'Origin Coffee', 'Blume Ventures',
 ];
 
 export default function AanyaBrandDesigner() {
   return (
-    <MockLayout projectName="Aanya Verma — Brand Identity" accentColor={accentBlack} categoryId="creatives">
-      {/* Hero */}
-      <section className="bg-white min-h-[90vh] flex flex-col justify-center relative overflow-hidden">
-        {/* Decorative type watermark */}
-        <div
-          className="absolute -right-10 top-1/2 -translate-y-1/2 text-[200px] font-black leading-none select-none pointer-events-none"
-          style={{ color: '#F0F0F0', letterSpacing: '-0.05em' }}
-        >
-          AV
-        </div>
+    <MockLayout projectName="Aanya Sharma — Brand Designer" accentColor={accentBlack} categoryId="creatives">
+      <div className="bg-white text-apple-black selection:bg-zinc-100 overflow-hidden">
+        
+        {/* Explosive Type Hero */}
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-white">
+          {/* Large Watermark Type */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-zinc-50 select-none pointer-events-none tracking-tighter">
+            DESIGN
+          </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-px bg-black" />
-              <span className="text-xs uppercase tracking-[0.3em] font-semibold text-gray-500">
-                Brand Identity & Motion Design
-              </span>
-            </div>
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="grid lg:grid-cols-12 gap-16 items-center">
+              <div className="lg:col-span-8">
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-apple-black text-white text-[11px] font-bold uppercase tracking-[0.4em] mb-12">
+                    <Fingerprint size={14} className="text-zinc-400" />
+                    Independent Brand Designer · Global
+                  </div>
 
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-black leading-[0.9] tracking-tight mb-8">
-              Aanya
-              <br />
-              Verma
-            </h1>
+                  <h1 className="text-7xl lg:text-[140px] font-black leading-[0.8] tracking-tighter mb-12">
+                    Brands that 
+                    <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 to-zinc-400 italic">hold attention.</span>
+                  </h1>
 
-            <p className="text-lg text-gray-500 max-w-lg mb-10 leading-relaxed">
-              I build brands that hold attention — from strategy to identity to motion. My work lives at the intersection
-              of rigorous thinking and precise craft.
-            </p>
+                  <p className="text-2xl lg:text-3xl text-zinc-500 max-w-2xl mb-16 font-medium leading-relaxed">
+                    Strategy-first identity and motion design. I build the DNA of modern companies through rigorous thinking and precise craft.
+                  </p>
 
-            <div className="flex flex-wrap items-center gap-6">
-              <button
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm text-white transition-transform hover:scale-105"
-                style={{ backgroundColor: accentBlack }}
-              >
-                View Selected Work
-                <ArrowUpRight size={16} />
-              </button>
-              <button className="inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-black transition-colors">
-                <Play size={14} className="fill-current" />
-                Watch Showreel
-              </button>
+                  <div className="flex flex-col sm:flex-row gap-8 items-center">
+                    <button className="px-14 py-6 bg-apple-black text-white font-black rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3">
+                      View Work
+                      <ArrowRight size={20} />
+                    </button>
+                    <button className="text-lg font-bold text-zinc-400 hover:text-apple-black transition-colors border-b-2 border-transparent hover:border-apple-black pb-1">
+                      Capabilities Deck
+                    </button>
+                  </div>
+                </AnimatedSection>
+              </div>
             </div>
           </div>
 
-          {/* Award badges */}
-          <div className="absolute bottom-12 right-4 sm:right-8 lg:right-16 flex flex-col gap-3">
+          {/* Social Proof Badges */}
+          <div className="absolute bottom-12 right-12 hidden lg:flex flex-col gap-4">
             {[
-              { badge: 'D&AD', detail: 'New Blood 2024' },
-              { badge: 'Awwwards', detail: 'SOTD' },
-              { badge: 'Behance', detail: 'Featured' },
+              { b: 'Awwwards', l: 'Site of the Day' },
+              { b: 'D&AD', l: 'New Blood 2024' },
+              { b: 'Behance', l: 'Featured Portfolio' },
             ].map((a, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-200 bg-white shadow-sm"
-              >
-                <Star size={12} className="fill-yellow-400 text-yellow-400" />
-                <span className="text-xs font-bold text-black">{a.badge}</span>
-                <span className="text-xs text-gray-400">{a.detail}</span>
+              <div key={i} className="flex items-center gap-4 px-4 py-2 rounded-2xl bg-white border border-zinc-100 shadow-sm animate-float" style={{ animationDelay: `${i * 0.5}s` }}>
+                <Star size={12} className="fill-zinc-900" />
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-widest">{a.b}</p>
+                  <p className="text-[9px] font-bold text-zinc-400">{a.l}</p>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Selected Projects */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-16">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">Case Studies</p>
-              <h2 className="text-4xl font-black text-black">Selected Work</h2>
+        {/* Selected Work Grid */}
+        <section className="py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex items-end justify-between mb-24">
+              <AnimatedSection>
+                <p className="text-[11px] font-bold uppercase tracking-[0.4em] mb-6 text-zinc-400">Case Studies</p>
+                <h2 className="text-6xl font-black tracking-tighter">Selected.</h2>
+              </AnimatedSection>
+              <button className="hidden sm:flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-apple-black border-b-2 border-apple-black pb-1">
+                All Archives <ArrowUpRight size={16} />
+              </button>
             </div>
-            <span className="text-sm text-gray-400 hidden sm:block">2023 — 2024</span>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+              {projects.map((p, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group cursor-pointer">
+                    <div className="aspect-[4/5] rounded-[48px] overflow-hidden mb-8 relative shadow-2xl bg-zinc-50 border border-zinc-100">
+                      <img src={p.image} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-10">
+                        <div className="flex gap-2 mb-6">
+                          {p.palette.map((c, j) => (
+                            <div key={j} className="w-6 h-6 rounded-full border border-white/20 shadow-xl" style={{ backgroundColor: c }} />
+                          ))}
+                        </div>
+                        <h4 className="text-3xl font-black text-white tracking-tight leading-tight">{p.title}</h4>
+                      </div>
+                    </div>
+                    <div className="px-4">
+                      <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-2">{p.year} · {p.category}</p>
+                      <h3 className="text-xl font-bold mb-4 tracking-tight group-hover:text-zinc-600 transition-colors">{p.problem}</h3>
+                      <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-apple-black group-hover:gap-4 transition-all">
+                        Full Outcome <ArrowRight size={14} />
+                      </button>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
           </div>
+        </section>
 
-          <div className="space-y-24">
-            {projects.map((project, i) => (
-              <div
-                key={i}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}
-              >
-                {/* Visual block */}
-                <div className={i % 2 === 1 ? 'lg:col-start-2' : ''}>
-                  <div
-                    className="aspect-[4/3] rounded-2xl flex items-center justify-center relative overflow-hidden"
-                    style={{ backgroundColor: project.palette[0] }}
-                  >
-                    {/* Color swatches */}
-                    <div className="absolute bottom-6 left-6 flex gap-2">
-                      {project.palette.map((color, j) => (
-                        <div
-                          key={j}
-                          className="w-8 h-8 rounded-full border-2 border-white shadow-sm"
-                          style={{ backgroundColor: color }}
-                        />
-                      ))}
-                    </div>
-                    {/* Project letter mark */}
-                    <span
-                      className="text-[120px] font-black leading-none opacity-10 select-none"
-                      style={{ color: project.palette[2] }}
-                    >
-                      {project.title[0]}
-                    </span>
-                    {/* Category tag */}
-                    <div
-                      className="absolute top-5 right-5 px-3 py-1.5 rounded-full text-xs font-semibold"
-                      style={{ backgroundColor: project.accent, color: '#fff' }}
-                    >
-                      {project.category}
-                    </div>
+        {/* Services - Precision Grid */}
+        <section className="py-32 bg-zinc-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-2xl mb-24">
+              <AnimatedSection>
+                <h2 className="text-5xl lg:text-7xl font-black tracking-tighter mb-8">DNA of Design.</h2>
+                <p className="text-xl text-zinc-500 font-medium leading-relaxed">
+                  I don't just make things look good. I build visual languages that speak the same values as your business.
+                </p>
+              </AnimatedSection>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { i: Compass, t: 'Strategy', d: 'Positioning, naming, and messaging architecture.' },
+                { i: Layers, t: 'Identity', d: 'Logo systems, typography, and color architecture.' },
+                { i: Film, t: 'Motion', d: 'Brand films and kinetic assets for digital channels.' },
+                { i: Eye, t: 'Direction', d: 'Creative oversight for shoots and product launches.' },
+              ].map((item, i) => (
+                <div key={i} className="bg-white p-10 rounded-[40px] border border-zinc-100 hover:shadow-2xl transition-all duration-500 group">
+                  <div className="w-14 h-14 rounded-2xl bg-zinc-50 flex items-center justify-center mb-8 group-hover:bg-apple-black transition-colors">
+                    <item.i size={24} className="text-apple-black group-hover:text-white transition-colors" />
                   </div>
+                  <h4 className="text-xl font-black mb-3 tracking-tight">{item.t}</h4>
+                  <p className="text-sm text-zinc-400 font-medium leading-relaxed">{item.d}</p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                {/* Content block */}
-                <div className={i % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">{project.year}</span>
-                    <span className="w-4 h-px bg-gray-300" />
-                    <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">{project.category}</span>
+        {/* AI Intake Workflow */}
+        <section className="py-32 bg-apple-black text-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 text-zinc-400 text-[11px] font-bold uppercase tracking-[0.25em] mb-10 border border-white/10">
+                    <Zap size={16} className="fill-zinc-400" />
+                    Studio Intelligence
                   </div>
-
-                  <h3 className="text-3xl font-black text-black mb-6">{project.title}</h3>
-
-                  <div className="space-y-4 mb-8">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">The Problem</p>
-                      <p className="text-gray-600 leading-relaxed">{project.problem}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: project.accent }}>
-                        The Outcome
-                      </p>
-                      <p className="text-gray-600 leading-relaxed">{project.outcome}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {project.tags.map((tag, j) => (
-                      <span
-                        key={j}
-                        className="px-3 py-1.5 rounded-full text-xs font-semibold border"
-                        style={{ borderColor: '#E5E7EB', color: '#374151' }}
-                      >
-                        {tag}
-                      </span>
+                  <h2 className="text-5xl lg:text-6xl font-black tracking-tight mb-10 leading-[0.95]">
+                    The studio runs 
+                    <br />
+                    while I design.
+                  </h2>
+                  <p className="text-xl text-zinc-400 font-medium leading-relaxed mb-12">
+                    Creative focus is sacred. My proprietary creative intake agent handles the overhead — from brief qualification via the DNA Questionnaire to automated capabilities deck generation.
+                  </p>
+                  
+                  <div className="space-y-8">
+                    {[
+                      { t: 'Instant Triage', d: 'Inquiries acknowledged and qualified in under 2 minutes.' },
+                      { t: 'Smart Decks', d: 'Auto-assembled case studies based on client industry.' },
+                      { t: 'Zero-Admin Sync', d: 'Automated provisioning of project hubs and asset vaults.' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex gap-6 border-l border-zinc-800 pl-8 hover:border-white transition-colors group">
+                        <div>
+                          <h4 className="font-black text-white text-sm uppercase tracking-[0.2em] mb-1 group-hover:translate-x-2 transition-transform">{item.t}</h4>
+                          <p className="text-xs text-zinc-500 font-medium leading-relaxed">{item.d}</p>
+                        </div>
+                      </div>
                     ))}
                   </div>
-
-                  <button className="inline-flex items-center gap-2 text-sm font-bold text-black hover:gap-3 transition-all">
-                    View Case Study
-                    <ArrowUpRight size={16} />
-                  </button>
+                </AnimatedSection>
+              </div>
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-white/[0.02] border border-white/5 shadow-inner overflow-hidden backdrop-blur-3xl">
+                  <AgentFlowChart workflow={clientCommunicationWorkflow} />
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">What I Do</p>
-            <h2 className="text-4xl font-black text-black mb-4">Services</h2>
-            <p className="text-gray-500">
-              Strategy-first design practice. I work with founders, brand managers, and agencies on projects that demand
-              both conceptual rigor and exceptional execution.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-2xl p-7 border border-gray-100 group hover:border-black transition-colors"
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 bg-black group-hover:bg-gray-800 transition-colors"
-                >
-                  <service.icon size={20} className="text-white" />
-                </div>
-                <h3 className="text-lg font-black text-black mb-3">{service.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{service.description}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Pricing note */}
-          <div className="mt-10 p-6 bg-black rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <p className="text-white font-bold mb-1">Starting from ₹1.5L per project</p>
-              <p className="text-gray-400 text-sm">Select clients only. Enquire with brief.</p>
+              </AnimatedSection>
             </div>
-            <button className="flex-shrink-0 px-6 py-2.5 rounded-full bg-white text-black text-sm font-bold hover:bg-gray-100 transition-colors">
-              Start a Conversation
-            </button>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Client Logos Marquee */}
-      <section className="py-16 bg-white overflow-hidden border-y border-gray-100">
-        <div className="mb-8 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400">Clients & Collaborators</p>
-        </div>
-        <div className="flex gap-12 animate-marquee-slow whitespace-nowrap">
-          {[...clientLogos, ...clientLogos].map((logo, i) => (
-            <span
-              key={i}
-              className="text-xl font-black text-gray-200 hover:text-gray-400 transition-colors cursor-default flex-shrink-0"
-            >
-              {logo}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* AI Agent Workflow */}
-      <section className="py-24 bg-black">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-xs text-gray-400 mb-6">
-              <Sparkles size={12} />
-              AI-Powered Studio Operations
-            </div>
-            <h2 className="text-3xl font-black text-white mb-4">
-              The Studio Runs While I Design
-            </h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
-              An AI agent handles new business communication, freeing up focus for the work that actually matters.
-            </p>
-          </div>
-
-          <div className="rounded-2xl p-6 lg:p-10 border border-white/8 bg-white/3">
-            <AgentFlowChart workflow={clientCommunicationWorkflow} />
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-6 mt-10">
-            {[
-              { icon: Zap, label: 'Instant Response', detail: 'Every inquiry acknowledged in under 2 minutes' },
-              { icon: Award, label: 'Tailored Decks', detail: 'Case studies matched to client industry automatically' },
-              { icon: Sparkles, label: 'Zero Admin', detail: 'Project setup handled end-to-end without manual work' },
-            ].map((item, i) => (
-              <div key={i} className="p-5 rounded-xl border border-white/8 bg-white/3">
-                <item.icon size={18} className="text-gray-400 mb-3" />
-                <p className="text-sm font-bold text-white mb-1">{item.label}</p>
-                <p className="text-xs text-gray-500">{item.detail}</p>
-              </div>
+        {/* Client Marquee */}
+        <div className="py-20 bg-white border-y border-zinc-100 overflow-hidden">
+          <div className="flex gap-20 animate-ticker whitespace-nowrap px-6">
+            {['BLUME VENTURES', 'ORIGIN COFFEE', 'KASA HOTELS', 'NOOR EDITORIAL', 'FLUX FESTIVAL', 'VYOM ARCH'].map((c, i) => (
+              <span key={i} className="text-4xl font-black text-zinc-100 hover:text-apple-black transition-colors cursor-default tracking-tighter italic">{c}</span>
             ))}
           </div>
         </div>
-      </section>
+
+        {/* Final CTA */}
+        <section className="py-40 bg-white relative overflow-hidden text-center text-apple-black">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <AnimatedSection animationType="scale">
+              <Palette size={48} className="mx-auto text-zinc-900 mb-12" />
+              <h2 className="text-6xl lg:text-[100px] font-black tracking-tighter mb-12 leading-[0.85]">
+                Let's build 
+                <br />
+                the identity.
+              </h2>
+              <p className="text-2xl text-zinc-500 font-medium mb-16 max-w-2xl mx-auto leading-relaxed">
+                Currently booking H2 2025. I work with select founders who value precision over speed. Tell me about your DNA.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
+                <button className="px-14 py-6 bg-apple-black text-white font-black uppercase tracking-widest text-lg rounded-full shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Start Conversation
+                </button>
+                <button className="text-lg font-bold text-zinc-400 hover:text-apple-black transition-colors flex items-center gap-2">
+                  View Availability <ChevronRight size={24} />
+                </button>
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
+      </div>
     </MockLayout>
   );
 }

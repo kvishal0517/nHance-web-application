@@ -1,21 +1,22 @@
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 import {
   Users,
-  Briefcase,
   Calendar,
   MapPin,
-  ExternalLink,
   ChevronRight,
   Search,
   Award,
   Globe,
   Building2,
   GraduationCap,
-  Mail,
+  Zap,
   Linkedin,
-  Star,
+  TrendingUp,
+  MessageSquare,
+  ArrowUpRight,
 } from 'lucide-react';
 
 const accentBurgundy = '#8B1A1A';
@@ -91,6 +92,7 @@ const alumniProfiles = [
     location: 'Mumbai',
     initials: 'AR',
     connections: 312,
+    skills: ['Strategic Finance', 'Investment Banking'],
   },
   {
     name: 'Vikram Bajaj',
@@ -101,6 +103,7 @@ const alumniProfiles = [
     location: 'Bangalore',
     initials: 'VB',
     connections: 489,
+    skills: ['SaaS', 'Digital Health'],
   },
   {
     name: 'Sunita Menon',
@@ -111,6 +114,7 @@ const alumniProfiles = [
     location: 'Pune',
     initials: 'SM',
     connections: 276,
+    skills: ['Global Supply Chain', 'Brand Strategy'],
   },
   {
     name: 'Rahul Khanna',
@@ -121,6 +125,7 @@ const alumniProfiles = [
     location: 'Ahmedabad',
     initials: 'RK',
     connections: 198,
+    skills: ['Behavioral Economics', 'Research'],
   },
 ];
 
@@ -130,7 +135,7 @@ const events = [
     date: 'December 20–21, 2025',
     location: 'IIM Campus, Ahmedabad',
     type: 'In-Person',
-    desc: 'Two-day reunion featuring panel discussions, networking dinner, and the Director\'s address. Open to all batches.',
+    desc: 'Two-day reunion featuring panel discussions, networking dinner, and the Director\'s address.',
     badge: 'Flagship Event',
     badgeColor: accentBurgundy,
     attendees: '600+ Alumni',
@@ -140,7 +145,7 @@ const events = [
     date: 'September 12, 2025',
     location: 'Hybrid — Mumbai & Online',
     type: 'Hybrid',
-    desc: 'Alumni-led case competition open to current students. Winners receive mentorship from participating alumni.',
+    desc: 'Alumni-led case competition open to current students. Winners receive mentorship.',
     badge: 'Open Registration',
     badgeColor: '#2D6A4F',
     attendees: '80 Teams',
@@ -150,443 +155,325 @@ const events = [
     date: 'July 4, 2025',
     location: 'Online — Zoom',
     type: 'Webinar',
-    desc: 'Aditi Raghavan (PGP 2008) on "Finance Leadership in Uncertain Markets." Q&A open to all members.',
+    desc: 'Aditi Raghavan (PGP 2008) on "Finance Leadership in Uncertain Markets."',
     badge: 'Free for Members',
     badgeColor: '#1D4ED8',
     attendees: '200+ Seats',
   },
 ];
 
-const jobListings = [
-  {
-    role: 'VP Strategy & Growth',
-    company: 'Meesho',
-    location: 'Bangalore',
-    type: 'Full-time',
-    referredBy: 'Kiran Sharma (PGP 2012)',
-    tags: ['Strategy', 'E-commerce', '10+ Years'],
-  },
-  {
-    role: 'Chief of Staff — CEO Office',
-    company: 'Zepto',
-    location: 'Mumbai',
-    type: 'Full-time',
-    referredBy: 'Priya Iyer (PGP 2016)',
-    tags: ['Ops', 'Quick Commerce', '5–8 Years'],
-  },
-  {
-    role: 'Visiting Faculty — Finance',
-    company: 'IIM Rohtak',
-    location: 'Rohtak (Remote Eligible)',
-    type: 'Contract',
-    referredBy: 'Dr. Rahul Khanna (FPM 2014)',
-    tags: ['Teaching', 'Finance', 'PhD Preferred'],
-  },
-];
-
 const networkStats = [
   { value: '28,000+', label: 'Global Alumni', icon: Users },
   { value: '62', label: 'Countries', icon: Globe },
-  { value: '140+', label: 'Chapters Worldwide', icon: Building2 },
+  { value: '140+', label: 'Chapters', icon: Building2 },
   { value: '1974', label: 'Established', icon: GraduationCap },
 ];
 
 export default function IIMAlumni() {
   return (
     <MockLayout projectName="IIM Alumni Network" accentColor={accentBurgundy} categoryId="academic">
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${charcoal} 0%, #1A1A1A 100%)` }}
-      >
-        {/* Subtle pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 50%)`,
-            backgroundSize: '20px 20px',
-          }}
-        />
+      <div className="bg-white text-apple-black selection:bg-red-100">
+        {/* Prestige Hero */}
+        <section
+          className="relative min-h-screen flex flex-col overflow-hidden bg-apple-black"
+        >
+          {/* Immersive Campus Background */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&q=80&w=2400" 
+              alt="University Campus" 
+              className="w-full h-full object-cover opacity-15 grayscale"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-apple-black/40 via-apple-black to-apple-black" />
+          </div>
 
-        {/* Top navigation bar */}
-        <div className="relative border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center font-black text-white text-sm"
+          {/* Premium Sub-Nav */}
+          <div className="relative z-20 border-b border-white/5">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center font-black text-white text-xl shadow-2xl"
+                  style={{ backgroundColor: accentBurgundy }}
+                >
+                  IIM
+                </div>
+                <div className="hidden sm:block">
+                  <p className="text-white font-bold text-base tracking-tight leading-none mb-1">Alumni Network</p>
+                  <p className="text-white/30 text-[9px] font-bold uppercase tracking-[0.2em]">Global Executive Portal</p>
+                </div>
+              </div>
+              <nav className="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-widest text-white/40">
+                <a href="#" className="hover:text-white transition-colors border-b-2 border-transparent hover:border-accent-500 pb-1">Directory</a>
+                <a href="#" className="hover:text-white transition-colors">Career Center</a>
+                <a href="#" className="hover:text-white transition-colors">Chapters</a>
+                <a href="#" className="hover:text-white transition-colors">Mentorship</a>
+              </nav>
+              <button
+                className="text-[11px] px-8 py-3 rounded-full font-bold uppercase tracking-widest text-white shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
                 style={{ backgroundColor: accentBurgundy }}
               >
-                IIM
-              </div>
-              <div>
-                <p className="text-white font-bold text-sm leading-tight">Alumni Network</p>
-                <p className="text-slate-400 text-xs">Member Portal</p>
-              </div>
+                Join Network
+                <ArrowUpRight size={14} />
+              </button>
             </div>
-            <nav className="hidden md:flex items-center gap-6 text-sm text-slate-400">
-              <a href="#" className="hover:text-white transition-colors">Directory</a>
-              <a href="#" className="hover:text-white transition-colors">Events</a>
-              <a href="#" className="hover:text-white transition-colors">Jobs</a>
-              <a href="#" className="hover:text-white transition-colors">Mentorship</a>
-            </nav>
-            <button
-              className="text-sm px-4 py-2 rounded-lg font-semibold text-white"
-              style={{ backgroundColor: accentBurgundy }}
-            >
-              Member Login
-            </button>
+          </div>
+
+          <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="max-w-4xl">
+              <AnimatedSection animationType="blur">
+                <div
+                  className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] px-5 py-2 rounded-full mb-12 bg-white/5 backdrop-blur-md border border-white/10 text-[#E8A0A0]"
+                >
+                  <Award size={14} />
+                  A Global Legacy of Leadership
+                </div>
+
+                <h1 className="text-7xl lg:text-[110px] font-bold text-white leading-[0.9] tracking-tighter mb-12">
+                  Reconnect with
+                  <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8A0A0] to-red-600">Influence.</span>
+                </h1>
+
+                <p className="text-xl lg:text-2xl text-slate-400 mb-16 max-w-2xl font-medium leading-relaxed">
+                  The exclusive ecosystem for IIM graduates. Over 28,000 leaders, 140 chapters, and infinite opportunities.
+                </p>
+
+                <div className="p-2 rounded-[32px] bg-white/5 backdrop-blur-2xl border border-white/10 flex flex-col sm:flex-row gap-2 max-w-2xl shadow-3xl">
+                  <div className="relative flex-1">
+                    <Search size={18} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-500" />
+                    <input
+                      type="text"
+                      placeholder="Search by name, company, or batch..."
+                      className="w-full bg-transparent border-none pl-14 pr-6 py-5 text-white text-base placeholder-slate-600 focus:ring-0"
+                    />
+                  </div>
+                  <button
+                    className="px-10 py-5 rounded-[24px] font-bold text-white shadow-2xl transition-all hover:scale-[1.02] active:scale-95"
+                    style={{ backgroundColor: accentBurgundy }}
+                  >
+                    Find Alumni
+                  </button>
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+
+          {/* Bottom Reveal Scroll Indicator */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/20 animate-bounce">
+            <TrendingUp size={24} />
+          </div>
+        </section>
+
+        {/* Global Stats - Sleek Dark Strip */}
+        <div className="bg-[#1A1A1A] border-y border-white/5 py-16">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-16">
+              {networkStats.map((s, i) => (
+                <div key={i} className="flex flex-col items-center lg:items-start group cursor-default">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <s.icon size={24} className="text-[#E8A0A0]" />
+                  </div>
+                  <p className="text-4xl font-bold text-white tracking-tight mb-2">{s.value}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">{s.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="max-w-3xl">
-            <div
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full mb-6"
-              style={{ backgroundColor: `${accentBurgundy}25`, color: '#E8A0A0', border: `1px solid ${accentBurgundy}50` }}
-            >
-              <Award size={14} />
-              50+ Years of Alumni Excellence
-            </div>
-
-            <h1 className="text-5xl lg:text-6xl font-black text-white leading-tight mb-5">
-              Where Leaders
-              <br />
-              <span style={{ color: '#E8A0A0' }}>Stay Connected</span>
-            </h1>
-
-            <p className="text-lg text-slate-300 mb-10 max-w-xl">
-              The exclusive network of IIM alumni spanning 62 countries. Access opportunities, reconnect with
-              batchmates, and give back to the community that shaped you.
-            </p>
-
-            {/* Search bar */}
-            <div className="flex gap-2 max-w-lg mb-10">
-              <div className="relative flex-1">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="Search alumni by name, company, or batch..."
-                  className="w-full bg-white/10 border border-white/20 rounded-lg pl-9 pr-4 py-3 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-white/40"
-                />
+        {/* Executive Directory - Card Grid */}
+        <section className="py-32 bg-apple-gray">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+              <div className="max-w-xl">
+                <AnimatedSection>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: accentBurgundy }}>The Network</p>
+                  <h2 className="text-5xl lg:text-6xl font-bold text-apple-black tracking-tight mb-8">Executive Talent.</h2>
+                  <p className="text-xl text-apple-darkGray font-medium leading-relaxed">
+                    Connect with industry captains, visionary founders, and strategic minds from across batches.
+                  </p>
+                </AnimatedSection>
               </div>
-              <button
-                className="px-5 py-3 rounded-lg text-sm font-bold text-white flex-shrink-0"
-                style={{ backgroundColor: accentBurgundy }}
-              >
-                Search
+              <button className="px-10 py-4 bg-white border border-slate-200 rounded-full font-bold text-sm shadow-sm hover:shadow-md transition-all flex items-center gap-2">
+                Launch Full Directory <Search size={16} />
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-6 text-sm text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <Users size={14} style={{ color: '#E8A0A0' }} />
-                28,000+ Members
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Globe size={14} style={{ color: '#E8A0A0' }} />
-                140+ City Chapters
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Briefcase size={14} style={{ color: '#E8A0A0' }} />
-                Alumni Referral Jobs Board
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Network Stats */}
-      <div style={{ backgroundColor: accentBurgundy }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-            {networkStats.map((s, i) => (
-              <div key={i} className="flex items-center justify-center gap-3">
-                <s.icon size={20} className="text-red-200 flex-shrink-0" />
-                <div className="text-left">
-                  <p className="text-xl font-black text-white">{s.value}</p>
-                  <p className="text-xs text-red-200">{s.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Alumni Directory */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-widest mb-1" style={{ color: accentBurgundy }}>
-                Member Directory
-              </p>
-              <h2 className="text-3xl font-black text-gray-900">Featured Alumni</h2>
-            </div>
-            <button
-              className="text-sm font-semibold flex items-center gap-1 hover:underline"
-              style={{ color: accentBurgundy }}
-            >
-              View All 28,000+ <ChevronRight size={16} />
-            </button>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {alumniProfiles.map((alumni, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start justify-between mb-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {alumniProfiles.map((alumni, i) => (
+                <AnimatedSection key={i} delay={i * 50} animationType="scale">
                   <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center text-base font-black text-white flex-shrink-0"
-                    style={{ backgroundColor: charcoal }}
+                    className="group bg-white rounded-[40px] p-10 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] transition-all duration-700 border border-transparent hover:border-slate-100 flex flex-col h-full"
                   >
-                    {alumni.initials}
-                  </div>
-                  <span
-                    className="text-xs font-semibold px-2 py-1 rounded-full"
-                    style={{ backgroundColor: `${accentBurgundy}12`, color: accentBurgundy }}
-                  >
-                    {alumni.batch}
-                  </span>
-                </div>
+                    <div className="flex items-start justify-between mb-10">
+                      <div
+                        className="w-16 h-16 rounded-[24px] flex items-center justify-center text-xl font-bold text-white shadow-xl group-hover:scale-110 transition-transform duration-500"
+                        style={{ backgroundColor: charcoal }}
+                      >
+                        {alumni.initials}
+                      </div>
+                      <span
+                        className="text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider bg-red-50 text-red-900 border border-red-100"
+                      >
+                        {alumni.batch}
+                      </span>
+                    </div>
 
-                <h3 className="font-bold text-gray-900 mb-0.5">{alumni.name}</h3>
-                <p className="text-sm font-semibold text-gray-700 mb-0.5">{alumni.role}</p>
-                <p className="text-sm text-gray-500 mb-3">{alumni.company}</p>
+                    <h3 className="text-2xl font-bold text-apple-black mb-1 group-hover:text-red-900 transition-colors">{alumni.name}</h3>
+                    <p className="text-sm font-bold text-slate-400 mb-2 uppercase tracking-tight">{alumni.role}</p>
+                    <p className="text-base font-bold text-apple-black mb-8">{alumni.company}</p>
 
-                <div className="flex flex-wrap gap-2 text-xs text-gray-400 mb-4">
-                  <span className="flex items-center gap-1">
-                    <Briefcase size={11} />
-                    {alumni.industry}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <MapPin size={11} />
-                    {alumni.location}
-                  </span>
-                </div>
+                    <div className="flex flex-wrap gap-2 mb-10 flex-1">
+                      {alumni.skills.map((skill, j) => (
+                        <span key={j} className="px-3 py-1 bg-apple-gray rounded-lg text-[10px] font-bold text-apple-darkGray group-hover:bg-red-50 transition-colors">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                  <span className="text-xs text-gray-400">{alumni.connections} connections</span>
-                  <div className="flex items-center gap-2">
-                    <button className="text-gray-400 hover:text-gray-600">
-                      <Linkedin size={15} />
-                    </button>
-                    <button className="text-gray-400 hover:text-gray-600">
-                      <Mail size={15} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Events Calendar */}
-      <section
-        className="py-20"
-        style={{ backgroundColor: charcoal }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-widest mb-1" style={{ color: '#E8A0A0' }}>
-                Community Events
-              </p>
-              <h2 className="text-3xl font-black text-white">Upcoming Events</h2>
-            </div>
-            <button className="text-sm font-semibold text-slate-400 flex items-center gap-1 hover:text-white transition-colors">
-              Full Calendar <ChevronRight size={16} />
-            </button>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-5">
-            {events.map((event, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-6 border flex flex-col"
-                style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)' }}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <span
-                    className="text-xs font-bold px-2.5 py-1 rounded-full text-white"
-                    style={{ backgroundColor: event.badgeColor }}
-                  >
-                    {event.badge}
-                  </span>
-                  <span className="text-xs text-slate-400 bg-white/10 px-2 py-1 rounded-full">
-                    {event.type}
-                  </span>
-                </div>
-
-                <h3 className="font-bold text-white text-base mb-2 flex-1">{event.title}</h3>
-                <p className="text-sm text-slate-400 mb-4 leading-relaxed">{event.desc}</p>
-
-                <div className="space-y-2 text-xs text-slate-400 mb-5">
-                  <div className="flex items-center gap-2">
-                    <Calendar size={13} style={{ color: '#E8A0A0' }} />
-                    {event.date}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin size={13} style={{ color: '#E8A0A0' }} />
-                    {event.location}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Users size={13} style={{ color: '#E8A0A0' }} />
-                    {event.attendees}
-                  </div>
-                </div>
-
-                <button
-                  className="w-full py-2.5 rounded-lg text-sm font-semibold text-white border border-white/20 hover:border-white/40 transition-colors"
-                >
-                  Register / Learn More
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Job Board */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-widest mb-1" style={{ color: accentBurgundy }}>
-                Opportunities
-              </p>
-              <h2 className="text-3xl font-black text-gray-900">Alumni-Referred Jobs</h2>
-              <p className="text-gray-500 text-sm mt-1">
-                Positions referred directly by network members. Apply with a warm introduction.
-              </p>
-            </div>
-            <button
-              className="text-sm font-semibold flex items-center gap-1 hover:underline"
-              style={{ color: accentBurgundy }}
-            >
-              Post a Role <ExternalLink size={14} />
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            {jobListings.map((job, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-              >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-                    style={{ backgroundColor: charcoal }}
-                  >
-                    {job.company.substring(0, 2).toUpperCase()}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900">{job.role}</h3>
-                    <p className="text-sm font-semibold text-gray-600 mb-1">
-                      {job.company} · {job.location}
-                    </p>
-                    <div className="flex items-center gap-2 text-xs text-gray-400">
-                      <Star size={12} style={{ color: accentBurgundy }} />
-                      Referred by {job.referredBy}
+                    <div className="flex items-center justify-between pt-8 border-t border-slate-50">
+                      <div className="flex items-center gap-2">
+                        <Users size={14} className="text-slate-300" />
+                        <span className="text-[11px] font-bold text-slate-400">{alumni.connections}+</span>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <MessageSquare size={18} className="text-slate-300 hover:text-red-900 cursor-pointer transition-colors" />
+                        <Linkedin size={18} className="text-slate-300 hover:text-red-900 cursor-pointer transition-colors" />
+                      </div>
                     </div>
                   </div>
-                </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
-                  <div className="flex flex-wrap gap-1.5">
-                    {job.tags.map((tag, j) => (
+        {/* Global Events - Dark High-Contrast Section */}
+        <section className="py-32 bg-apple-black text-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex items-center justify-between mb-24">
+              <AnimatedSection>
+                <p className="text-[11px] font-bold uppercase tracking-[0.3em] mb-4 text-[#E8A0A0]">Knowledge & Networking</p>
+                <h2 className="text-5xl lg:text-6xl font-bold tracking-tight">Calendar 2025.</h2>
+              </AnimatedSection>
+              <button className="hidden sm:flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors">
+                View All Events <ChevronRight size={16} />
+              </button>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-10">
+              {events.map((event, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div
+                    className="group rounded-[48px] p-12 h-full flex flex-col border border-white/5 bg-white/[0.02] backdrop-blur-3xl hover:bg-white/[0.05] transition-all duration-500"
+                  >
+                    <div className="mb-10">
                       <span
-                        key={j}
-                        className="text-xs px-2.5 py-1 rounded-full font-medium"
-                        style={{ backgroundColor: `${accentBurgundy}10`, color: accentBurgundy }}
+                        className="text-[10px] font-bold px-4 py-2 rounded-full text-white uppercase tracking-wider shadow-2xl border border-white/10"
+                        style={{ backgroundColor: event.badgeColor }}
                       >
-                        {tag}
+                        {event.badge}
                       </span>
-                    ))}
+                    </div>
+
+                    <h3 className="text-3xl font-bold mb-6 tracking-tight leading-tight group-hover:text-[#E8A0A0] transition-colors">{event.title}</h3>
+                    <p className="text-slate-400 font-medium mb-12 leading-relaxed text-lg">{event.desc}</p>
+
+                    <div className="space-y-6 pt-10 border-t border-white/5 mt-auto">
+                      <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/30">
+                        <Calendar size={16} className="text-red-600" />
+                        {event.date}
+                      </div>
+                      <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/30">
+                        <MapPin size={16} className="text-red-600" />
+                        {event.location}
+                      </div>
+                      <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white/30">
+                        <Users size={16} className="text-red-600" />
+                        {event.attendees} Registered
+                      </div>
+                    </div>
                   </div>
-                  <span
-                    className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 flex-shrink-0"
-                  >
-                    {job.type}
-                  </span>
-                  <button
-                    className="text-sm font-bold px-5 py-2.5 rounded-lg text-white flex-shrink-0"
-                    style={{ backgroundColor: accentBurgundy }}
-                  >
-                    Apply
-                  </button>
-                </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Engagement - Technology Showcase */}
+        <section className="py-32 bg-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-red-50 text-red-900 text-[11px] font-bold uppercase tracking-[0.2em] mb-10 border border-red-100">
+                    <Zap size={16} className="fill-red-900" />
+                    Neural Networking
+                  </div>
+                  <h2 className="text-5xl lg:text-6xl font-bold text-apple-black tracking-tight mb-10">
+                    AI-Powered
+                    <br />
+                    Connections.
+                  </h2>
+                  <p className="text-xl text-apple-darkGray font-medium leading-relaxed mb-12">
+                    Our platform doesn't just store data; it actively fosters growth. The AI Engagement Agent monitors professional milestones and intelligently bridges gaps between expertise and opportunity.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="p-6 rounded-3xl bg-apple-gray border border-slate-100">
+                      <Award size={24} className="text-red-900 mb-4" />
+                      <h4 className="font-bold text-apple-black mb-2">Milestone Tracking</h4>
+                      <p className="text-xs text-slate-500 font-medium">Automatic detection of promotions and honors.</p>
+                    </div>
+                    <div className="p-6 rounded-3xl bg-apple-gray border border-slate-100">
+                      <Globe size={24} className="text-red-900 mb-4" />
+                      <h4 className="font-bold text-apple-black mb-2">Smart Chaptering</h4>
+                      <p className="text-xs text-slate-500 font-medium">Industry-specific group auto-scaling.</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
               </div>
-            ))}
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-white border border-slate-100 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)]">
+                  <AgentFlowChart workflow={engagementWorkflow} />
+                </div>
+              </AnimatedSection>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* AI Agent Workflow */}
-      <section
-        className="py-20"
-        style={{ background: `linear-gradient(180deg, #1A1A1A 0%, ${charcoal} 100%)` }}
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: '#E8A0A0' }}>
-              Powered by AI
-            </p>
-            <h2 className="text-3xl font-black text-white">Intelligent Alumni Engagement</h2>
-            <p className="text-slate-400 mt-2 max-w-xl mx-auto">
-              Our AI agent monitors the network, celebrates milestones, and ensures every alumnus feels connected
-              — automatically, at scale.
-            </p>
+        {/* Closing CTA - The "Walled Garden" feel */}
+        <section className="py-40 bg-apple-gray relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-900/20 to-transparent" />
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <AnimatedSection animationType="blur">
+              <div className="w-24 h-24 rounded-[32px] bg-red-900 flex items-center justify-center text-white text-4xl font-black mx-auto mb-16 shadow-[0_32px_64px_-16px_rgba(139,26,26,0.4)]">
+                IIM
+              </div>
+              <h2 className="text-6xl lg:text-8xl font-bold text-apple-black mb-12 tracking-tighter">
+                Lead.
+                <br />
+                Reconnect.
+                <br />
+                Mentor.
+              </h2>
+              <p className="text-2xl text-apple-darkGray mb-16 max-w-xl mx-auto font-medium">
+                The most powerful business network in the country is waiting for you. Verify your status to enter.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+                <button
+                  className="px-14 py-6 bg-red-900 text-white font-bold rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95"
+                >
+                  Verify via LinkedIn
+                </button>
+                <button className="text-lg font-bold text-apple-darkGray hover:text-apple-black transition-colors border-b-2 border-slate-200 hover:border-red-900 pb-1">
+                  Chapter Directory
+                </button>
+              </div>
+            </AnimatedSection>
           </div>
-
-          <div
-            className="rounded-2xl p-6 lg:p-10 border"
-            style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: `${accentBurgundy}30` }}
-          >
-            <AgentFlowChart workflow={engagementWorkflow} />
-          </div>
-        </div>
-      </section>
-
-      {/* Join CTA */}
-      <section
-        className="py-16"
-        style={{ backgroundColor: '#F5F0EF' }}
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center font-black text-white text-xl mx-auto mb-6"
-            style={{ backgroundColor: accentBurgundy }}
-          >
-            IIM
-          </div>
-          <h2 className="text-3xl font-black mb-4" style={{ color: charcoal }}>
-            Not Yet a Member?
-          </h2>
-          <p className="text-gray-500 mb-8 max-w-md mx-auto">
-            If you are an IIM graduate, claim your member profile and unlock the full network — jobs, events,
-            mentorship, and more.
-          </p>
-
-          <div className="flex flex-wrap gap-3 justify-center">
-            <button
-              className="px-8 py-3 rounded-lg font-bold text-sm text-white"
-              style={{ backgroundColor: accentBurgundy }}
-            >
-              Claim Your Profile <ChevronRight size={16} className="inline" />
-            </button>
-            <button
-              className="px-8 py-3 rounded-lg font-bold text-sm border"
-              style={{ borderColor: charcoal, color: charcoal }}
-            >
-              Contact Chapter Coordinator
-            </button>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </MockLayout>
   );
 }

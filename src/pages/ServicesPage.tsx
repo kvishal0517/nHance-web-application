@@ -1,105 +1,102 @@
 import { Link } from 'react-router-dom';
 import { Globe, Smartphone, Bot, Briefcase, ArrowRight, Check } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
+import { MeshGradient } from '../components/VisualAssets';
 
 export function ServicesPage() {
   const services = [
     {
       icon: Globe,
-      title: 'Custom Websites',
-      desc: 'Professionally designed, responsive websites built from scratch for your industry. No templates \u2014 every pixel is intentional.',
+      title: 'Websites',
+      desc: 'Precision engineered. Every pixel is intentional. We build custom ecosystems that serve as the foundation of your digital authority.',
       features: [
-        'Custom design matching your brand',
-        'Mobile-first responsive layout',
-        'SEO-optimized structure',
-        'Fast loading performance',
-        'Contact forms and lead capture',
-        'Analytics integration',
+        'Custom design language',
+        'Responsive engineering',
+        'SEO architecture',
+        'Performance optimization',
+        'Lead capture systems',
+        'Advanced analytics',
       ],
-      gradient: 'from-blue-500 to-cyan-500',
     },
     {
       icon: Briefcase,
-      title: 'Professional Portfolios',
-      desc: 'Stunning portfolios that showcase your expertise, credentials, and work with visual impact that converts visitors into clients.',
+      title: 'Portfolios',
+      desc: 'Showcase your expertise with visual elegance. We design portfolios that communicate value and establish instant trust.',
       features: [
-        'Visual case study layouts',
-        'Credential and award showcases',
-        'Client testimonial sections',
-        'Booking and inquiry integration',
-        'Social media connections',
-        'Downloadable press kits',
+        'Case study architecture',
+        'Credential showcases',
+        'Testimonial workflows',
+        'Booking integration',
+        'Social ecosystem',
+        'Press kit design',
       ],
-      gradient: 'from-emerald-500 to-teal-500',
     },
     {
       icon: Smartphone,
       title: 'Android Apps',
-      desc: 'Native-quality mobile applications that put your services in your clients\u2019 pockets. Published on the Google Play Store.',
+      desc: 'Mobile experiences that feel native and refined. Put your services directly into your clients\u2019 hands with our specialized Android development.',
       features: [
-        'Intuitive user experience',
-        'Push notifications',
-        'Offline functionality',
-        'Secure authentication',
-        'In-app booking and payments',
-        'Play Store deployment',
+        'Refined UX/UI',
+        'Smart notifications',
+        'Offline capabilities',
+        'Secure architecture',
+        'Payment workflows',
+        'Play Store delivery',
       ],
-      gradient: 'from-brand-500 to-brand-600',
     },
     {
       icon: Bot,
       title: 'AI Agents',
-      desc: 'Intelligent automation agents that handle repetitive tasks \u2014 lead capture, follow-ups, scheduling, and client communication.',
+      desc: 'Intelligent automation for the modern professional. Our agents handle your interactions with the same care and precision you do.',
       features: [
-        'Automated lead nurturing',
-        'Smart follow-up sequences',
-        'Appointment scheduling',
-        'Document collection workflows',
+        'Intelligent lead nurturing',
+        'Smart follow-up logic',
+        'Schedule management',
+        'Document workflows',
         'Client status updates',
-        'Performance dashboards',
+        'Insight dashboards',
       ],
-      gradient: 'from-rose-500 to-pink-500',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection>
-          <div className="text-center mb-16">
-            <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-3">Services</p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight mb-4">Our Services</h1>
-            <p className="text-slate-500 max-w-2xl mx-auto">
-              End-to-end digital solutions crafted specifically for professionals. Every service is tailored to your industry, your brand, and your clients.
+    <div className="min-h-screen bg-white pt-24 lg:pt-32 pb-16 relative overflow-hidden">
+      <MeshGradient className="opacity-[0.15]" />
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+        <AnimatedSection animationType="blur">
+          <div className="text-center mb-24">
+            <h1 className="text-5xl sm:text-7xl font-bold text-apple-black tracking-tight mb-6">Built for impact.</h1>
+            <p className="text-xl text-apple-darkGray max-w-2xl mx-auto font-medium leading-relaxed">
+              Every service we offer is engineered to elevate your professional presence. No compromise.
             </p>
           </div>
         </AnimatedSection>
 
-        <div className="space-y-20">
+        <div className="space-y-32">
           {services.map((service, i) => (
-            <AnimatedSection key={i} delay={i * 100}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <AnimatedSection key={i} delay={i * 100} animationType="fade-up">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
                 <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-5`}>
-                    <service.icon size={28} className="text-white" />
+                  <div className="w-16 h-16 rounded-2xl bg-apple-gray flex items-center justify-center mb-8">
+                    <service.icon size={32} className="text-apple-black" />
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mb-3">{service.title}</h2>
-                  <p className="text-slate-500 leading-relaxed mb-6">{service.desc}</p>
+                  <h2 className="text-4xl font-bold text-apple-black tracking-tight mb-6">{service.title}</h2>
+                  <p className="text-lg text-apple-darkGray font-medium leading-relaxed mb-8">{service.desc}</p>
                   <Link
                     to="/contact"
-                    className="btn-ghost"
+                    className="btn-ghost !text-apple-blue !px-0"
                   >
-                    Get a Quote <ArrowRight size={16} />
+                    Get a quote <ArrowRight size={20} />
                   </Link>
                 </div>
                 <div className={i % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                    <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">What&apos;s Included</h3>
-                    <ul className="space-y-3">
+                  <div className="p-10 lg:p-14 rounded-[48px] bg-apple-gray border border-slate-100/50">
+                    <h3 className="text-[11px] font-bold text-apple-darkGray uppercase tracking-widest mb-8">Engineering Standards</h3>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
                       {service.features.map((feature, j) => (
-                        <li key={j} className="flex items-start gap-3">
-                          <Check size={16} className="text-brand-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-slate-600">{feature}</span>
+                        <li key={j} className="flex items-center gap-3">
+                          <Check size={18} className="text-apple-blue shrink-0" />
+                          <span className="text-sm font-semibold text-apple-black">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -110,17 +107,17 @@ export function ServicesPage() {
           ))}
         </div>
 
-        <AnimatedSection delay={400}>
-          <div className="mt-20 text-center p-8 sm:p-12 rounded-3xl bg-slate-900">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 tracking-tight">Need Something Custom?</h2>
-            <p className="text-slate-300 max-w-lg mx-auto mb-8">
-              Every professional is unique. Tell us what you need and we&apos;ll craft a solution that fits perfectly.
+        <AnimatedSection delay={400} animationType="scale">
+          <div className="mt-32 p-12 lg:p-24 rounded-[64px] bg-apple-black text-white text-center">
+            <h2 className="text-4xl sm:text-6xl font-bold mb-8 tracking-tight">Need a custom stack?</h2>
+            <p className="text-xl text-apple-silver max-w-2xl mx-auto mb-12 font-medium">
+              We specialize in solving unique digital challenges. Let's discuss your architectural needs.
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-brand"
+              className="btn-primary !bg-white !text-apple-black !px-12 !py-5 text-lg"
             >
-              Start a Conversation <ArrowRight size={18} />
+              Start the conversation
             </Link>
           </div>
         </AnimatedSection>

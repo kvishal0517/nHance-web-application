@@ -29,34 +29,32 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled || !isHome
-          ? 'bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-soft'
-          : 'bg-transparent'
+          ? 'bg-white/80 backdrop-blur-xl border-b border-slate-200/40 shadow-sm'
+          : 'bg-white/50 backdrop-blur-md'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-brand">
-              <span className="text-white font-bold text-lg leading-none" style={{ fontFamily: 'Georgia, serif' }}>n</span>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="flex items-center justify-between h-12 lg:h-14">
+          <Link to="/" className="flex items-center gap-2 group transition-opacity hover:opacity-80">
+            <div className="w-8 h-8 rounded-lg bg-apple-black flex items-center justify-center shadow-sm">
+              <span className="text-white font-bold text-base leading-none" style={{ fontFamily: 'Georgia, serif' }}>n</span>
             </div>
-            <span className={`text-xl font-bold transition-colors ${scrolled || !isHome ? 'text-slate-900' : 'text-white'}`}>
-              nH<span className="text-brand-600">&auml;</span>nce
+            <span className="text-lg font-semibold tracking-tight text-apple-black">
+              nH<span className="text-apple-blue">&auml;</span>nce
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-8">
             {links.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                className={`text-xs font-medium transition-all duration-300 ${
                   location.pathname === link.to
-                    ? 'text-brand-600 bg-brand-50'
-                    : scrolled || !isHome
-                    ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                    ? 'text-apple-black'
+                    : 'text-apple-darkGray hover:text-apple-black'
                 }`}
               >
                 {link.label}
@@ -64,7 +62,7 @@ export function Navbar() {
             ))}
             <Link
               to="/contact"
-              className="ml-3 btn-primary text-sm !py-2.5 !px-5"
+              className="ml-4 btn-primary !text-[11px] !py-1.5 !px-4 !rounded-full"
             >
               Get Started
             </Link>
@@ -72,26 +70,24 @@ export function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className={`md:hidden p-2 rounded-lg transition-colors ${
-              scrolled || !isHome ? 'text-slate-600 hover:bg-slate-50' : 'text-white hover:bg-white/10'
-            }`}
+            className="md:hidden p-2 rounded-lg text-apple-black hover:bg-apple-gray transition-colors"
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 shadow-elevated">
-          <div className="px-4 py-3 space-y-1">
+        <div className="md:hidden bg-white h-screen border-t border-slate-100 px-6 py-8 animate-fade-in">
+          <div className="flex flex-col gap-6">
             {links.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                className={`text-2xl font-semibold transition-colors ${
                   location.pathname === link.to
-                    ? 'text-brand-600 bg-brand-50'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'text-apple-black'
+                    : 'text-apple-darkGray hover:text-apple-black'
                 }`}
               >
                 {link.label}
@@ -99,7 +95,7 @@ export function Navbar() {
             ))}
             <Link
               to="/contact"
-              className="block px-3 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg transition-colors text-center mt-2"
+              className="mt-4 btn-primary text-lg !py-4 w-full justify-center"
             >
               Get Started
             </Link>

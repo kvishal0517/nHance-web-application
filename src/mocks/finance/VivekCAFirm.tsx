@@ -1,74 +1,38 @@
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 import {
   FileText,
   Building2,
   ClipboardCheck,
   ArrowLeftRight,
-  Lightbulb,
   ArrowRight,
   Download,
-  Calendar,
   AlertCircle,
-  CheckCircle2,
   BookOpen,
   Factory,
   Stethoscope,
   ShoppingBag,
   Code,
   Bell,
-  Clock,
   Shield,
+  Zap,
+  TrendingUp,
+  FileCheck,
+  Award
 } from 'lucide-react';
 
 const blue = '#1E4D8C';
-const blueDark = '#163A6A';
-const blueLight = '#2563EB';
 
 const complianceWorkflow: AgentWorkflow = {
-  title: 'Compliance Deadline & Client Communication Agent',
+  title: 'Statutory Compliance & Deadline Guard',
   nodes: [
-    {
-      id: '1',
-      label: 'Compliance Calendar',
-      description: 'Master compliance calendar synced with CBDT, GSTN, and MCA statutory deadlines.',
-      automated: true,
-      x: 20,
-      y: 40,
-    },
-    {
-      id: '2',
-      label: '30-Day Reminder',
-      description: 'Clients are notified 30 days before each deadline with a checklist of required documents.',
-      automated: true,
-      x: 200,
-      y: 40,
-    },
-    {
-      id: '3',
-      label: '7-Day Reminder',
-      description: 'Urgent follow-up sent 7 days out. Escalates to phone call if no response within 48 hours.',
-      automated: true,
-      x: 380,
-      y: 40,
-    },
-    {
-      id: '4',
-      label: 'Document Collection',
-      description: 'Secure document upload portal link sent to client for required compliance documents.',
-      automated: true,
-      x: 560,
-      y: 40,
-    },
-    {
-      id: '5',
-      label: 'Post-Filing Confirmation',
-      description: 'Once filing is complete, acknowledgement and filing summary auto-sent to client.',
-      automated: true,
-      x: 200,
-      y: 160,
-    },
+    { id: '1', label: 'Statutory Pulse', description: 'Agent monitors MCA, CBDT, and GSTN portals for new notifications.', automated: true, x: 20, y: 40 },
+    { id: '2', label: 'Deadline Mapping', description: 'AI maps deadlines to the specific client roster based on business type.', automated: true, x: 200, y: 40 },
+    { id: '3', label: 'T-30 Checklist', description: 'Automated document checklist dispatched 30 days before filing.', automated: true, x: 380, y: 40 },
+    { id: '4', label: 'Auto-Reconciliation', description: 'AI cross-references client uploads with bank statements and invoices.', automated: true, x: 560, y: 40 },
+    { id: '5', label: 'Filing Summary', description: 'On completion, a structured tax-impact report is auto-generated for the client.', automated: true, x: 380, y: 160 },
   ],
   edges: [
     { from: '1', to: '2' },
@@ -78,443 +42,243 @@ const complianceWorkflow: AgentWorkflow = {
   ],
 };
 
-const services = [
-  {
-    icon: FileText,
-    title: 'GST Filing & Advisory',
-    description: 'Monthly, quarterly, and annual GST returns (GSTR-1, 3B, 9). Reconciliation, ITC optimization, and department liaison.',
-    tags: ['GSTR-1', 'GSTR-3B', 'GSTR-9', 'ITC Audit'],
-  },
-  {
-    icon: Building2,
-    title: 'Company Incorporation',
-    description: 'Private limited, LLP, OPC, and Section 8 company registrations. End-to-end MCA filings, DSC, and DIN.',
-    tags: ['Pvt Ltd', 'LLP', 'OPC', 'MCA Filing'],
-  },
-  {
-    icon: ClipboardCheck,
-    title: 'Statutory Audit',
-    description: 'Companies Act 2013 compliant audit, tax audit under 44AB, and internal audit for process improvement.',
-    tags: ['Tax Audit', 'Statutory Audit', 'Internal Audit'],
-  },
-  {
-    icon: ArrowLeftRight,
-    title: 'Transfer Pricing',
-    description: 'TP documentation, Form 3CEB, benchmarking studies, and APA applications for MNC subsidiaries.',
-    tags: ['Form 3CEB', 'Benchmarking', 'APA'],
-  },
-  {
-    icon: Lightbulb,
-    title: 'Startup Advisory',
-    description: 'DPIIT recognition, Startup India benefits, ESOP structuring, due diligence support, and fundraise documentation.',
-    tags: ['DPIIT', 'ESOP', 'Due Diligence'],
-  },
+const deadlines = [
+  { date: 'Jun 15', task: 'Advance Tax — Q1 Instalment', category: 'Income Tax', status: 'Upcoming' },
+  { date: 'Jun 20', task: 'GSTR-3B Filing — May 2025', category: 'GST', status: 'Action Required' },
+  { date: 'Jul 31', task: 'ITR Filing — Individuals', category: 'Income Tax', status: 'Planned' },
+  { date: 'Sep 30', task: 'Tax Audit Report — 44AB', category: 'Audit', status: 'Planned' },
 ];
-
-const industries = [
-  { icon: Factory, name: 'Manufacturing', detail: 'GST, customs, and cost audit expertise' },
-  { icon: Code, name: 'Technology & SaaS', detail: 'ESOP, transfer pricing, and overseas subsidiaries' },
-  { icon: Stethoscope, name: 'Healthcare', detail: 'Clinical establishment act and pharma compliance' },
-  { icon: ShoppingBag, name: 'Retail & E-commerce', detail: 'Multi-state GST, marketplace TCS/TDS compliance' },
-];
-
-const complianceDeadlines = [
-  { date: 'Jun 15', task: 'Advance Tax — Q1 Instalment', category: 'Income Tax', urgency: 'medium' },
-  { date: 'Jun 20', task: 'GSTR-3B Filing — May 2025', category: 'GST', urgency: 'high' },
-  { date: 'Jun 11', task: 'GSTR-1 — May 2025 (Monthly)', category: 'GST', urgency: 'high' },
-  { date: 'Jun 30', task: 'LUT Renewal for FY 2025–26', category: 'GST', urgency: 'medium' },
-  { date: 'Jul 31', task: 'ITR Filing — Individuals', category: 'Income Tax', urgency: 'low' },
-  { date: 'Sep 30', task: 'Tax Audit Report — 44AB', category: 'Audit', urgency: 'low' },
-];
-
-const resources = [
-  {
-    title: 'GST Compliance Checklist 2024–25',
-    type: 'PDF Guide',
-    pages: '12 pages',
-    downloads: '1,200+',
-    icon: FileText,
-  },
-  {
-    title: 'Startup India — DPIIT Registration Walkthrough',
-    type: 'Step-by-Step Guide',
-    pages: '8 pages',
-    downloads: '840+',
-    icon: Building2,
-  },
-  {
-    title: 'Transfer Pricing Documentation Essentials',
-    type: 'Technical Note',
-    pages: '15 pages',
-    downloads: '560+',
-    icon: ArrowLeftRight,
-  },
-];
-
-const urgencyStyles: Record<string, { bg: string; text: string; label: string }> = {
-  high: { bg: '#FEE2E2', text: '#DC2626', label: 'Urgent' },
-  medium: { bg: '#FEF3C7', text: '#D97706', label: 'Upcoming' },
-  low: { bg: '#DBEAFE', text: '#1D4ED8', label: 'Planned' },
-};
 
 export default function VivekCAFirm() {
   return (
     <MockLayout projectName="Vivek & Associates — CA Firm" accentColor={blue} categoryId="finance">
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${blueDark} 0%, ${blue} 60%, ${blueLight} 100%)` }}
-      >
-        {/* Decorative diagonal lines */}
-        <div
-          className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(-45deg, white 0, white 1px, transparent 0, transparent 8px)',
-          }}
-        />
+      <div className="bg-white text-slate-900 selection:bg-blue-50 overflow-hidden font-sans">
+        
+        {/* Authoritative Hero */}
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-slate-50">
+          {/* Technical Grid Pattern */}
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#1E4D8C_1px,transparent_1px)] [background-size:20px_20px]" />
+          
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="grid lg:grid-cols-12 gap-16 items-center">
+              <div className="lg:col-span-8">
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white text-blue-800 text-[11px] font-bold uppercase tracking-[0.25em] mb-12 shadow-sm border border-slate-100">
+                    <Shield size={14} className="text-blue-600" />
+                    Chartered Accountants · Est. 2006 · Mumbai · Bangalore
+                  </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-14 items-center">
-            <div>
-              <div
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-white/10 text-white border border-white/20 mb-8"
-              >
-                <Shield size={13} />
-                Chartered Accountants · ICAI Registered · Est. 2006
-              </div>
+                  <h1 className="text-7xl lg:text-[110px] font-black leading-[0.9] tracking-tighter mb-10 text-slate-900">
+                    Full-spectrum 
+                    <br />
+                    <span className="text-blue-700 italic">Integrity.</span>
+                  </h1>
 
-              <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight mb-5">
-                Vivek &amp; Associates
-                <br />
-                <span className="text-blue-200">CA Firm</span>
-              </h1>
+                  <p className="text-2xl lg:text-3xl text-slate-500 max-w-2xl mb-16 font-medium leading-relaxed">
+                    Statutory audit, tax advisory, and startup compliance delivered with clinical precision. We handle the technical depth, so you can focus on growth.
+                  </p>
 
-              <p className="text-lg text-blue-200 mb-4 leading-relaxed">
-                Full-spectrum chartered accountancy services for businesses at every stage. From startup registration to
-                statutory audit, transfer pricing to GST — under one roof.
-              </p>
-
-              <p className="text-blue-300 text-sm mb-10 flex items-center gap-2">
-                <CheckCircle2 size={15} className="flex-shrink-0 text-green-400" />
-                Serving 200+ businesses across India. Offices in Bangalore, Chennai & Mumbai.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <button
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-bold text-sm bg-white transition-transform hover:scale-105"
-                  style={{ color: blue }}
-                >
-                  Book a Free Consultation
-                  <ArrowRight size={16} />
-                </button>
-                <button className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-bold text-sm text-white border border-white/30 hover:border-white/60 transition-colors">
-                  <Calendar size={16} />
-                  See Upcoming Deadlines
-                </button>
+                  <div className="flex flex-col sm:flex-row gap-8 items-center">
+                    <button className="px-14 py-6 bg-blue-800 text-white font-bold rounded-xl text-lg shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3">
+                      Secure Consultation
+                      <ArrowRight size={20} />
+                    </button>
+                    <button className="text-lg font-bold text-slate-400 hover:text-blue-800 transition-colors border-b-2 border-transparent hover:border-blue-800 pb-1">
+                      2025 Compliance Calendar
+                    </button>
+                  </div>
+                </AnimatedSection>
               </div>
             </div>
+          </div>
 
-            {/* Stats card */}
-            <div
-              className="rounded-2xl p-7 border bg-white/5 border-white/10"
-            >
-              <p className="text-xs uppercase tracking-widest text-blue-300 mb-5">Firm at a Glance</p>
-              <div className="grid grid-cols-2 gap-5 mb-7">
-                {[
-                  { value: '200+', label: 'Active Clients' },
-                  { value: '18 Yrs', label: 'In Practice' },
-                  { value: '12', label: 'Qualified CAs' },
-                  { value: '3', label: 'Office Locations' },
-                ].map((s, i) => (
-                  <div key={i} className="bg-white/5 rounded-xl p-4">
-                    <p className="text-2xl font-black text-white mb-0.5">{s.value}</p>
-                    <p className="text-xs text-blue-300">{s.label}</p>
+          {/* Verification Strip */}
+          <div className="absolute bottom-12 right-12 hidden lg:flex flex-col gap-6 text-right">
+            <div className="flex items-center gap-4 justify-end">
+              <div>
+                <p className="text-3xl font-black text-slate-900 tracking-tight">200+</p>
+                <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Active Retainers</p>
+              </div>
+              <FileCheck size={32} className="text-blue-600 opacity-20" />
+            </div>
+            <div className="flex items-center gap-4 justify-end">
+              <div>
+                <p className="text-3xl font-black text-slate-900 tracking-tight">18yr</p>
+                <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Institutional Tenure</p>
+              </div>
+              <TrendingUp size={32} className="text-blue-600 opacity-20" />
+            </div>
+          </div>
+        </section>
+
+        {/* Practice Areas Grid */}
+        <section className="py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+              <AnimatedSection>
+                <p className="text-blue-700 font-bold uppercase tracking-[0.4em] text-[11px] mb-6">Expertise</p>
+                <h2 className="text-6xl font-black tracking-tighter">Practices.</h2>
+              </AnimatedSection>
+              <button className="hidden sm:flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-blue-800 border-b-2 border-blue-800 pb-1">
+                View All Services <ArrowRight size={16} />
+              </button>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+              {[
+                { i: FileText, t: 'GST Advisory', d: 'Filing, reconciliation, and ITC optimization.' },
+                { i: Building2, t: 'Incorporation', d: 'Start-to-finish company & LLP registration.' },
+                { i: ClipboardCheck, t: 'Statutory Audit', d: 'Act compliant audit and tax reporting.' },
+                { i: ArrowLeftRight, t: 'Transfer Pricing', d: 'MNC compliance and benchmarking studies.' },
+              ].map((s, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group bg-slate-50 rounded-[40px] p-10 hover:bg-blue-800 hover:shadow-2xl transition-all duration-700 border border-slate-100 flex flex-col h-full">
+                    <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center mb-10 group-hover:bg-blue-700 transition-all shadow-sm">
+                      <s.i size={24} className="text-blue-800 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight group-hover:text-white transition-colors">{s.t}</h3>
+                    <p className="text-sm text-slate-500 font-medium leading-relaxed flex-1 group-hover:text-blue-100 transition-colors">{s.d}</p>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Compliance Calendar - Interactive Table Visual */}
+        <section className="py-32 bg-slate-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-24">
+              <AnimatedSection>
+                <h2 className="text-5xl lg:text-7xl font-black tracking-tighter mb-6">Stay Ahead.</h2>
+                <p className="text-xl text-slate-500 font-medium max-w-xl mx-auto">Critical statutory deadlines for FY 2025–26. We ensure zero penalties, every time.</p>
+              </AnimatedSection>
+            </div>
+
+            <div className="bg-white rounded-[48px] border border-slate-200 shadow-xl overflow-hidden">
+              <div className="grid grid-cols-4 bg-slate-900 p-8 text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-white/5">
+                <span>Due Date</span>
+                <span className="col-span-2">Task</span>
+                <span className="text-right">Priority</span>
+              </div>
+              <div className="divide-y divide-slate-100">
+                {deadlines.map((d, i) => (
+                  <div key={i} className="grid grid-cols-4 p-8 items-center group hover:bg-slate-50 transition-colors">
+                    <div className="flex flex-col">
+                      <span className="text-lg font-black text-slate-900">{d.date}</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">2025</span>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-base font-bold text-slate-900 mb-1">{d.task}</p>
+                      <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-black uppercase tracking-widest">{d.category}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${
+                        d.status === 'Action Required' ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-700'
+                      }`}>
+                        <AlertCircle size={10} />
+                        {d.status}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
-              <div className="border-t border-white/10 pt-5">
-                <p className="text-xs text-blue-300 mb-3">Practice Areas</p>
-                <div className="flex flex-wrap gap-2">
-                  {['GST', 'Income Tax', 'Audit', 'Company Law', 'Transfer Pricing', 'FEMA'].map((tag, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-white"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              <div className="p-8 bg-slate-50 text-center">
+                <button className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-800 hover:gap-4 transition-all flex items-center justify-center gap-2 mx-auto">
+                  Sync with Calendar <Download size={14} />
+                </button>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Services */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-xs uppercase tracking-widest mb-2 font-semibold" style={{ color: blue }}>
-              Practice Areas
-            </p>
-            <h2 className="text-3xl font-black text-gray-900 mb-3">Our Services</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
-              Comprehensive CA services delivered by qualified professionals with deep industry expertise.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                className={`rounded-2xl p-7 border border-gray-100 hover:border-blue-200 transition-all ${i === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ backgroundColor: `${blue}10` }}
-                >
-                  <service.icon size={22} style={{ color: blue }} />
+        {/* AI Compliance Workflow */}
+        <section className="py-32 bg-blue-900 text-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-white shadow-2xl border border-white/10 overflow-hidden">
+                  <AgentFlowChart workflow={complianceWorkflow} />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{service.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-5">{service.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {service.tags.map((tag, j) => (
-                    <span
-                      key={j}
-                      className="px-2.5 py-1 rounded-md text-xs font-semibold"
-                      style={{ backgroundColor: `${blue}08`, color: blue }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              </AnimatedSection>
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 text-blue-300 text-[11px] font-bold uppercase tracking-[0.25em] mb-10 border border-white/10">
+                    <Zap size={16} className="fill-blue-400" />
+                    Compliance Intelligence
+                  </div>
+                  <h2 className="text-5xl lg:text-6xl font-black tracking-tight mb-10 leading-[0.95]">
+                    Zero missed 
+                    <br />
+                    deadlines.
+                  </h2>
+                  <p className="text-xl text-blue-100/60 font-medium leading-relaxed mb-12">
+                    Regulatory compliance shouldn't be a source of stress. Our proprietary deadline guard agent monitors the statutory pulse of MCA and Income Tax portals, auto-mapping deadlines to your business type and proactively collecting required documentation.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10 group hover:bg-white hover:text-blue-900 transition-all duration-500">
+                      <Bell size={24} className="text-blue-400 mb-6 group-hover:text-blue-900" />
+                      <h4 className="font-black text-sm uppercase tracking-widest mb-2">Proactive Alerts</h4>
+                      <p className="text-xs text-blue-200/60 group-hover:text-blue-800 font-medium">T-30 day automated checklists.</p>
+                    </div>
+                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10 group hover:bg-white hover:text-blue-900 transition-all duration-500">
+                      <FileCheck size={24} className="text-blue-400 mb-6 group-hover:text-blue-900" />
+                      <h4 className="font-black text-sm uppercase tracking-widest mb-2">Impact Audit</h4>
+                      <p className="text-xs text-blue-200/60 group-hover:text-blue-800 font-medium">Instant post-filing tax summaries.</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Industry Focus */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <p className="text-xs uppercase tracking-widest mb-2 font-semibold" style={{ color: blue }}>
-              Sector Experience
-            </p>
-            <h2 className="text-3xl font-black text-gray-900 mb-3">Industry Focus</h2>
-            <p className="text-gray-500">
-              We understand the regulatory nuance of the industries we serve — not just the general rules.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {industries.map((industry, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-blue-200 transition-all group"
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors"
-                  style={{ backgroundColor: `${blue}10` }}
-                >
-                  <industry.icon size={22} style={{ color: blue }} />
+        {/* Industry Strip */}
+        <div className="bg-white py-24 border-y border-slate-100 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-wrap justify-center gap-16">
+              {[
+                { i: Factory, l: 'Manufacturing' },
+                { i: Code, l: 'Tech & SaaS' },
+                { i: Stethoscope, l: 'Healthcare' },
+                { i: ShoppingBag, l: 'E-commerce' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4 group cursor-default">
+                  <item.i size={24} className="text-slate-200 group-hover:text-blue-800 transition-colors" />
+                  <span className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 group-hover:text-slate-900 transition-colors">{item.l}</span>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{industry.name}</h3>
-                <p className="text-sm text-gray-500">{industry.detail}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* Compliance Calendar */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="text-xs uppercase tracking-widest mb-2 font-semibold" style={{ color: blue }}>
-                Stay Ahead
+        {/* Final CTA */}
+        <section className="py-40 bg-[#FAF9F6] relative overflow-hidden text-center text-slate-900">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <AnimatedSection animationType="scale">
+              <Award size={48} className="mx-auto text-blue-800 mb-12" />
+              <h2 className="text-6xl lg:text-[100px] font-black tracking-tighter mb-12 leading-[0.85]">
+                Precision in 
+                <br />
+                the numbers.
+              </h2>
+              <p className="text-2xl text-slate-500 font-medium mb-16 max-w-2xl mx-auto leading-relaxed">
+                Currently taking on new H2 retainers for statutory audit and GST advisory. Secure your business's financial foundation today.
               </p>
-              <h2 className="text-3xl font-black text-gray-900">Compliance Deadline Calendar</h2>
-              <p className="text-gray-500 mt-2">Key upcoming statutory deadlines for businesses in India.</p>
-            </div>
-            <button
-              className="hidden sm:flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg border transition-colors hover:bg-gray-50"
-              style={{ borderColor: `${blue}30`, color: blue }}
-            >
-              <Calendar size={15} />
-              Full Calendar
-            </button>
-          </div>
-
-          <div className="rounded-2xl border border-gray-200 overflow-hidden">
-            {/* Table header */}
-            <div
-              className="grid grid-cols-4 gap-0 text-xs font-bold uppercase tracking-wider py-3 px-5 border-b border-gray-100"
-              style={{ backgroundColor: `${blue}06`, color: blue }}
-            >
-              <span>Due Date</span>
-              <span className="col-span-2">Compliance Task</span>
-              <span className="text-right">Status</span>
-            </div>
-
-            {complianceDeadlines.map((item, i) => {
-              const style = urgencyStyles[item.urgency];
-              return (
-                <div
-                  key={i}
-                  className={`grid grid-cols-4 gap-0 items-center py-4 px-5 border-b border-gray-50 hover:bg-gray-50 transition-colors ${i === complianceDeadlines.length - 1 ? 'border-b-0' : ''}`}
-                >
-                  <div>
-                    <p className="text-sm font-bold text-gray-900">{item.date}</p>
-                    <p className="text-xs text-gray-400">2025</p>
-                  </div>
-                  <div className="col-span-2">
-                    <p className="text-sm font-semibold text-gray-800">{item.task}</p>
-                    <span
-                      className="inline-block mt-1 px-2 py-0.5 rounded text-xs font-medium"
-                      style={{ backgroundColor: `${blue}10`, color: blue }}
-                    >
-                      {item.category}
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <span
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
-                      style={{ backgroundColor: style.bg, color: style.text }}
-                    >
-                      <AlertCircle size={11} />
-                      {style.label}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <p className="text-xs text-gray-400 mt-3 flex items-center gap-1.5">
-            <Clock size={12} />
-            Deadlines shown are for general reference. Actual dates may vary — consult your CA for filing-specific guidance.
-          </p>
-        </div>
-      </section>
-
-      {/* Resource Library */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <p className="text-xs uppercase tracking-widest mb-2 font-semibold" style={{ color: blue }}>
-              Free Guides
-            </p>
-            <h2 className="text-3xl font-black text-gray-900 mb-3">Resource Library</h2>
-            <p className="text-gray-500">Practical guides written by our team. No sign-up required.</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {resources.map((resource, i) => (
-              <div key={i} className="bg-white rounded-2xl p-7 border border-gray-100 flex flex-col">
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-                  style={{ backgroundColor: `${blue}10` }}
-                >
-                  <resource.icon size={20} style={{ color: blue }} />
-                </div>
-
-                <div className="flex items-center gap-2 mb-3">
-                  <span
-                    className="px-2.5 py-1 rounded-md text-xs font-semibold"
-                    style={{ backgroundColor: `${blue}08`, color: blue }}
-                  >
-                    {resource.type}
-                  </span>
-                  <span className="text-xs text-gray-400">{resource.pages}</span>
-                </div>
-
-                <h3 className="text-base font-bold text-gray-900 mb-3 flex-1">{resource.title}</h3>
-
-                <div className="flex items-center justify-between mt-auto pt-5 border-t border-gray-100">
-                  <span className="flex items-center gap-1.5 text-xs text-gray-400">
-                    <Download size={12} />
-                    {resource.downloads} downloads
-                  </span>
-                  <button
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors hover:opacity-90"
-                    style={{ backgroundColor: `${blue}10`, color: blue }}
-                  >
-                    <Download size={14} />
-                    Download
-                  </button>
-                </div>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
+                <button className="px-14 py-6 bg-blue-800 text-white font-bold rounded-xl text-xl shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Book Initial Audit
+                </button>
+                <button className="text-lg font-bold text-slate-400 hover:text-blue-800 transition-colors flex items-center gap-2">
+                  View Resource Library <BookOpen size={24} />
+                </button>
               </div>
-            ))}
+            </AnimatedSection>
           </div>
+        </section>
 
-          <div className="mt-8 text-center">
-            <button
-              className="inline-flex items-center gap-2 text-sm font-semibold"
-              style={{ color: blue }}
-            >
-              <BookOpen size={15} />
-              View All Resources
-              <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* AI Agent Workflow */}
-      <section className="py-24" style={{ backgroundColor: blueDark }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs mb-6 text-white border-white/20 bg-white/5"
-            >
-              <Bell size={12} />
-              Zero Missed Deadlines
-            </div>
-            <h2 className="text-3xl font-black text-white mb-4">
-              Automated Compliance Reminders
-            </h2>
-            <p className="text-blue-300 max-w-xl mx-auto">
-              Our AI agent tracks every statutory deadline and proactively communicates with clients — so nothing slips
-              through the cracks.
-            </p>
-          </div>
-
-          <div className="rounded-2xl p-6 lg:p-10 border border-white/8 bg-white/4">
-            <AgentFlowChart workflow={complianceWorkflow} />
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-5 mt-10">
-            {[
-              {
-                icon: Bell,
-                title: '30-Day Advance Notice',
-                detail: 'Clients receive document checklists a full month before each deadline',
-              },
-              {
-                icon: Shield,
-                title: 'Zero Penalties',
-                detail: 'Automated escalation ensures no client has missed a statutory deadline in 3 years',
-              },
-              {
-                icon: CheckCircle2,
-                title: 'Post-Filing Confirmation',
-                detail: 'Automatic filing acknowledgements with summary sent to every client',
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="p-5 rounded-xl border border-white/8 bg-white/4"
-              >
-                <item.icon size={18} className="mb-3 text-blue-300" />
-                <p className="font-bold text-sm text-white mb-1">{item.title}</p>
-                <p className="text-xs text-blue-400">{item.detail}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </div>
     </MockLayout>
   );
 }

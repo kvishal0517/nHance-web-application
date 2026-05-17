@@ -1,283 +1,231 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Globe, Smartphone, Bot, Briefcase, Star, Zap, Users, ChevronDown } from 'lucide-react';
+import { ArrowRight, Globe, Smartphone, Bot, Briefcase, Zap } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { CATEGORIES } from '../types';
+import { MeshGradient, AbstractBusinessGraphic, FloatingAppGraphic, FloatingGlow, ConfettiShower } from '../components/VisualAssets';
 
 export function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-brand-900/40 to-slate-900" />
-          <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-brand-500/8 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-brand-600/6 rounded-full blur-3xl" />
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
+        <MeshGradient />
+        <FloatingGlow />
+        <ConfettiShower />
+
+        <div className="absolute right-[-10%] top-[10%] w-1/2 h-1/2 opacity-20 pointer-events-none">
+
+          <AbstractBusinessGraphic />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-brand-300 text-sm mb-8 animate-smooth-appear">
-            <Zap size={14} />
-            Tailored Digital Solutions for Every Profession
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-[1.05] tracking-tight mb-6 animate-smooth-appear" style={{ animationDelay: '0.1s' }}>
-            Your Profession Deserves
-            <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-300 to-brand-400">A Digital Presence</span> That Matches
-          </h1>
-
-          <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 animate-smooth-appear" style={{ animationDelay: '0.2s' }}>
-            We craft bespoke websites, portfolios, Android apps, and AI agents tailored to your industry.
-            See exactly what yours could look like.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-smooth-appear" style={{ animationDelay: '0.3s' }}>
-            <Link
-              to="/portfolio"
-              className="group flex items-center gap-2 px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-brand active:scale-[0.98]"
-            >
-              Explore Your Industry
-              <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-            <Link
-              to="/contact"
-              className="flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold rounded-xl transition-all duration-200"
-            >
-              Get a Free Consultation
-            </Link>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/30">
-          <ChevronDown size={24} />
-        </div>
-      </section>
-
-      {/* Ticker */}
-      <div className="bg-slate-50 border-y border-slate-100 py-3 overflow-hidden">
-        <div className="flex animate-ticker whitespace-nowrap">
-          {[...CATEGORIES, ...CATEGORIES].map((cat, i) => (
-            <span key={i} className="inline-flex items-center gap-2 mx-6 text-sm text-slate-400">
-              <cat.icon size={14} className="text-brand-500" />
-              {cat.name}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* How It Works */}
-      <section className="section-padding bg-white">
-        <div className="container-wide">
-          <AnimatedSection>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-3">How It Works</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Three steps to your professional digital presence</h2>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+          <div className="hero-glow" />
+          
+          <AnimatedSection animationType="fade-up" delay={100}>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-apple-gray text-apple-black text-[13px] font-medium mb-10">
+              <span className="flex h-2 w-2 rounded-full bg-apple-blue animate-pulse" />
+              Tailored for your profession
             </div>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Briefcase,
-                title: 'Choose Your Industry',
-                desc: 'Browse mock projects built specifically for your profession. See exactly what your website, portfolio, or app could look like.',
-              },
-              {
-                icon: Star,
-                title: 'Explore Live Demos',
-                desc: 'Interact with fully designed mock projects. Every detail is crafted for your industry \u2014 from colors to content to AI workflows.',
-              },
-              {
-                icon: Zap,
-                title: 'Get Your Custom Solution',
-                desc: 'Love what you see? Submit an enquiry and we build your tailored digital solution from the ground up.',
-              },
-            ].map((step, i) => (
-              <AnimatedSection key={i} delay={i * 100}>
-                <div className="relative p-7 rounded-2xl bg-white border border-slate-100 shadow-soft hover:shadow-medium hover:border-slate-200 transition-all duration-300 group h-full">
-                  <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center shadow-brand">
-                    {i + 1}
-                  </div>
-                  <div className="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center mb-5 group-hover:bg-brand-100 transition-colors">
-                    <step.icon size={24} className="text-brand-600" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-2">{step.title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Overview */}
-      <section className="section-padding bg-slate-50">
-        <div className="container-wide">
-          <AnimatedSection>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-3">What We Build</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">End-to-end digital solutions crafted for professionals</h2>
-            </div>
+          <AnimatedSection animationType="fade-up" delay={200}>
+            <h1 className="text-5xl sm:text-6xl md:text-[84px] font-bold leading-[1.15] tracking-tight mb-8 pb-4 animate-text-reveal">
+              The future of your
+              <br />
+              digital presence.
+            </h1>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: Globe,
-                title: 'Websites',
-                desc: 'Custom-designed, responsive websites that reflect your professional brand and convert visitors into clients.',
-                color: 'from-blue-500 to-cyan-500',
-                bg: 'bg-blue-50',
-              },
-              {
-                icon: Briefcase,
-                title: 'Portfolios',
-                desc: 'Stunning portfolios that showcase your work, credentials, and achievements with visual impact.',
-                color: 'from-emerald-500 to-teal-500',
-                bg: 'bg-emerald-50',
-              },
-              {
-                icon: Smartphone,
-                title: 'Android Apps',
-                desc: 'Native-quality mobile apps that put your services in your clients\u2019 pockets, on the Play Store.',
-                color: 'from-brand-500 to-brand-600',
-                bg: 'bg-brand-50',
-              },
-              {
-                icon: Bot,
-                title: 'AI Agents',
-                desc: 'Intelligent automation agents that handle lead capture, follow-ups, scheduling, and client communication.',
-                color: 'from-rose-500 to-pink-500',
-                bg: 'bg-rose-50',
-              },
-            ].map((service, i) => (
-              <AnimatedSection key={i} delay={i * 80}>
-                <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-soft hover:shadow-medium hover:border-slate-200 transition-all duration-300 group h-full">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                    <service.icon size={22} className="text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-2">{service.title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">{service.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Category Preview */}
-      <section className="section-padding bg-white">
-        <div className="container-wide">
-          <AnimatedSection>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-3">Built for Your Industry</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Every profession has unique needs</h2>
-              <p className="text-slate-500 max-w-xl mx-auto mt-3">
-                We design solutions that speak your language.
-              </p>
-            </div>
+          <AnimatedSection animationType="fade-up" delay={300}>
+            <p className="text-xl sm:text-2xl text-apple-darkGray max-w-3xl mx-auto mb-12 font-medium">
+              We craft bespoke websites, portfolios, and AI agents 
+              <br className="hidden md:block" />
+              specifically designed for your industry.
+            </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            {CATEGORIES.map((cat, i) => (
-              <AnimatedSection key={cat.id} delay={i * 50}>
-                <Link
-                  to="/portfolio"
-                  className="group flex flex-col items-center p-5 rounded-2xl bg-white border border-slate-100 shadow-soft hover:shadow-medium hover:border-brand-200 transition-all duration-300 text-center"
-                >
-                  <cat.icon
-                    size={28}
-                    className="text-slate-300 group-hover:text-brand-500 transition-colors duration-300 mb-3"
-                  />
-                  <span className="text-sm font-medium text-slate-600 group-hover:text-slate-900 transition-colors">
-                    {cat.name}
-                  </span>
-                </Link>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection delay={500}>
-            <div className="text-center mt-10">
+          <AnimatedSection animationType="fade-up" delay={400}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link
                 to="/portfolio"
-                className="btn-ghost"
+                className="btn-primary text-lg !py-4 !px-10"
               >
-                View All Mock Projects
-                <ArrowRight size={16} />
+                Learn more
+              </Link>
+              <Link
+                to="/contact"
+                className="btn-ghost text-lg !text-apple-blue"
+              >
+                Get a consultation
+                <ArrowRight size={20} />
               </Link>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* Social Proof */}
-      <section className="section-padding bg-slate-50">
-        <div className="container-narrow">
-          <AnimatedSection>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-3">Why Professionals Choose Us</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Numbers that speak for themselves</h2>
-            </div>
-          </AnimatedSection>
+      {/* Ticker - Minimalist */}
+      <div className="bg-white border-y border-slate-100 py-6 overflow-hidden">
+        <div className="flex animate-ticker whitespace-nowrap opacity-40 hover:opacity-100 transition-opacity duration-500">
+          {[...CATEGORIES, ...CATEGORIES].map((cat, i) => (
+            <span key={i} className="inline-flex items-center gap-3 mx-10 text-xs font-semibold uppercase tracking-[0.2em] text-apple-black">
+              {cat.name}
+            </span>
+          ))}
+        </div>
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                stat: '10+',
-                label: 'Industries Served',
-                desc: 'From medicine to music, law to tech \u2014 we understand your world.',
-              },
-              {
-                stat: '20+',
-                label: 'Live Mock Projects',
-                desc: 'Interactive demos you can explore before committing.',
-              },
-              {
-                stat: '24h',
-                label: 'Response Time',
-                desc: 'Every enquiry answered within 24 hours by a real human.',
-              },
-            ].map((item, i) => (
-              <AnimatedSection key={i} delay={i * 100}>
-                <div className="text-center p-8 rounded-2xl bg-white border border-slate-100 shadow-soft">
-                  <div className="text-4xl font-bold gradient-text mb-2">{item.stat}</div>
-                  <div className="text-sm font-semibold text-slate-900 mb-1">{item.label}</div>
-                  <p className="text-xs text-slate-400">{item.desc}</p>
+      {/* Product-like Feature Section */}
+      <section className="section-padding bg-apple-gray">
+        <div className="container-wide">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <AnimatedSection animationType="fade-up">
+              <div className="max-w-xl">
+                <h2 className="text-4xl sm:text-5xl font-bold text-apple-black tracking-tight mb-6 leading-tight">
+                  Precision built. 
+                  <br />
+                  Professionally focused.
+                </h2>
+                <p className="text-lg text-apple-darkGray mb-10 leading-relaxed font-medium">
+                  We don't just build websites. We build digital ecosystems that understand the nuances of your field. From legal frameworks to creative portfolios, every detail is engineered for performance.
+                </p>
+                
+                <div className="space-y-6">
+                  {[
+                    { title: 'Industry-specific workflows', desc: 'AI agents that handle your specific client interactions.' },
+                    { title: 'Native-feel design', desc: 'Interfaces that feel as premium as your services.' },
+                    { title: 'Cloud-native performance', desc: 'Fast, secure, and always available.' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-4">
+                      <div className="mt-1 w-5 h-5 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0">
+                        <Zap size={10} className="text-apple-blue" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-apple-black">{item.title}</h4>
+                        <p className="text-sm text-apple-darkGray">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </AnimatedSection>
-            ))}
+              </div>
+            </AnimatedSection>
+            
+            <AnimatedSection delay={200} animationType="scale">
+              <div className="relative aspect-[4/5] lg:aspect-square rounded-[48px] bg-gradient-to-br from-slate-50 to-slate-200 shadow-2xl group border border-slate-100/50">
+                <FloatingAppGraphic />
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Grid Features */}
+      <section className="section-padding bg-white">
+        <div className="container-wide">
+          <div className="text-center mb-24">
+            <h2 className="text-4xl sm:text-6xl font-bold text-apple-black tracking-tight mb-4">Uncompromising quality.</h2>
+            <p className="text-xl text-apple-darkGray font-medium">Standard on every project we deliver.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                icon: Globe,
+                title: 'Websites',
+                desc: 'Clean, responsive, and conversion-optimized.',
+                motion: (
+                  <div className="relative w-full h-12 mt-6 flex items-center justify-center overflow-hidden rounded-xl bg-white/50 group-hover:bg-white transition-colors">
+                    <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                      <div className="w-16 h-16 border border-apple-blue rounded-full animate-spin-slow" />
+                      <div className="absolute w-20 h-20 border border-apple-blue/30 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '12s' }} />
+                    </div>
+                    <div className="w-2 h-2 bg-apple-blue rounded-full animate-pulse" />
+                  </div>
+                )
+              },
+              {
+                icon: Briefcase,
+                title: 'Portfolios',
+                desc: 'Showcase your expertise with visual elegance.',
+                motion: (
+                  <div className="relative w-full h-12 mt-6 flex gap-1 items-center justify-center overflow-hidden rounded-xl bg-white/50 group-hover:bg-white transition-colors px-4">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="h-6 w-1/3 bg-slate-200 rounded-sm animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                    ))}
+                  </div>
+                )
+              },
+              {
+                icon: Smartphone,
+                title: 'Android Apps',
+                desc: 'Direct access to your services on any device.',
+                motion: (
+                  <div className="relative w-full h-12 mt-6 flex items-center justify-center overflow-hidden rounded-xl bg-white/50 group-hover:bg-white transition-colors">
+                    <div className="w-6 h-10 border-2 border-slate-300 rounded-md relative flex items-center justify-center">
+                      <div className="w-1 h-1 bg-apple-blue rounded-full absolute bottom-1" />
+                      <div className="w-4 h-4 rounded-full bg-apple-blue/20 animate-ping" />
+                    </div>
+                  </div>
+                )
+              },
+              {
+                icon: Bot,
+                title: 'AI Agents',
+                desc: 'Intelligent automation for modern efficiency.',
+                motion: (
+                  <div className="relative w-full h-12 mt-6 flex items-center justify-center overflow-hidden rounded-xl bg-white/50 group-hover:bg-white transition-colors">
+                    <div className="flex gap-1.5 items-center">
+                      <div className="w-1.5 h-1.5 bg-apple-blue rounded-full animate-bounce" style={{ animationDelay: '0s' }} />
+                      <div className="w-1.5 h-1.5 bg-apple-blue rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                      <div className="w-1.5 h-1.5 bg-apple-blue rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-apple-blue/5 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
+                  </div>
+                )
+              },
+            ].map((service, i) => (
+              <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                <div className="group p-10 rounded-[40px] bg-apple-gray hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 ease-out border border-transparent hover:border-slate-100 flex flex-col h-full">
+                  <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <service.icon size={28} className="text-apple-black" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-apple-black mb-4">{service.title}</h3>
+                  <p className="text-apple-darkGray font-medium leading-relaxed flex-1">{service.desc}</p>
+                  {service.motion}
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* CTA - The Apple "Buy" feel */}
       <section className="section-padding bg-white">
         <div className="container-narrow">
-          <AnimatedSection>
-            <div className="relative p-8 sm:p-12 rounded-3xl overflow-hidden text-center bg-slate-900">
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-600/20 via-transparent to-transparent" />
+          <AnimatedSection animationType="scale">
+            <div className="relative p-12 sm:p-24 rounded-[64px] bg-apple-black overflow-hidden text-center text-white">
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,#0071e3,transparent_70%)]" />
               <div className="relative z-10">
-                <Users className="w-10 h-10 text-brand-400 mx-auto mb-5" />
-                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 tracking-tight">
-                  Ready to Stand Out in Your Field?
+                <h2 className="text-4xl sm:text-6xl font-bold mb-8 tracking-tight">
+                  Ready to elevate?
                 </h2>
-                <p className="text-slate-300 max-w-lg mx-auto mb-8">
-                  Explore mock projects built for your profession, then let us create something even better \u2014 uniquely yours.
+                <p className="text-xl text-apple-silver mb-12 font-medium max-w-lg mx-auto leading-relaxed">
+                  Join the professionals who choose quality over compromise. Let's build your future today.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                   <Link
                     to="/portfolio"
-                    className="group flex items-center gap-2 px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-brand"
+                    className="btn-primary !bg-white !text-apple-black !px-12 !py-5 text-lg"
                   >
-                    Explore Portfolio
-                    <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
+                    View portfolio
                   </Link>
                   <Link
                     to="/contact"
-                    className="flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold rounded-xl transition-all duration-200"
+                    className="btn-ghost !text-white text-lg"
                   >
-                    Get Free Consultation
+                    Contact sales
+                    <ArrowRight size={20} />
                   </Link>
                 </div>
               </div>

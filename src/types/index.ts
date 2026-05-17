@@ -30,6 +30,7 @@ export interface Project {
   colorTo: string;
   accentColor: string;
   route: string;
+  imageUrl?: string;
 }
 
 export interface AgentNode {
@@ -69,10 +70,11 @@ export const CATEGORIES: Category[] = [
         colorTo: '#1A2744',
         accentColor: '#F5A623',
         route: '/portfolio/academic/pinnacle-coaching',
+        imageUrl: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'iim-alumni',
-        name: 'IIM Alumni Network',
+        name: 'IIT Alumni Network',
         type: 'website',
         badge: 'Member Portal',
         description: 'Premium alumni directory and networking platform with events and mentorship.',
@@ -80,7 +82,9 @@ export const CATEGORIES: Category[] = [
         colorTo: '#1A1A1A',
         accentColor: '#8B1A1A',
         route: '/portfolio/academic/iim-alumni',
+        imageUrl: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1200',
       },
+
     ],
   },
   {
@@ -99,6 +103,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#F0F7F4',
         accentColor: '#2D6A4F',
         route: '/portfolio/medical/dr-priya-cardiologist',
+        imageUrl: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'claritymind-psychiatry',
@@ -110,6 +115,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#EDE7E0',
         accentColor: '#A8C5A0',
         route: '/portfolio/medical/claritymind-psychiatry',
+        imageUrl: 'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },
@@ -129,6 +135,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#1B2838',
         accentColor: '#D4AF37',
         route: '/portfolio/music-art/raagas-resonance',
+        imageUrl: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'studio-kaavya',
@@ -140,6 +147,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#F0F0F0',
         accentColor: '#111111',
         route: '/portfolio/music-art/studio-kaavya',
+        imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },
@@ -159,6 +167,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#2A1508',
         accentColor: '#D4A574',
         route: '/portfolio/food/copper-handi',
+        imageUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'chef-arvind',
@@ -170,6 +179,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#151515',
         accentColor: '#2D6A4F',
         route: '/portfolio/food/chef-arvind',
+        imageUrl: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },
@@ -189,6 +199,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#1A1A1A',
         accentColor: '#DC2626',
         route: '/portfolio/media/siddharth-journalist',
+        imageUrl: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'district-lens',
@@ -200,6 +211,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#F8FAFC',
         accentColor: '#2563EB',
         route: '/portfolio/media/district-lens',
+        imageUrl: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },
@@ -219,6 +231,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#0A0A0A',
         accentColor: '#AAFF00',
         route: '/portfolio/fitness/ironbound-training',
+        imageUrl: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'sattvic-space',
@@ -230,6 +243,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#DCC9A8',
         accentColor: '#1A3C34',
         route: '/portfolio/fitness/sattvic-space',
+        imageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },
@@ -249,6 +263,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#F5F5F5',
         accentColor: '#111111',
         route: '/portfolio/creatives/aanya-brand-designer',
+        imageUrl: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'wunderkind-studio',
@@ -260,6 +275,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#111111',
         accentColor: '#C75B39',
         route: '/portfolio/creatives/wunderkind-studio',
+        imageUrl: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },
@@ -279,6 +295,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#13315D',
         accentColor: '#D4AF37',
         route: '/portfolio/finance/cornerstone-wealth',
+        imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'vivek-ca-firm',
@@ -290,6 +307,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#163A6A',
         accentColor: '#F0F4F8',
         route: '/portfolio/finance/vivek-ca-firm',
+        imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },
@@ -309,6 +327,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#16213E',
         accentColor: '#4361EE',
         route: '/portfolio/legal/mehra-nair-law',
+        imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'lakshmi-family-law',
@@ -320,6 +339,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#E6F2F0',
         accentColor: '#2A9D8F',
         route: '/portfolio/legal/lakshmi-family-law',
+        imageUrl: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },
@@ -339,6 +359,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#161B22',
         accentColor: '#3FB950',
         route: '/portfolio/tech/vikram-staff-engineer',
+        imageUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200',
       },
       {
         id: 'buildfast-cto',
@@ -350,6 +371,7 @@ export const CATEGORIES: Category[] = [
         colorTo: '#F8F9FA',
         accentColor: '#7B2FBE',
         route: '/portfolio/tech/buildfast-cto',
+        imageUrl: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1200',
       },
     ],
   },

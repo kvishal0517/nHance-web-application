@@ -1,560 +1,273 @@
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 import {
   Leaf,
   Sun,
   Moon,
   Wind,
-  Heart,
-  Calendar,
-  MapPin,
-  Clock,
-  Users,
-  CheckCircle,
   ArrowRight,
-  Sparkles,
-  ChevronRight,
+  Heart,
+  Compass,
+  Calendar,
+  Zap,
+  Flower2,
+  ChevronRight
 } from 'lucide-react';
 
-const sand = '#E8D5B7';
 const green = '#1A3C34';
-const greenMid = '#2D5A4F';
-const greenLight = '#3D7A6D';
-const warmWhite = '#FAF7F2';
-const textDark = '#1C2B26';
-const textMid = '#4A6B60';
-const textLight = '#7A9E95';
-const borderColor = '#D4C4A8';
 
 const bookingWorkflow: AgentWorkflow = {
-  title: 'Retreat Booking & Guest Journey Agent',
+  title: 'Mindful Intake & Journey Agent',
   nodes: [
-    {
-      id: '1',
-      label: 'Guest Books Retreat',
-      description: 'Guest selects a retreat and completes the booking — deposit payment confirms the spot.',
-      automated: false,
-      x: 20,
-      y: 40,
-    },
-    {
-      id: '2',
-      label: 'Send Pre-Arrival Guide',
-      description: 'Automated welcome email with packing list, travel directions, dietary guidance, and what to expect.',
-      automated: true,
-      x: 200,
-      y: 40,
-    },
-    {
-      id: '3',
-      label: 'Pre-Retreat Questionnaire',
-      description: 'AI-powered questionnaire gathers health history, yoga experience, and intentions for the retreat.',
-      automated: true,
-      x: 380,
-      y: 40,
-    },
-    {
-      id: '4',
-      label: 'Post-Retreat Resource Pack',
-      description: 'After the retreat, guests receive a curated home practice guide, recordings, and community access.',
-      automated: true,
-      x: 560,
-      y: 40,
-    },
-    {
-      id: '5',
-      label: 'Waitlist Notification',
-      description: 'When a spot opens on a full retreat, waitlisted guests are notified automatically within minutes.',
-      automated: true,
-      x: 200,
-      y: 160,
-    },
+    { id: '1', label: 'Guest Inquiry', description: 'Initial contact via the site or personal recommendation.', automated: false, x: 20, y: 40 },
+    { id: '2', label: 'Intention Matching', description: 'AI captures health goals and spiritual intentions.', automated: true, x: 200, y: 40 },
+    { id: '3', label: 'Bespoke Guide', description: 'Automated guide dispatched with reading lists and preparation steps.', automated: true, x: 380, y: 40 },
+    { id: '4', label: 'Practice Sync', description: 'Syncs retreat themes with the student\'s current home practice.', automated: true, x: 560, y: 40 },
+    { id: '5', label: 'Post-Retreat Log', description: 'Automated 30-day reflection log to integrate the experience.', automated: true, x: 380, y: 160 },
   ],
   edges: [
     { from: '1', to: '2' },
     { from: '2', to: '3' },
     { from: '3', to: '4' },
-    { from: '1', to: '5' },
+    { from: '4', to: '5' },
   ],
 };
 
 const classes = [
-  {
-    style: 'Vinyasa Flow',
-    icon: Wind,
-    description: 'Breath-linked movement that builds heat, strength, and presence. Suitable for all levels.',
-    times: ['Mon / Wed / Fri — 7:00 AM', 'Tue / Thu — 6:30 PM', 'Sat — 8:00 AM'],
-    level: 'All Levels',
-    duration: '75 min',
-  },
-  {
-    style: 'Yin Yoga',
-    icon: Moon,
-    description: 'Long-held floor postures that release deep connective tissue and cultivate inner stillness.',
-    times: ['Mon / Wed — 7:30 PM', 'Sun — 9:30 AM'],
-    level: 'All Levels',
-    duration: '90 min',
-  },
-  {
-    style: 'Pranayama',
-    icon: Leaf,
-    description: 'Ancient breath practices — Nadi Shodhana, Kapalabhati, Bhramari — for nervous system regulation.',
-    times: ['Tue / Thu — 6:30 AM', 'Sat — 7:00 AM'],
-    level: 'Beginner-friendly',
-    duration: '60 min',
-  },
-  {
-    style: 'Guided Meditation',
-    icon: Sun,
-    description: 'Structured sitting practice drawing on Vipassana and Yoga Nidra traditions.',
-    times: ['Daily — 6:00 AM', 'Fri — 8:00 PM (Community sit)'],
-    level: 'All welcome',
-    duration: '45 min',
-  },
+  { style: 'Vinyasa Flow', icon: Wind, desc: 'Breath-linked movement to build internal heat and presence.', level: 'All Levels' },
+  { style: 'Yin Yoga', icon: Moon, desc: 'Long-held postures to release deep connective tissues.', level: 'Beginner+' },
+  { style: 'Pranayama', icon: Leaf, desc: 'Controlled breath techniques for nervous system regulation.', level: 'Advanced' },
+  { style: 'Meditation', icon: Sun, desc: 'Guided silence to observe the movement of the mind.', level: 'Introductory' },
 ];
 
 const retreats = [
   {
-    title: 'Silence & Stillness — Coorg Retreat',
-    subtitle: '5 Days · 4 Nights · Coorg, Karnataka',
-    dates: 'July 18–22, 2026',
-    spotsLeft: 4,
-    totalSpots: 12,
-    price: '₹38,000',
-    priceNote: 'per person, all-inclusive',
-    description: 'Five days of silence, supported by morning yoga, pranayama, guided meditation, forest walks, and sattvic meals prepared fresh each day. No phones after 7 PM.',
-    includes: ['Daily yoga & meditation', 'Forest walks', 'Sattvic meals', 'Private accommodation', 'Pre & post retreat support'],
-    featured: true,
+    title: 'The Silent Valley',
+    location: 'Coorg, Karnataka',
+    date: 'Oct 12–18, 2025',
+    price: '₹75,000',
+    image: 'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&q=80&w=800'
   },
   {
-    title: 'Coastal Reset — Gokarna Weekend',
-    subtitle: '3 Days · 2 Nights · Gokarna, Karnataka',
-    dates: 'August 8–10, 2026',
-    spotsLeft: 7,
-    totalSpots: 10,
-    price: '₹18,000',
-    priceNote: 'per person, all-inclusive',
-    description: 'A short but deep immersion by the sea. Beach walks, twice-daily practice, breathwork, and one full day of silence. An accessible entry point to retreat life.',
-    includes: ['Beach yoga twice daily', 'Breathwork session', 'Silent full-day', 'Meals & accommodation', 'Post-retreat practice guide'],
-    featured: false,
+    title: 'Coastal Stillness',
+    location: 'Gokarna, India',
+    date: 'Jan 04–10, 2026',
+    price: '₹62,000',
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800'
   },
 ];
 
 export default function SattvicSpace() {
   return (
     <MockLayout projectName="Sattvic Space" accentColor={green} categoryId="fitness">
+      <div className="bg-[#FAF9F6] text-slate-900 selection:bg-emerald-50 overflow-hidden">
+        
+        {/* Ethereal Hero */}
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#FAF9F6]">
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=2400" 
+              className="w-full h-full object-cover opacity-10 scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FAF9F6]/80 to-[#FAF9F6]" />
+          </div>
 
-      {/* Hero */}
-      <section style={{ backgroundColor: warmWhite, borderBottom: `1px solid ${borderColor}` }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="flex flex-col lg:flex-row items-center gap-14">
-            <div className="flex-1 text-center lg:text-left">
-              {/* Ornamental divider */}
-              <div className="flex items-center justify-center lg:justify-start gap-3 mb-7">
-                <div className="h-px w-10" style={{ backgroundColor: green }} />
-                <Leaf size={14} style={{ color: green }} />
-                <div className="h-px w-10" style={{ backgroundColor: green }} />
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20 text-center">
+            <AnimatedSection animationType="blur">
+              <div className="flex items-center justify-center gap-3 mb-12">
+                <div className="h-[1px] w-12 bg-slate-200" />
+                <Flower2 size={16} className="text-emerald-900" />
+                <div className="h-[1px] w-12 bg-slate-200" />
               </div>
 
-              <p
-                className="text-xs font-semibold uppercase tracking-widest mb-3"
-                style={{ color: greenLight }}
-              >
-                Yoga · Pranayama · Meditation
-              </p>
-              <h1
-                className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight mb-4"
-                style={{ color: textDark, fontStyle: 'italic' }}
-              >
-                Sattvic
-              </h1>
-              <h1
-                className="text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-6"
-                style={{ color: green }}
-              >
-                Space
+              <h1 className="text-7xl lg:text-[120px] font-bold leading-[0.85] tracking-tighter mb-12 text-emerald-950">
+                Come home
+                <br />
+                to <span className="italic text-emerald-800/40">yourself.</span>
               </h1>
 
-              <p
-                className="text-base leading-relaxed mb-4 max-w-xl"
-                style={{ color: textMid }}
-              >
-                A studio and retreat centre rooted in classical yoga, held in the Kannada countryside spirit. Every class, every retreat, every breath is an invitation to come home to yourself.
-              </p>
-              <p className="text-sm mb-8" style={{ color: textLight }}>
-                Indiranagar, Bengaluru · Retreats across Karnataka
+              <p className="text-xl lg:text-2xl text-slate-500 max-w-2xl mx-auto mb-16 font-medium leading-relaxed">
+                A sanctuary for classical yoga and mindful living. Rooted in tradition, held inIndiranagar, Bangalore.
               </p>
 
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                <button
-                  className="inline-flex items-center gap-2 px-7 py-3 text-sm font-bold text-white rounded-full transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: green }}
-                >
-                  View Class Schedule
-                  <ArrowRight size={15} />
+              <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
+                <button className="px-14 py-6 bg-emerald-950 text-white font-bold rounded-full text-lg shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3">
+                  Join a Class
+                  <ArrowRight size={20} />
                 </button>
-                <button
-                  className="inline-flex items-center gap-2 px-7 py-3 text-sm font-semibold rounded-full border"
-                  style={{ borderColor: green, color: green, backgroundColor: 'transparent' }}
-                >
-                  Explore Retreats
+                <button className="text-lg font-bold text-slate-400 hover:text-emerald-950 transition-colors border-b-2 border-transparent hover:border-emerald-950 pb-1">
+                  Upcoming Retreats
                 </button>
               </div>
-            </div>
+            </AnimatedSection>
+          </div>
+        </section>
 
-            {/* Serene card stack */}
-            <div className="flex-shrink-0 w-full lg:w-80">
-              <div
-                className="rounded-3xl p-7 border"
-                style={{ backgroundColor: sand, borderColor: borderColor }}
-              >
-                <p
-                  className="text-xs font-semibold uppercase tracking-widest mb-5"
-                  style={{ color: greenMid }}
-                >
-                  This Week at Sattvic Space
-                </p>
-                <div className="space-y-3.5">
-                  {[
-                    { day: 'Monday', class: 'Vinyasa Flow', time: '7:00 AM' },
-                    { day: 'Tuesday', class: 'Pranayama', time: '6:30 AM' },
-                    { day: 'Wednesday', class: 'Yin Yoga', time: '7:30 PM' },
-                    { day: 'Friday', class: 'Guided Meditation', time: '8:00 PM (Community Sit)' },
-                    { day: 'Saturday', class: 'Vinyasa Flow', time: '8:00 AM' },
-                  ].map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between py-2.5 px-3 rounded-xl"
-                      style={{ backgroundColor: i === 0 ? `${green}15` : 'rgba(255,255,255,0.5)' }}
-                    >
-                      <div>
-                        <p className="text-xs font-bold" style={{ color: textDark }}>{item.day}</p>
-                        <p className="text-xs" style={{ color: textMid }}>{item.class}</p>
-                      </div>
-                      <span
-                        className="text-xs font-semibold"
-                        style={{ color: i === 0 ? green : textLight }}
-                      >
-                        {item.time}
-                      </span>
-                    </div>
-                  ))}
+        {/* Philosophy Strip */}
+        <div className="bg-white border-y border-slate-100 py-24">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
+              {[
+                { t: 'Rooted Wisdom', d: 'Drawing from Hatha and Raja Yoga traditions with absolute fidelity.', i: Compass },
+                { t: 'Held Space', d: 'Small class sizes ensuring personal alignment and attention.', i: Heart },
+                { t: 'Natural Living', d: 'A practice that extends beyond the mat into daily awareness.', i: Leaf },
+              ].map((item, i) => (
+                <div key={i} className="text-center group cursor-default">
+                  <item.i size={32} className="mx-auto mb-8 text-emerald-900/20 group-hover:text-emerald-950 transition-colors" />
+                  <h4 className="text-xl font-bold mb-4 tracking-tight text-emerald-950">{item.t}</h4>
+                  <p className="text-sm text-slate-400 font-medium leading-relaxed px-8">{item.d}</p>
                 </div>
-                <button
-                  className="w-full mt-5 py-2.5 rounded-full text-sm font-bold text-white transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: green }}
-                >
-                  Book a Class
-                </button>
-              </div>
+              ))}
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Class Schedule */}
-      <section style={{ backgroundColor: warmWhite }} className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: greenLight }}>
-              Weekly Schedule
-            </p>
-            <h2 className="text-3xl font-black" style={{ color: textDark }}>Class Styles</h2>
-            <p className="mt-2 text-sm" style={{ color: textMid }}>
-              Every class is a drop-in or bookable in advance. First class is always free.
-            </p>
-          </div>
+        {/* Styles Grid */}
+        <section className="py-32 bg-[#FAF9F6]">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+              <AnimatedSection>
+                <p className="text-emerald-900 font-bold uppercase tracking-[0.4em] text-[11px] mb-6">Curriculum</p>
+                <h2 className="text-6xl font-black tracking-tighter text-emerald-950">Practices.</h2>
+              </AnimatedSection>
+              <p className="text-lg text-slate-400 max-w-sm font-medium italic">"The posture is the portal, but the breath is the guide."</p>
+            </div>
 
-          <div className="grid sm:grid-cols-2 gap-5">
-            {classes.map((cls, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-6 border flex gap-5"
-                style={{ backgroundColor: i % 2 === 0 ? sand : warmWhite, borderColor: borderColor }}
-              >
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                  style={{ backgroundColor: `${green}15` }}
-                >
-                  <cls.icon size={18} style={{ color: green }} />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-1.5">
-                    <h3 className="font-black text-base" style={{ color: textDark }}>{cls.style}</h3>
-                    <span
-                      className="text-xs px-2 py-0.5 rounded-full ml-2"
-                      style={{ backgroundColor: `${green}12`, color: greenMid }}
-                    >
-                      {cls.duration}
-                    </span>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+              {classes.map((c, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group bg-white rounded-[48px] p-10 hover:shadow-2xl transition-all duration-700 border border-transparent hover:border-white h-full flex flex-col">
+                    <div className="w-16 h-16 rounded-[24px] bg-slate-50 flex items-center justify-center mb-10 group-hover:bg-emerald-950 transition-all duration-500">
+                      <c.icon size={28} className="text-emerald-900 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-emerald-950 mb-3 tracking-tight">{c.style}</h3>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-800/40 mb-6">{c.level}</p>
+                    <p className="text-sm text-slate-500 font-medium leading-relaxed flex-1">{c.desc}</p>
                   </div>
-                  <p className="text-xs mb-3 leading-relaxed" style={{ color: textMid }}>{cls.description}</p>
-                  <div className="space-y-1">
-                    {cls.times.map((t) => (
-                      <p key={t} className="text-xs flex items-center gap-1.5" style={{ color: textLight }}>
-                        <Clock size={11} style={{ color: green }} />
-                        {t}
-                      </p>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Retreats Showcase - High end visual section */}
+        <section className="py-32 bg-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-24">
+              <AnimatedSection>
+                <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter mb-6 text-emerald-950">Gatherings.</h2>
+                <p className="text-xl text-slate-400 font-medium">Immersive experiences in nature, away from the digital noise.</p>
+              </AnimatedSection>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              {retreats.map((r, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group cursor-pointer">
+                    <div className="aspect-[16/10] rounded-[64px] overflow-hidden mb-8 relative shadow-xl">
+                      <img src={r.image} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[2000ms] group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/60 via-transparent to-transparent opacity-80" />
+                      <div className="absolute bottom-10 left-10 right-10 flex justify-between items-end text-white">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">{r.location}</p>
+                          <h4 className="text-3xl font-bold tracking-tight">{r.title}</h4>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">Investment</p>
+                          <p className="text-xl font-black">{r.price}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="px-6 flex justify-between items-center">
+                      <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">{r.date}</p>
+                      <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-900 group-hover:gap-4 transition-all">
+                        View Itinerary <ChevronRight size={14} />
+                      </button>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Mindful Workflow */}
+        <section className="py-32 bg-emerald-950 text-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 text-emerald-400 text-[11px] font-bold uppercase tracking-[0.25em] mb-10 border border-white/10">
+                    <Zap size={16} className="fill-emerald-400" />
+                    Mindful Protocol
+                  </div>
+                  <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-10 leading-[0.95]">
+                    Thoughtful 
+                    <br />
+                    touchpoints.
+                  </h2>
+                  <p className="text-xl text-emerald-100/60 font-medium leading-relaxed mb-12">
+                    Our proprietary journey agent ensures every guest touchpoint is warm and timely. From intention-matching during intake to post-retreat reflection logs, technology serves the human experience.
+                  </p>
+                  
+                  <div className="space-y-8">
+                    {[
+                      { t: 'Intention Mapping', d: 'Personalizing your practice based on mental and physical goals.' },
+                      { t: 'Digital Detox Guide', d: 'Automated prep-material to ease your transition into silence.' },
+                      { t: 'Integration Loop', d: 'A 30-day post-retreat window for continued guidance.' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex gap-4 group">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0 group-hover:scale-150 transition-transform" />
+                        <div>
+                          <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-1">{item.t}</h4>
+                          <p className="text-xs text-emerald-100/40 font-medium leading-relaxed">{item.d}</p>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                  <div className="flex items-center gap-1.5 mt-3">
-                    <Users size={11} style={{ color: greenLight }} />
-                    <span className="text-xs" style={{ color: textLight }}>{cls.level}</span>
-                  </div>
-                </div>
+                </AnimatedSection>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Retreats */}
-      <section style={{ backgroundColor: green }} className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: sand }}>
-              Upcoming Retreats
-            </p>
-            <h2 className="text-3xl font-black text-white">Go Deeper</h2>
-            <p className="mt-2 text-sm" style={{ color: `${sand}AA` }}>
-              Immersions designed to reset the nervous system and return you to yourself.
-            </p>
-          </div>
-
-          <div className="space-y-5">
-            {retreats.map((retreat, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-6 lg:p-8"
-                style={{
-                  backgroundColor: retreat.featured ? 'rgba(232,213,183,0.12)' : 'rgba(255,255,255,0.06)',
-                  border: `1px solid ${retreat.featured ? `${sand}40` : 'rgba(255,255,255,0.1)'}`,
-                }}
-              >
-                <div className="flex flex-col lg:flex-row gap-7">
-                  <div className="flex-1">
-                    {retreat.featured && (
-                      <div
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full mb-3"
-                        style={{ backgroundColor: `${sand}20`, color: sand }}
-                      >
-                        <Sparkles size={11} />
-                        Next Retreat
-                      </div>
-                    )}
-                    <h3 className="text-xl font-black text-white mb-0.5">{retreat.title}</h3>
-                    <p className="text-sm mb-1" style={{ color: `${sand}AA` }}>{retreat.subtitle}</p>
-                    <div className="flex items-center gap-4 mb-4 text-xs" style={{ color: `${sand}80` }}>
-                      <span className="flex items-center gap-1">
-                        <Calendar size={11} />
-                        {retreat.dates}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Users size={11} />
-                        {retreat.spotsLeft} of {retreat.totalSpots} spots left
-                      </span>
-                    </div>
-                    <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(232,213,183,0.8)' }}>
-                      {retreat.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {retreat.includes.map((item) => (
-                        <span
-                          key={item}
-                          className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-full"
-                          style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: `${sand}CC` }}
-                        >
-                          <CheckCircle size={10} style={{ color: sand }} />
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex-shrink-0 lg:w-56 flex flex-col justify-between">
-                    <div
-                      className="rounded-xl p-5 mb-4"
-                      style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}
-                    >
-                      <p className="text-3xl font-black text-white mb-0.5">{retreat.price}</p>
-                      <p className="text-xs" style={{ color: `${sand}80` }}>{retreat.priceNote}</p>
-                      <div className="mt-3 w-full rounded-full h-1.5" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
-                        <div
-                          className="h-1.5 rounded-full"
-                          style={{
-                            backgroundColor: sand,
-                            width: `${((retreat.totalSpots - retreat.spotsLeft) / retreat.totalSpots) * 100}%`,
-                          }}
-                        />
-                      </div>
-                      <p className="text-xs mt-1.5" style={{ color: `${sand}80` }}>
-                        {retreat.totalSpots - retreat.spotsLeft}/{retreat.totalSpots} booked
-                      </p>
-                    </div>
-                    <button
-                      className="w-full py-3 rounded-full text-sm font-bold text-white transition-opacity hover:opacity-90"
-                      style={{ backgroundColor: greenLight }}
-                    >
-                      Reserve a Spot <ChevronRight size={14} className="inline" />
-                    </button>
-                    <button
-                      className="w-full mt-2 py-2.5 rounded-full text-sm font-semibold border"
-                      style={{ borderColor: `${sand}40`, color: `${sand}CC`, backgroundColor: 'transparent' }}
-                    >
-                      Join Waitlist
-                    </button>
-                  </div>
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-white shadow-2xl border border-white/5 overflow-hidden">
+                  <AgentFlowChart workflow={bookingWorkflow} />
                 </div>
-              </div>
-            ))}
+              </AnimatedSection>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Teacher Training */}
-      <section style={{ backgroundColor: sand }} className="py-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-start gap-10">
-            <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: greenLight }}>
-                Teacher Training
+        {/* Final CTA */}
+        <section className="py-40 bg-[#FAF9F6] relative overflow-hidden text-center">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <AnimatedSection animationType="scale">
+              <Flower2 size={48} className="mx-auto text-emerald-900 mb-12" />
+              <h2 className="text-6xl lg:text-[100px] font-bold tracking-tighter mb-12 text-emerald-950 leading-[0.85]">
+                Presence is 
+                <br />
+                the practice.
+              </h2>
+              <p className="text-2xl text-slate-500 font-medium mb-16 max-w-2xl mx-auto leading-relaxed">
+                Join ourIndiranagar studio or reserve your spot for the Silent Valley retreat. We invite you to step into the space.
               </p>
-              <h2 className="text-3xl font-black mb-3" style={{ color: textDark }}>200-Hour YTT</h2>
-              <p className="text-sm leading-relaxed mb-5" style={{ color: textMid }}>
-                A Yoga Alliance-registered 200-hour Teacher Training rooted in classical Hatha and Vinyasa traditions. Small cohorts (max 16), taught over three months in Bengaluru with two immersive residential weekends in Coorg.
-              </p>
-              <ul className="space-y-2.5 mb-6">
-                {[
-                  'Yoga philosophy & history (Yoga Sutras, Bhagavad Gita)',
-                  'Anatomy & physiology for yoga teachers',
-                  'Sequencing, cueing, and hands-on assists',
-                  'Pranayama & meditation methodology',
-                  'Practicum: observed teaching hours',
-                  'Yoga Alliance RYT-200 certification',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm" style={{ color: textDark }}>
-                    <Heart size={13} className="flex-shrink-0 mt-0.5" style={{ color: green }} fill={green} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white"
-                  style={{ backgroundColor: green }}
-                >
-                  Apply for 2026 Cohort
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
+                <button className="px-14 py-6 bg-emerald-950 text-white font-bold rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Book a Trial
                 </button>
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold"
-                  style={{ color: green }}
-                >
-                  Download Curriculum <ChevronRight size={14} />
-                </a>
+                <button className="text-lg font-bold text-slate-400 hover:text-emerald-950 transition-colors flex items-center gap-2">
+                  View Public Calendar <Calendar size={20} />
+                </button>
               </div>
-            </div>
-
-            <div className="flex-shrink-0 lg:w-72 w-full">
-              <div
-                className="rounded-2xl p-6 border"
-                style={{ backgroundColor: warmWhite, borderColor: borderColor }}
-              >
-                <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: greenLight }}>
-                  2026 Cohort
-                </p>
-                <div className="space-y-3.5 text-sm">
-                  {[
-                    { label: 'Duration', value: '3 months (Jan–Mar 2026)' },
-                    { label: 'Format', value: 'Weekends + 2 residentials' },
-                    { label: 'Cohort Size', value: 'Max 16 students' },
-                    { label: 'Investment', value: '₹95,000 all-inclusive' },
-                    { label: 'Certification', value: 'Yoga Alliance RYT-200' },
-                  ].map((detail) => (
-                    <div key={detail.label} className="flex items-start justify-between gap-3">
-                      <span className="text-xs font-semibold" style={{ color: textLight }}>{detail.label}</span>
-                      <span className="text-xs font-bold text-right" style={{ color: textDark }}>{detail.value}</span>
-                    </div>
-                  ))}
-                </div>
-                <div
-                  className="mt-5 pt-4 border-t text-center"
-                  style={{ borderColor: borderColor }}
-                >
-                  <p className="text-xs" style={{ color: textMid }}>
-                    <MapPin size={11} className="inline mr-1" style={{ color: green }} />
-                    Indiranagar, Bengaluru + Coorg
-                  </p>
-                </div>
-              </div>
-            </div>
+            </AnimatedSection>
           </div>
-        </div>
-      </section>
+          
+          {/* Subtle Leaf Visuals */}
+          <div className="absolute top-20 right-[-10%] w-96 h-96 bg-emerald-900/5 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-20 left-[-10%] w-96 h-96 bg-emerald-900/5 rounded-full blur-[120px] pointer-events-none" />
+        </section>
 
-      {/* AI Workflow */}
-      <section style={{ backgroundColor: warmWhite, borderTop: `1px solid ${borderColor}` }} className="py-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="h-px w-8" style={{ backgroundColor: green }} />
-              <Sparkles size={14} style={{ color: green }} />
-              <div className="h-px w-8" style={{ backgroundColor: green }} />
-            </div>
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: greenLight }}>
-              Thoughtfully Automated
-            </p>
-            <h2 className="text-3xl font-black mb-2" style={{ color: textDark }}>The Guest Journey</h2>
-            <p className="text-sm max-w-xl mx-auto" style={{ color: textMid }}>
-              From the moment a guest books a retreat, our AI agent ensures every touchpoint is warm, timely, and personal — so teachers can focus on teaching.
-            </p>
-          </div>
-
-          <div
-            className="rounded-2xl p-6 lg:p-10 border"
-            style={{ backgroundColor: sand, borderColor: borderColor }}
-          >
-            <AgentFlowChart workflow={bookingWorkflow} />
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-5 mt-8">
-            {[
-              {
-                icon: Heart,
-                title: 'Human-first Automation',
-                desc: 'Every automated message is written with care — nothing generic, nothing cold.',
-              },
-              {
-                icon: Leaf,
-                title: 'Pre-Retreat Care',
-                desc: 'Guests arrive prepared, nourished by information and already in the retreat mindset.',
-              },
-              {
-                icon: Sun,
-                title: 'Journey Beyond the Retreat',
-                desc: 'Post-retreat resources keep the practice alive long after guests return home.',
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-xl p-5 border text-center"
-                style={{ backgroundColor: warmWhite, borderColor: borderColor }}
-              >
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center mx-auto mb-3"
-                  style={{ backgroundColor: `${green}12` }}
-                >
-                  <item.icon size={16} style={{ color: green }} />
-                </div>
-                <p className="text-sm font-bold mb-1" style={{ color: textDark }}>{item.title}</p>
-                <p className="text-xs leading-relaxed" style={{ color: textMid }}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      </div>
     </MockLayout>
   );
 }

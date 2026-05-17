@@ -12,11 +12,10 @@ export function AgentFlowChart({ workflow, className = '' }: AgentFlowChartProps
   const width = 700;
   const height = 320;
   const nodeW = 140;
-  const nodeH = 52;
+  const nodeH = 48;
 
   return (
     <div className={`relative ${className}`}>
-      <h3 className="text-lg font-semibold mb-5 text-center text-slate-800">{workflow.title}</h3>
       <div className="overflow-x-auto">
         <svg
           viewBox={`0 0 ${width} ${height}`}
@@ -24,18 +23,15 @@ export function AgentFlowChart({ workflow, className = '' }: AgentFlowChartProps
           style={{ minWidth: '500px' }}
         >
           <defs>
-            <filter id="glow-filter">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-              <polygon points="0 0, 8 3, 0 6" fill="#94A3B8" />
+            <linearGradient id="glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#0071e3" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#0071e3" stopOpacity="0.05" />
+            </linearGradient>
+            <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+              <polygon points="0 0, 6 2, 0 4" fill="#d2d2d7" />
             </marker>
-            <marker id="arrowhead-glow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-              <polygon points="0 0, 8 3, 0 6" fill="#6366F1" />
+            <marker id="arrowhead-active" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+              <polygon points="0 0, 6 2, 0 4" fill="#0071e3" />
             </marker>
           </defs>
 
@@ -58,12 +54,11 @@ export function AgentFlowChart({ workflow, className = '' }: AgentFlowChartProps
                 y1={y1}
                 x2={x2}
                 y2={y2}
-                stroke={bothAutomated ? '#6366F1' : '#CBD5E1'}
-                strokeWidth={bothAutomated ? 2 : 1.5}
-                strokeDasharray={bothAutomated ? '8 4' : 'none'}
-                markerEnd={`url(#${bothAutomated ? 'arrowhead-glow' : 'arrowhead'})`}
-                className={bothAutomated ? 'glow-line' : ''}
-                opacity={bothAutomated ? 0.8 : 0.6}
+                stroke={bothAutomated ? '#0071e3' : '#e8e8ed'}
+                strokeWidth={1}
+                markerEnd={`url(#${bothAutomated ? 'arrowhead-active' : 'arrowhead'})`}
+                className={bothAutomated ? 'animate-pulse' : ''}
+                opacity={bothAutomated ? 1 : 0.5}
               />
             );
           })}
@@ -73,62 +68,57 @@ export function AgentFlowChart({ workflow, className = '' }: AgentFlowChartProps
               key={node.id}
               onMouseEnter={() => setHoveredNode(node.id)}
               onMouseLeave={() => setHoveredNode(null)}
-              className="cursor-pointer"
+              className="cursor-pointer transition-transform duration-300"
+              style={{ transform: hoveredNode === node.id ? 'translateY(-2px)' : 'none' }}
             >
               <rect
                 x={node.x}
                 y={node.y}
                 width={nodeW}
                 height={nodeH}
-                rx={10}
-                fill={node.automated ? '#EEF2FF' : '#F8FAFC'}
-                stroke={node.automated ? '#6366F1' : '#E2E8F0'}
-                strokeWidth={node.automated ? 2 : 1}
-                filter={node.automated ? 'url(#glow-filter)' : undefined}
-                className={node.automated ? 'glow-node' : ''}
+                rx={12}
+                fill={node.automated ? 'white' : '#f5f5f7'}
+                stroke={node.automated ? '#0071e3' : '#e8e8ed'}
+                strokeWidth={node.automated ? 1.5 : 1}
+                className="transition-all duration-300"
+                style={{ 
+                  boxShadow: node.automated ? '0 4px 12px rgba(0, 113, 227, 0.1)' : 'none'
+                }}
               />
               <text
                 x={node.x + nodeW / 2}
-                y={node.y + nodeH / 2 - 4}
+                y={node.y + nodeH / 2}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fill={node.automated ? '#4338CA' : '#475569'}
-                fontSize={11}
-                fontWeight={600}
+                fill={node.automated ? '#1d1d1f' : '#86868b'}
+                fontSize={10}
+                fontWeight={node.automated ? 700 : 500}
+                letterSpacing="-0.01em"
               >
                 {node.label}
               </text>
               {node.automated && (
-                <text
-                  x={node.x + nodeW / 2}
-                  y={node.y + nodeH / 2 + 12}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill="#6366F1"
-                  fontSize={9}
-                >
-                  AI Automated
-                </text>
+                <circle
+                  cx={node.x + nodeW - 12}
+                  cy={node.y + 12}
+                  r="3"
+                  fill="#0071e3"
+                  className="animate-pulse"
+                />
               )}
             </g>
           ))}
         </svg>
       </div>
 
-      {hoveredNode && (
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-600 max-w-xs text-center pointer-events-none shadow-medium">
-          {workflow.nodes.find((n) => n.id === hoveredNode)?.description}
-        </div>
-      )}
-
-      <div className="flex items-center justify-center gap-6 mt-5 text-xs text-slate-400">
-        <span className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-md border-2 border-brand-500 bg-brand-50 glow-node" />
-          AI Automated
+      <div className="flex items-center justify-center gap-8 mt-8">
+        <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-apple-black">
+          <span className="w-2 h-2 rounded-full bg-apple-blue shadow-[0_0_8px_rgba(0,113,227,0.5)] animate-pulse" />
+          AI Core
         </span>
-        <span className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-md border border-slate-200 bg-slate-50" />
-          Manual Step
+        <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-apple-darkGray">
+          <span className="w-2 h-2 rounded-full bg-apple-gray border border-slate-200" />
+          Data Input
         </span>
       </div>
     </div>

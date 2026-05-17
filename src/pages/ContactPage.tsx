@@ -1,49 +1,10 @@
-import { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { CATEGORIES } from '../types';
+import { useEnquiryForm } from '../hooks/useEnquiryForm';
 
 export function ContactPage() {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    profession: '',
-    serviceInterest: '',
-    description: '',
-    budgetRange: '',
-    timeline: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const handleChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
-    try {
-      const webhookUrl = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL;
-      if (webhookUrl) {
-        await fetch(webhookUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-      }
-      setSubmitStatus('success');
-      setFormData({ fullName: '', email: '', phone: '', profession: '', serviceInterest: '', description: '', budgetRange: '', timeline: '' });
-    } catch {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const { formData, handleChange, handleSubmit, isSubmitting, submitStatus, resetForm } = useEnquiryForm();
 
   const inputClass =
     'w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition-all duration-200';
@@ -132,7 +93,7 @@ export function ContactPage() {
                   <h3 className="text-xl font-semibold text-slate-900 mb-2">Enquiry Submitted!</h3>
                   <p className="text-slate-500 mb-6">Thank you for your interest. Our team will reach out within 24 hours.</p>
                   <button
-                    onClick={() => setSubmitStatus('idle')}
+                    onClick={resetForm}
                     className="btn-primary"
                   >
                     Submit Another Enquiry

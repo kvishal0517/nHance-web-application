@@ -1,5 +1,6 @@
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 import {
   ShieldCheck,
@@ -7,463 +8,255 @@ import {
   BarChart3,
   Globe,
   Calendar,
-  FileText,
   ArrowRight,
-  Calculator,
-  CheckCircle,
+  Zap,
   Lock,
-  Star,
-  Bell,
+  PieChart,
+  Compass,
+  ChevronRight,
+  Award
 } from 'lucide-react';
 
-const navy = '#0B2545';
-const navyLight = '#13315D';
 const gold = '#D4AF37';
 
 const leadNurturingWorkflow: AgentWorkflow = {
-  title: 'Lead Nurturing & Financial Review Agent',
+  title: 'Fiduciary Care & Portfolio Intelligence',
   nodes: [
-    {
-      id: '1',
-      label: 'Prospect Uses Calculator',
-      description: 'A prospect uses the SIP or retirement calculator on the website.',
-      automated: false,
-      x: 20,
-      y: 40,
-    },
-    {
-      id: '2',
-      label: 'Capture & Tag Lead',
-      description: 'Lead is captured with their goal type, age, and income bracket automatically tagged.',
-      automated: true,
-      x: 200,
-      y: 40,
-    },
-    {
-      id: '3',
-      label: 'Send Relevant Resource',
-      description: 'A curated guide or case study matching the lead\'s financial goal is sent instantly.',
-      automated: true,
-      x: 380,
-      y: 40,
-    },
-    {
-      id: '4',
-      label: 'Pre-Call Questionnaire',
-      description: 'Before a discovery call, a detailed financial questionnaire is sent to save advisor time.',
-      automated: true,
-      x: 560,
-      y: 40,
-    },
-    {
-      id: '5',
-      label: 'Quarterly Portfolio Check',
-      description: 'Existing clients receive automated quarterly portfolio review summaries.',
-      automated: true,
-      x: 200,
-      y: 160,
-    },
-    {
-      id: '6',
-      label: 'Regulatory Update Alert',
-      description: 'Clients are notified of tax law or SEBI regulation changes relevant to their portfolio.',
-      automated: true,
-      x: 380,
-      y: 160,
-    },
+    { id: '1', label: 'Financial Intake', description: 'Client shares goal profile and risk appetite via the portal.', automated: false, x: 20, y: 40 },
+    { id: '2', label: 'Compliance Audit', description: 'AI cross-checks profile with SEBI regulations and RIA mandates.', automated: true, x: 200, y: 40 },
+    { id: '3', label: 'Goal Simulation', description: 'Probabilistic modeling of corpus-growth across 100+ scenarios.', automated: true, x: 380, y: 40 },
+    { id: '4', label: 'Draft Strategy', description: 'Automated generation of a conflict-free asset allocation plan.', automated: true, x: 560, y: 40 },
+    { id: '5', label: 'Quarterly Rebalance', description: 'AI monitors drift and flags rebalancing opportunities proactively.', automated: true, x: 380, y: 160 },
   ],
   edges: [
     { from: '1', to: '2' },
     { from: '2', to: '3' },
     { from: '3', to: '4' },
     { from: '4', to: '5' },
-    { from: '5', to: '6' },
   ],
 };
 
-const services = [
-  {
-    icon: TrendingUp,
-    title: 'Financial Planning',
-    description: 'Goal-based plans for wealth accumulation, major milestones, and life events — with clear, actionable steps.',
-    highlight: false,
-  },
-  {
-    icon: BarChart3,
-    title: 'Tax Optimization',
-    description: 'Legal tax minimization strategies for salaried individuals, business owners, and HUFs.',
-    highlight: true,
-  },
-  {
-    icon: Globe,
-    title: 'NRI Advisory',
-    description: 'Investment and compliance guidance for Non-Resident Indians navigating FEMA and cross-border taxation.',
-    highlight: false,
-  },
-  {
-    icon: Calendar,
-    title: 'Retirement Planning',
-    description: 'Structured corpus-building using NPS, EPF, annuities, and equity for a fully-funded retirement.',
-    highlight: false,
-  },
-  {
-    icon: FileText,
-    title: 'Estate Planning',
-    description: 'Wills, trusts, and succession planning to ensure your wealth transfers exactly as intended.',
-    highlight: false,
-  },
-];
-
-const personas = [
-  {
-    title: 'Senior Professionals',
-    description: 'Ages 35–55 with complex compensation — ESOP, bonus, equity. We untangle the tax implications and build portfolios that match their risk maturity.',
-    tags: ['Portfolio Review', 'ESOP Planning', 'Tax Filing'],
-    icon: TrendingUp,
-  },
-  {
-    title: 'NRI Clients',
-    description: 'Indians overseas navigating double taxation, FEMA compliance, and repatriation. We handle both sides of the border.',
-    tags: ['FEMA Compliance', 'Cross-Border Tax', 'Repatriation'],
-    icon: Globe,
-  },
-  {
-    title: 'Business Owners',
-    description: 'Entrepreneurs separating business and personal wealth, planning exits, and structuring for generational transfer.',
-    tags: ['Business Valuation', 'Succession', 'HUF Planning'],
-    icon: BarChart3,
-  },
-];
-
-const calculators = [
-  {
-    title: 'SIP Returns',
-    description: 'See how your monthly investment compounds over time.',
-    metric: '₹50L in 15 yrs',
-    sub: 'at ₹10K/month, 12% p.a.',
-  },
-  {
-    title: 'Retirement Corpus',
-    description: 'How much do you need to retire comfortably?',
-    metric: '₹3.2 Cr',
-    sub: 'needed at 60 for 25yr retirement',
-  },
-  {
-    title: 'Tax Savings',
-    description: 'Maximum deductions you\'re eligible for this year.',
-    metric: '₹46,800',
-    sub: 'max savings under 80C + NPS',
-  },
-];
-
 const trustSignals = [
-  { value: '₹500 Cr+', label: 'Assets Under Advisory' },
-  { value: '18 Yrs', label: 'In Practice' },
-  { value: '340+', label: 'Client Families' },
-  { value: 'SEBI RIA', label: 'Registered' },
+  { value: '₹500 Cr+', label: 'Advisory AUM' },
+  { value: '18 Yrs', label: 'Clinical Tenure' },
+  { value: '340+', label: 'Elite Families' },
+  { value: 'RIA', label: 'SEBI Registered' },
 ];
 
 export default function CornerstoneWealth() {
   return (
     <MockLayout projectName="Cornerstone Wealth Advisory" accentColor={gold} categoryId="finance">
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${navy} 0%, ${navyLight} 70%, #0F2E5A 100%)` }}
-      >
-        {/* Subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `linear-gradient(${gold} 1px, transparent 1px), linear-gradient(90deg, ${gold} 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
-          }}
-        />
+      <div className="bg-white text-apple-black selection:bg-blue-50 overflow-hidden font-sans">
+        
+        {/* Institutional Hero */}
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#0A1A2F]">
+          {/* Grainy, Deep Blue Background */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2400" 
+              className="w-full h-full object-cover opacity-10 grayscale scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A1A2F]/80 to-[#0A1A2F]" />
+          </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              {/* Trust badge */}
-              <div
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-8 border"
-                style={{ borderColor: `${gold}40`, backgroundColor: `${gold}10`, color: gold }}
-              >
-                <ShieldCheck size={13} />
-                SEBI Registered Investment Advisor · Reg. No. INA000000000
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="grid lg:grid-cols-12 gap-20 items-center">
+              <div className="lg:col-span-7">
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white text-[11px] font-bold uppercase tracking-[0.4em] mb-12">
+                    <ShieldCheck size={14} className="text-amber-500" />
+                    SEBI Registered Investment Advisor · Fiduciary Only
+                  </div>
+
+                  <h1 className="text-7xl lg:text-[110px] font-bold text-white leading-[0.9] tracking-tighter mb-12">
+                    Wealth with 
+                    <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-600 italic">absolute clarity.</span>
+                  </h1>
+
+                  <p className="text-2xl lg:text-3xl text-slate-400 max-w-xl mb-16 font-medium leading-relaxed">
+                    Fee-only, conflict-free wealth advisory for senior professionals and business owners. Your goals are our only mandate.
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-8 items-center">
+                    <button className="px-14 py-6 bg-amber-600 text-[#0A1A2F] font-bold rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3">
+                      Start Discovery
+                      <ArrowRight size={20} />
+                    </button>
+                    <button className="text-lg font-bold text-slate-400 hover:text-white transition-colors border-b-2 border-transparent hover:border-amber-600 pb-1">
+                      Our Fiduciary Oath
+                    </button>
+                  </div>
+                </AnimatedSection>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
-                Your financial
-                <br />
-                clarity starts
-                <br />
-                <span style={{ color: gold }}>here.</span>
-              </h1>
-
-              <p className="text-lg text-blue-200 mb-10 max-w-lg leading-relaxed">
-                Fee-only, fiduciary wealth advisory for senior professionals, business owners, and NRI families.
-                No commissions. No conflicts. Only your best interest.
-              </p>
-
-              <div className="flex flex-wrap gap-4 mb-10">
-                <button
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg font-bold text-sm text-black transition-transform hover:scale-105"
-                  style={{ backgroundColor: gold }}
-                >
-                  Book a Free Discovery Call
-                  <ArrowRight size={16} />
-                </button>
-                <button className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg font-bold text-sm text-white border border-white/20 hover:border-white/40 transition-colors">
-                  <Calculator size={16} />
-                  Use Free Calculators
-                </button>
-              </div>
-
-              <div className="flex flex-wrap gap-6 text-sm text-blue-300">
-                {[
-                  'No product commissions',
-                  'Transparent fee structure',
-                  'SEBI registered & compliant',
-                ].map((item, i) => (
-                  <span key={i} className="flex items-center gap-1.5">
-                    <CheckCircle size={14} style={{ color: gold }} />
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Trust stats card */}
-            <div>
-              <div
-                className="rounded-2xl p-8 border"
-                style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: `${gold}30` }}
-              >
-                <p className="text-xs uppercase tracking-widest mb-6" style={{ color: gold }}>
-                  Track Record
-                </p>
-                <div className="grid grid-cols-2 gap-6 mb-8">
-                  {trustSignals.map((s, i) => (
-                    <div key={i}>
-                      <p className="text-3xl font-black mb-1" style={{ color: gold }}>{s.value}</p>
-                      <p className="text-xs text-blue-300 uppercase tracking-wide">{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="border-t pt-6" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
-                  <div className="flex items-start gap-3 mb-4">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-black text-black"
-                      style={{ backgroundColor: gold }}
-                    >
-                      SC
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold text-sm">Srinivas Chakravarthy</p>
-                      <p className="text-blue-400 text-xs">Founder & Lead Advisor · CFA, CFP®</p>
+              <div className="lg:col-span-5 relative">
+                <AnimatedSection delay={200} animationType="scale">
+                  {/* Wealth Dashboard Visual */}
+                  <div className="p-1 rounded-[48px] bg-gradient-to-br from-white/10 to-transparent border border-white/10 backdrop-blur-3xl shadow-3xl overflow-hidden">
+                    <div className="bg-[#0A1A2F]/80 rounded-[44px] p-10">
+                      <div className="flex items-center justify-between mb-10">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-amber-500">Live Impact</p>
+                        <TrendingUp className="text-amber-500" size={16} />
+                      </div>
+                      <div className="space-y-8">
+                        {trustSignals.map((s, i) => (
+                          <div key={i} className="flex items-center justify-between group">
+                            <div>
+                              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter mb-1 group-hover:text-amber-500 transition-colors">{s.label}</p>
+                              <p className="text-3xl font-black text-white tracking-tight">{s.value}</p>
+                            </div>
+                            <ChevronRight size={20} className="text-white/10 group-hover:text-amber-500 group-hover:translate-x-2 transition-all" />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-10 pt-10 border-t border-white/5 flex items-center gap-4">
+                        <Lock size={16} className="text-slate-500" />
+                        <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">Bank-grade data security enabled.</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex gap-1 mb-2">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} size={13} className="fill-yellow-400 text-yellow-400" />
+                </AnimatedSection>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Fiduciary Strip */}
+        <div className="bg-white py-20 border-y border-slate-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+              {[
+                { t: 'Zero Commissions', d: 'We never accept kickbacks from fund houses. We work only for you.', i: Zap },
+                { t: 'Conflict-Free', d: 'No products to sell. Just rigorous, objective advice.', i: Compass },
+                { t: 'Clinical Rigor', d: 'A decade of data-driven investment philosophy.', i: PieChart },
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6 items-start group">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center shrink-0 group-hover:bg-amber-600 transition-all">
+                    <item.i size={20} className="text-amber-600 group-hover:text-white transition-colors" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold mb-2 tracking-tight text-[#0A1A2F]">{item.t}</h4>
+                    <p className="text-sm text-slate-500 font-medium leading-relaxed">{item.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Advisory Services Grid */}
+        <section className="py-32 bg-slate-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:items-end md:flex-row justify-between mb-24 gap-8">
+              <AnimatedSection>
+                <p className="text-amber-600 font-bold uppercase tracking-[0.4em] text-[11px] mb-6">Core Offering</p>
+                <h2 className="text-6xl font-black tracking-tighter text-[#0A1A2F]">Architecture.</h2>
+              </AnimatedSection>
+              <p className="text-lg text-slate-400 max-w-sm font-medium italic">"Wealth is not just a number; it's the freedom to choose your next chapter."</p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { i: TrendingUp, t: 'Wealth Strategy', d: 'Comprehensive plans for multi-generational growth.' },
+                { i: BarChart3, t: 'Tax Hygiene', d: 'Legal optimization for high-net-worth complexity.' },
+                { i: Globe, t: 'NRI Advisory', d: 'Cross-border compliance and FEMA-aligned structures.' },
+                { i: Calendar, t: 'Retirement', d: 'Structured corpus building for total lifestyle autonomy.' },
+              ].map((s, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group bg-white rounded-[48px] p-10 hover:shadow-2xl transition-all duration-700 border border-transparent hover:border-white flex flex-col h-full">
+                    <div className="w-16 h-16 rounded-[24px] bg-slate-50 flex items-center justify-center mb-10 group-hover:bg-[#0A1A2F] transition-all">
+                      <s.i size={28} className="text-[#0A1A2F] group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-black text-[#0A1A2F] mb-4 tracking-tight">{s.t}</h3>
+                    <p className="text-sm text-slate-500 font-medium leading-relaxed flex-1">{s.d}</p>
+                    <button className="mt-10 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#0A1A2F] group-hover:gap-4 transition-all">
+                      Learn More <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Fiduciary Workflow */}
+        <section className="py-32 bg-[#0A1A2F] text-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 text-amber-500 text-[11px] font-bold uppercase tracking-[0.25em] mb-10 border border-white/10">
+                    <Zap size={16} className="fill-amber-500" />
+                    Neural Advisory
+                  </div>
+                  <h2 className="text-5xl lg:text-6xl font-black tracking-tight mb-10 leading-[0.95]">
+                    Predictive
+                    <br />
+                    Fiduciary.
+                  </h2>
+                  <p className="text-xl text-slate-400 font-medium leading-relaxed mb-12">
+                    Our proprietary wealth agent maintains constant vigilance over your portfolio. From automated compliance audits to Monte Carlo goal simulations, we use technology to protect your legacy 24/7.
+                  </p>
+                  
+                  <div className="space-y-6">
+                    {[
+                      'Real-time regulatory sync with SEBI/CBDT.',
+                      'Probabilistic risk-drift monitoring.',
+                      'Automated multi-generational tax mapping.',
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-4 text-sm font-bold text-white/40">
+                        <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                        {item}
+                      </div>
                     ))}
                   </div>
-                  <p className="text-sm italic text-blue-300">
-                    "Cornerstone turned our financial chaos into a clear 10-year roadmap. Worth every rupee."
-                  </p>
-                  <p className="text-xs text-blue-500 mt-1">— Client since 2019</p>
-                </div>
+                </AnimatedSection>
               </div>
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-white/[0.02] border border-white/5 shadow-inner backdrop-blur-3xl overflow-hidden">
+                  <AgentFlowChart workflow={leadNurturingWorkflow} />
+                </div>
+              </AnimatedSection>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Services */}
-      <section className="py-24" style={{ backgroundColor: navy }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: gold }}>What We Offer</p>
-            <h2 className="text-3xl font-black text-white mb-3">Advisory Services</h2>
-            <p className="text-blue-300 max-w-xl mx-auto">
-              Comprehensive wealth management across every dimension of your financial life.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                className={`rounded-2xl p-7 border transition-all hover:scale-[1.01] ${i === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
-                style={{
-                  backgroundColor: service.highlight ? `${gold}10` : 'rgba(255,255,255,0.04)',
-                  borderColor: service.highlight ? `${gold}40` : 'rgba(255,255,255,0.07)',
-                }}
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ backgroundColor: `${gold}15` }}
-                >
-                  <service.icon size={22} style={{ color: gold }} />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-3">{service.title}</h3>
-                <p className="text-sm text-blue-300 leading-relaxed mb-5">{service.description}</p>
-                <button
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold"
-                  style={{ color: gold }}
-                >
-                  Learn More <ArrowRight size={12} />
+        {/* Final CTA */}
+        <section className="py-40 bg-white relative overflow-hidden text-center text-apple-black">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <AnimatedSection animationType="scale">
+              <Award size={48} className="mx-auto text-amber-600 mb-12" />
+              <h2 className="text-6xl lg:text-[100px] font-bold tracking-tighter mb-12 leading-[0.85]">
+                Secure the 
+                <br />
+                destination.
+              </h2>
+              <p className="text-2xl text-slate-500 font-medium mb-16 max-w-2xl mx-auto leading-relaxed">
+                We accept a limited number of new families each quarter to ensure clinical attention. Start your discovery call with Srini today.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
+                <button className="px-14 py-6 bg-[#0A1A2F] text-white font-bold rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Book Discovery Call
+                </button>
+                <button className="text-lg font-bold text-slate-400 hover:text-[#0A1A2F] transition-colors flex items-center gap-2">
+                  Download Sample Plan <ChevronRight size={24} />
                 </button>
               </div>
-            ))}
+            </AnimatedSection>
           </div>
-        </div>
-      </section>
-
-      {/* Who We Serve */}
-      <section className="py-24" style={{ backgroundColor: navyLight }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-14">
-            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: gold }}>Our Clients</p>
-            <h2 className="text-3xl font-black text-white mb-3">Who We Serve</h2>
-            <p className="text-blue-300">
-              We specialize in complexity. If your financial situation has more moving parts than a standard plan can handle, you've found the right advisor.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {personas.map((persona, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-8 border"
-                style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.07)' }}
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
-                  style={{ backgroundColor: `${gold}12` }}
-                >
-                  <persona.icon size={22} style={{ color: gold }} />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-3">{persona.title}</h3>
-                <p className="text-sm text-blue-300 leading-relaxed mb-5">{persona.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {persona.tags.map((tag, j) => (
-                    <span
-                      key={j}
-                      className="px-3 py-1 rounded-full text-xs font-medium"
-                      style={{ backgroundColor: `${gold}15`, color: gold }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Calculators Teaser */}
-      <section className="py-24" style={{ backgroundColor: navy }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: gold }}>Free Tools</p>
-            <h2 className="text-3xl font-black text-white mb-3">Financial Calculators</h2>
-            <p className="text-blue-300 max-w-xl mx-auto">
-              Start with clarity. Use our calculators to understand your numbers — no sign-up required.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {calculators.map((calc, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-7 border group hover:border-yellow-600/40 transition-all cursor-pointer"
-                style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.07)' }}
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-                  style={{ backgroundColor: `${gold}12` }}
-                >
-                  <Calculator size={20} style={{ color: gold }} />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2">{calc.title} Calculator</h3>
-                <p className="text-sm text-blue-300 mb-5">{calc.description}</p>
-
-                {/* Sample output */}
-                <div
-                  className="rounded-xl p-4 mb-5"
-                  style={{ backgroundColor: `${gold}08`, border: `1px solid ${gold}20` }}
-                >
-                  <p className="text-2xl font-black mb-0.5" style={{ color: gold }}>{calc.metric}</p>
-                  <p className="text-xs text-blue-400">{calc.sub}</p>
-                </div>
-
-                <button
-                  className="w-full py-2.5 rounded-lg text-sm font-semibold border transition-colors"
-                  style={{ borderColor: `${gold}40`, color: gold }}
-                >
-                  Try Calculator
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 text-center">
-            <p className="text-sm text-blue-400 flex items-center justify-center gap-2">
-              <Lock size={13} />
-              All calculations are private. We never store your data without consent.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* AI Agent Workflow */}
-      <section className="py-24" style={{ backgroundColor: navyLight }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs mb-6"
-              style={{ borderColor: `${gold}30`, backgroundColor: `${gold}08`, color: gold }}
-            >
-              <Bell size={12} />
-              Always-On Client Care
+          
+          {/* Subtle Grid Lines */}
+          <div className="absolute inset-0 opacity-[0.01] pointer-events-none">
+            <div className="grid grid-cols-12 h-full">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className="border-r border-black h-full" />
+              ))}
             </div>
-            <h2 className="text-3xl font-black text-white mb-4">
-              From Calculator to Conversation — Automatically
-            </h2>
-            <p className="text-blue-300 max-w-xl mx-auto">
-              Our AI agent nurtures every lead intelligently and keeps existing clients informed on their portfolio and regulatory changes.
-            </p>
           </div>
+        </section>
 
-          <div
-            className="rounded-2xl p-6 lg:p-10 border"
-            style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: `${gold}20` }}
-          >
-            <AgentFlowChart workflow={leadNurturingWorkflow} />
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-5 mt-10">
-            {[
-              { icon: Calculator, title: 'Smart Lead Capture', detail: 'Every calculator user tagged with goal type and income bracket' },
-              { icon: FileText, title: 'Personalized Nurture', detail: 'Resources matched to each prospect\'s financial objective automatically' },
-              { icon: ShieldCheck, title: 'Compliant Communication', detail: 'All automated messages follow SEBI communication guidelines' },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="p-5 rounded-xl border"
-                style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.06)' }}
-              >
-                <item.icon size={18} className="mb-3" style={{ color: gold }} />
-                <p className="font-bold text-sm text-white mb-1">{item.title}</p>
-                <p className="text-xs text-blue-400">{item.detail}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </div>
     </MockLayout>
   );
 }

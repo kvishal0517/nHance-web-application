@@ -1,11 +1,10 @@
-import { Heart, Activity, Zap, AlertCircle, Phone, MapPin, Clock, Star, ChevronRight, CheckCircle } from 'lucide-react';
+import { Heart, Activity, Zap, AlertCircle, Phone, MapPin, Clock, ArrowRight, ShieldCheck, Stethoscope } from 'lucide-react';
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 
 const ACCENT = '#2D6A4F';
-const ACCENT_LIGHT = '#E8F5EE';
-const ACCENT_MID = '#52976E';
 
 const workflow: AgentWorkflow = {
   title: 'Patient Pre-Consultation Agent',
@@ -79,335 +78,241 @@ const workflow: AgentWorkflow = {
 const conditions = [
   {
     icon: Heart,
-    title: 'Coronary Heart Disease',
-    description: 'Comprehensive evaluation and long-term management of coronary artery disease, angina, and atherosclerosis.',
+    title: 'Coronary Care',
+    description: 'Comprehensive evaluation and long-term management of coronary artery disease.',
+    stat: '98% Success'
   },
   {
     icon: Activity,
     title: 'Arrhythmia',
-    description: 'Diagnosis and treatment of irregular heart rhythms including atrial fibrillation and ventricular tachycardia.',
+    description: 'Diagnosis and treatment of irregular heart rhythms including AFib.',
+    stat: 'Advanced EP'
   },
   {
     icon: AlertCircle,
     title: 'Hypertension',
-    description: 'Evidence-based blood pressure management tailored to each patient\'s lifestyle and comorbidities.',
+    description: 'Evidence-based blood pressure management tailored to your lifestyle.',
+    stat: 'Holistic'
   },
   {
     icon: Zap,
     title: 'Heart Failure',
-    description: 'Specialised care for systolic and diastolic heart failure with multidisciplinary coordination.',
-  },
-];
-
-const procedures = [
-  {
-    title: 'Coronary Angioplasty',
-    description: 'Minimally invasive procedure to open blocked or narrowed coronary arteries and restore blood flow.',
-    duration: '1–2 hours',
-  },
-  {
-    title: 'Echocardiography',
-    description: 'High-resolution ultrasound imaging of the heart to assess structure, valves, and pumping function.',
-    duration: '30–45 min',
-  },
-  {
-    title: 'Pacemaker Implantation',
-    description: 'Surgical placement of a cardiac pacemaker to regulate slow or irregular heartbeats.',
-    duration: '1–2 hours',
-  },
-];
-
-const testimonials = [
-  {
-    name: 'Rajesh Kumar',
-    age: 58,
-    text: 'Dr. Menon took the time to explain every aspect of my diagnosis in plain language. After my angioplasty, I felt genuinely cared for — not just treated. My recovery has been remarkable.',
-    rating: 5,
-  },
-  {
-    name: 'Sunita Agarwal',
-    age: 64,
-    text: 'I was terrified when I was referred for heart failure management. Dr. Menon\'s calm, thorough approach gave me confidence. Two years on, I\'m living a full, active life again.',
-    rating: 5,
+    description: 'Specialised care with multidisciplinary coordination and advanced monitoring.',
+    stat: 'Life-saving'
   },
 ];
 
 export default function DrPriyaCardiologist() {
   return (
     <MockLayout projectName="Dr. Priya Menon — Cardiologist" accentColor={ACCENT} categoryId="medical">
-      <div className="bg-white text-gray-800">
-
-        {/* ── Hero ── */}
-        <section className="relative overflow-hidden bg-white border-b border-gray-100">
-          {/* ECG decorative SVG */}
-          <div className="absolute inset-0 pointer-events-none select-none opacity-[0.06]">
-            <svg viewBox="0 0 1200 200" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-              <polyline
-                fill="none"
-                stroke="#2D6A4F"
-                strokeWidth="3"
-                points="
-                  0,100 100,100 130,100 140,30 155,170 170,30 185,170 200,100
-                  260,100 290,100 300,10  315,190 330,10  345,190 360,100
-                  420,100 450,100 460,20  475,180 490,20  505,180 520,100
-                  580,100 610,100 620,15  635,185 650,15  665,185 680,100
-                  740,100 770,100 780,25  795,175 810,25  825,175 840,100
-                  900,100 930,100 940,20  955,180 970,20  985,180 1000,100
-                  1060,100 1090,100 1100,30 1115,170 1130,30 1145,170 1160,100 1200,100
-                "
-              />
-            </svg>
-          </div>
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left: credentials */}
-              <div>
-                <div
-                  className="inline-flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-full mb-6"
-                  style={{ backgroundColor: ACCENT_LIGHT, color: ACCENT }}
-                >
-                  <Activity size={14} />
-                  Interventional Cardiologist · 22 Years Experience
+      <div className="bg-white text-apple-black selection:bg-emerald-50">
+        
+        {/* Prestige Hero */}
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-white">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-apple-gray hidden lg:block skew-x-[-6deg] translate-x-20" />
+          
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <AnimatedSection animationType="blur">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-apple-gray text-apple-black text-[11px] font-bold uppercase tracking-[0.2em] mb-10 shadow-sm">
+                  <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Accepting New Patients
                 </div>
-                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
-                  Dr. Priya Menon
-                  <span className="block text-2xl lg:text-3xl font-normal mt-2" style={{ color: ACCENT }}>
-                    MD, DM (Cardiology) · FRCP (London)
-                  </span>
+
+                <h1 className="text-7xl lg:text-[100px] font-bold text-apple-black leading-[0.9] tracking-tight mb-8">
+                  The future of
+                  <br />
+                  <span className="text-emerald-900">Cardiac Care.</span>
                 </h1>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                  Senior Consultant Cardiologist at Apollo Hospitals, Chennai. Specialising in interventional
-                  cardiology, heart failure management, and preventive cardiac care for over two decades.
+
+                <p className="text-xl lg:text-2xl text-apple-darkGray max-w-lg mb-12 font-medium leading-relaxed">
+                  Dr. Priya Menon is a pioneer in interventional cardiology, combining AI-driven diagnostics with 20+ years of clinical excellence.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-3 mb-10">
-                  <button
-                    className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-semibold text-base transition-opacity hover:opacity-90"
-                    style={{ backgroundColor: ACCENT }}
-                  >
-                    Book a Consultation
-                    <ChevronRight size={18} />
+                <div className="flex flex-col sm:flex-row gap-6 mb-16">
+                  <button className="px-10 py-5 bg-emerald-900 text-white font-bold rounded-full transition-all hover:scale-105 shadow-2xl active:scale-95 flex items-center justify-center gap-2">
+                    Book Consultation
+                    <ArrowRight size={18} />
                   </button>
-                  <button className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border-2 font-semibold text-base transition-colors hover:bg-gray-50" style={{ borderColor: ACCENT, color: ACCENT }}>
-                    <Phone size={16} />
-                    Call the Clinic
+                  <button className="px-10 py-5 border-2 border-emerald-900 text-emerald-900 font-bold rounded-full transition-all flex items-center justify-center gap-2 hover:bg-emerald-50">
+                    <Phone size={18} />
+                    Call Clinic
                   </button>
                 </div>
 
-                {/* Trust badges */}
-                <div className="flex flex-wrap gap-4">
-                  {['Apollo Hospitals', 'AIIMS Delhi Alumni', 'FRCP London', '4,200+ Procedures'].map((badge) => (
-                    <span key={badge} className="flex items-center gap-1.5 text-sm text-gray-500">
-                      <CheckCircle size={14} style={{ color: ACCENT }} />
-                      {badge}
-                    </span>
+                <div className="flex flex-wrap gap-10">
+                  {[
+                    { label: 'Procedures', val: '4,200+' },
+                    { label: 'Patient Rating', val: '4.9/5.0' },
+                    { label: 'Clinical Years', val: '22' },
+                  ].map((stat, i) => (
+                    <div key={i}>
+                      <p className="text-2xl font-bold text-apple-black">{stat.val}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{stat.label}</p>
+                    </div>
                   ))}
                 </div>
-              </div>
+              </AnimatedSection>
 
-              {/* Right: profile card */}
-              <div className="flex justify-center lg:justify-end">
-                <div className="relative w-72 lg:w-80">
-                  <div
-                    className="w-full aspect-[3/4] rounded-2xl flex items-end p-6"
-                    style={{ background: `linear-gradient(160deg, ${ACCENT_LIGHT} 0%, #C6E4D4 100%)` }}
-                  >
-                    {/* Placeholder silhouette */}
-                    <div className="absolute inset-0 rounded-2xl overflow-hidden">
-                      <div className="w-full h-full flex items-center justify-center">
-                        <div
-                          className="w-40 h-40 rounded-full flex items-center justify-center text-6xl font-bold"
-                          style={{ backgroundColor: `${ACCENT}20`, color: ACCENT }}
-                        >
-                          PM
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="relative group">
+                  <div className="aspect-[4/5] rounded-[64px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] bg-apple-gray relative">
+                    <img 
+                      src="https://images.unsplash.com/photo-1559839734-2b71f1e3c77e?auto=format&fit=crop&q=80&w=1200" 
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[2000ms]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/40 via-transparent to-transparent opacity-60" />
+                    
+                    {/* Floating Info Card */}
+                    <div className="absolute bottom-10 left-10 right-10 p-8 bg-white/80 backdrop-blur-2xl rounded-[32px] shadow-2xl border border-white/20">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-900 flex items-center justify-center text-white">
+                          <Stethoscope size={24} />
+                        </div>
+                        <div>
+                          <p className="font-bold text-apple-black">Dr. Priya Menon</p>
+                          <p className="text-[10px] font-bold text-emerald-900 uppercase tracking-widest">MD, DM (Cardiology)</p>
                         </div>
                       </div>
-                    </div>
-                    <div className="relative z-10 bg-white rounded-xl p-4 w-full shadow-md">
-                      <p className="text-xs text-gray-500 mb-1">Next Available</p>
-                      <p className="font-semibold text-gray-800">Wednesday, 7 May 2025</p>
-                      <p className="text-sm text-gray-500 mt-0.5">Apollo Hospital, Chennai</p>
+                      <p className="text-xs text-apple-darkGray font-medium leading-relaxed">
+                        "Your heart deserves precision. We combine compassionate care with cutting-edge technology."
+                      </p>
                     </div>
                   </div>
-                  {/* Floating stat */}
-                  <div
-                    className="absolute -top-4 -right-4 rounded-2xl p-4 text-white shadow-lg"
-                    style={{ backgroundColor: ACCENT }}
-                  >
-                    <p className="text-2xl font-bold">4.9</p>
-                    <div className="flex gap-0.5 mt-0.5">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} size={10} fill="white" stroke="none" />
-                      ))}
-                    </div>
-                    <p className="text-xs opacity-80 mt-0.5">340 reviews</p>
+                  
+                  {/* Status Badge */}
+                  <div className="absolute -top-6 -right-6 p-6 rounded-[32px] bg-white shadow-2xl border border-slate-50 animate-float">
+                    <Activity size={32} className="text-emerald-500 mb-4 animate-pulse" />
+                    <p className="text-2xl font-black text-apple-black">EKG+</p>
+                    <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Live Diagnostics</p>
                   </div>
                 </div>
-              </div>
+              </AnimatedSection>
             </div>
           </div>
         </section>
 
-        {/* ── Clinic info strip ── */}
-        <div style={{ backgroundColor: ACCENT }} className="py-4">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-wrap justify-center gap-8 text-white text-sm">
-              <span className="flex items-center gap-2">
-                <MapPin size={15} />
-                Apollo Hospital, Greams Road, Chennai
-              </span>
-              <span className="flex items-center gap-2">
-                <Clock size={15} />
-                Mon – Sat: 9 AM – 5 PM
-              </span>
-              <span className="flex items-center gap-2">
-                <Phone size={15} />
-                044-2829 6000
-              </span>
+        {/* Clinical Info Strip */}
+        <div className="bg-emerald-950 py-12 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,#fff,transparent_70%)]" />
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="flex flex-wrap justify-center gap-16 text-white/80 text-[11px] font-bold uppercase tracking-[0.25em]">
+              <span className="flex items-center gap-3"><MapPin size={16} className="text-emerald-400" /> Apollo Hospitals, Greams Road</span>
+              <span className="flex items-center gap-3"><Clock size={16} className="text-emerald-400" /> Mon — Sat: 09:00 — 17:00</span>
+              <span className="flex items-center gap-3"><ShieldCheck size={16} className="text-emerald-400" /> Accredited Facility</span>
             </div>
           </div>
         </div>
 
-        {/* ── Conditions Treated ── */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3">Conditions Treated</h2>
-              <p className="text-gray-500 max-w-xl mx-auto">
-                Comprehensive cardiac care from accurate diagnosis through to long-term management.
-              </p>
+        {/* Specialties Grid */}
+        <section className="py-32 bg-apple-gray">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+              <div className="max-w-xl">
+                <AnimatedSection>
+                  <p className="text-emerald-900 font-bold uppercase tracking-[0.3em] text-[11px] mb-4">Core Expertise</p>
+                  <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-8 italic">Life-saving precision.</h2>
+                  <p className="text-xl text-apple-darkGray font-medium">Advanced diagnostics and interventional procedures tailored to each individual's cardiac profile.</p>
+                </AnimatedSection>
+              </div>
+              <button className="text-[11px] font-bold uppercase tracking-widest text-emerald-900 border-b-2 border-emerald-900 pb-1">View All Treatments</button>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {conditions.map(({ icon: Icon, title, description }) => (
-                <div
-                  key={title}
-                  className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow group"
-                >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors"
-                    style={{ backgroundColor: ACCENT_LIGHT }}
-                  >
-                    <Icon size={22} style={{ color: ACCENT }} />
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {conditions.map((item, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group bg-white rounded-[40px] p-10 hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-transparent hover:border-slate-100">
+                    <div className="w-16 h-16 rounded-[24px] bg-apple-gray flex items-center justify-center mb-10 group-hover:bg-emerald-900 transition-all duration-500">
+                      <item.icon size={28} className="text-emerald-900 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-apple-black mb-4 group-hover:text-emerald-900 transition-colors">{item.title}</h3>
+                    <p className="text-sm text-apple-darkGray font-medium leading-relaxed mb-10 flex-1">{item.description}</p>
+                    <div className="pt-8 border-t border-slate-50 flex items-center justify-between">
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">{item.stat}</span>
+                      <ArrowRight size={16} className="text-slate-200 group-hover:text-emerald-900 transform group-hover:translate-x-2 transition-all" />
+                    </div>
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
-                </div>
+                </AnimatedSection>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Procedures ── */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3">Key Procedures</h2>
-              <p className="text-gray-500 max-w-xl mx-auto">
-                Performed at accredited facilities with the highest standards of patient safety.
-              </p>
-            </div>
-            <div className="grid lg:grid-cols-3 gap-8">
-              {procedures.map(({ title, description, duration }, i) => (
-                <div
-                  key={title}
-                  className="rounded-2xl p-8 relative overflow-hidden"
-                  style={{ backgroundColor: ACCENT_LIGHT }}
-                >
-                  <div
-                    className="absolute top-4 right-4 text-xs font-medium px-2.5 py-1 rounded-full text-white"
-                    style={{ backgroundColor: ACCENT }}
-                  >
-                    {duration}
-                  </div>
-                  <div
-                    className="text-4xl font-bold mb-4 opacity-10 select-none"
-                    style={{ color: ACCENT }}
-                  >
-                    0{i + 1}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-sm">{description}</p>
-                  <button
-                    className="mt-6 text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all"
-                    style={{ color: ACCENT }}
-                  >
-                    Learn more <ChevronRight size={14} />
-                  </button>
+        {/* AI Patient Journey */}
+        <section className="py-32 bg-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-apple-gray shadow-inner overflow-hidden border border-slate-200/50">
+                  <AgentFlowChart workflow={workflow} />
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Testimonials ── */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3">What Patients Say</h2>
-              <p className="text-gray-500">Real stories from real patients.</p>
-            </div>
-            <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {testimonials.map(({ name, age, text, rating }) => (
-                <div key={name} className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
-                  <div className="flex gap-0.5 mb-4">
-                    {Array.from({ length: rating }).map((_, i) => (
-                      <Star key={i} size={16} fill={ACCENT} stroke="none" />
+              </AnimatedSection>
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-900 text-[11px] font-bold uppercase tracking-[0.25em] mb-10 border border-emerald-100">
+                    <Zap size={16} className="fill-emerald-900" />
+                    Patient Intelligence
+                  </div>
+                  <h2 className="text-5xl lg:text-6xl font-bold text-apple-black tracking-tight mb-10 leading-[0.95]">
+                    Seamless care,
+                    <br />
+                    wherever you are.
+                  </h2>
+                  <p className="text-xl text-apple-darkGray font-medium leading-relaxed mb-12">
+                    Our proprietary medical AI agent streamlines your journey from first inquiry to post-operative recovery. Experience zero-latency communication and proactive health monitoring.
+                  </p>
+                  
+                  <div className="space-y-8">
+                    {[
+                      { t: 'Pre-Visit Triage', d: 'Automated health screening and documentation.' },
+                      { t: 'Remote Monitoring', d: 'Secure telemetry data integration for heart health.' },
+                      { t: 'Instant Follow-ups', d: '24/7 care coordination and prescription renewals.' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex gap-4">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2" />
+                        <div>
+                          <h4 className="font-bold text-apple-black text-sm uppercase tracking-widest">{item.t}</h4>
+                          <p className="text-xs text-slate-500 font-medium">{item.d}</p>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                  <p className="text-gray-700 leading-relaxed mb-6 italic">"{text}"</p>
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white"
-                      style={{ backgroundColor: ACCENT_MID }}
-                    >
-                      {name[0]}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-900">{name}</p>
-                      <p className="text-xs text-gray-400">Patient, age {age}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── AI Workflow ── */}
-        <section className="py-20 bg-gray-900">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-10">
-              <div
-                className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-4"
-                style={{ backgroundColor: `${ACCENT}30`, color: '#6EE7B7' }}
-              >
-                <Zap size={12} />
-                Powered by AI Automation
+                </AnimatedSection>
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">Smart Patient Journey</h2>
-              <p className="text-gray-400 max-w-lg mx-auto text-sm">
-                From the moment a patient books, an intelligent agent handles reminders, follow-ups, and prescription
-                renewals — so Dr. Menon can focus entirely on care.
-              </p>
             </div>
-            <AgentFlowChart workflow={workflow} />
           </div>
         </section>
 
-        {/* ── CTA ── */}
-        <section className="py-16 bg-white">
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to take charge of your heart health?</h2>
-            <p className="text-gray-500 mb-8">
-              Consultations are available in-person and via telehealth. Referral letters welcome.
-            </p>
-            <button
-              className="px-8 py-4 rounded-xl text-white font-semibold text-lg hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: ACCENT }}
-            >
-              Book Your Consultation
-            </button>
+        {/* Final CTA */}
+        <section className="py-40 bg-apple-gray relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <AnimatedSection animationType="scale">
+              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-12 shadow-xl">
+                <Heart size={40} className="text-emerald-900 fill-emerald-900" />
+              </div>
+              <h2 className="text-6xl lg:text-[100px] font-bold tracking-tighter mb-10 leading-[0.85]">
+                Your heart,
+                <br />
+                in expert hands.
+              </h2>
+              <p className="text-2xl text-apple-darkGray font-medium mb-16 max-w-2xl mx-auto leading-relaxed">
+                Consultations available at Apollo Hospitals and via our secure telehealth platform. Start your cardiac wellness journey today.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+                <button className="px-14 py-6 bg-emerald-900 text-white font-bold rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Secure Consultation
+                </button>
+                <button className="text-lg font-bold text-apple-darkGray hover:text-emerald-900 transition-colors flex items-center gap-2">
+                  Call Clinic Directly <ArrowRight size={20} />
+                </button>
+              </div>
+            </AnimatedSection>
+          </div>
+          {/* Subtle heartbeat line visual */}
+          <div className="absolute bottom-0 left-0 w-full h-32 opacity-[0.03] pointer-events-none">
+            <svg viewBox="0 0 1000 100" className="w-full h-full">
+              <path d="M0 50 L100 50 L120 20 L140 80 L160 50 L1000 50" fill="none" stroke="currentColor" strokeWidth="2" />
+            </svg>
           </div>
         </section>
 

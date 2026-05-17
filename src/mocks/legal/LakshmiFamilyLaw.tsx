@@ -1,74 +1,31 @@
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 import {
   Heart,
-  Home,
-  Shield,
-  Users,
-  FileText,
-  Handshake,
-  ChevronDown,
+  MessageCircle,
   ChevronRight,
-  CheckCircle,
-  Star,
-  Phone,
-  Mail,
-  MapPin,
   Zap,
+  ArrowRight,
+  ShieldCheck,
+  Compass,
+  Scale,
+  Handshake,
+  Calendar,
+  Lock
 } from 'lucide-react';
-import { useState } from 'react';
 
-const TEAL = '#2A9D8F';
-const TEAL_LIGHT = '#E0F4F2';
-const TEAL_MID = '#38B2A3';
-const ROSE = '#E07A8A';
-const BG_WARM = '#F0F9F8';
-const BG_WHITE = '#FFFFFF';
+const LILAC_DARK = '#4361EE';
 
-const supportWorkflow: AgentWorkflow = {
-  title: 'Client Support & Case Update Agent',
+const mediationWorkflow: AgentWorkflow = {
+  title: 'Compassionate Mediation & Intake Agent',
   nodes: [
-    {
-      id: '1',
-      label: 'New Client Inquiry',
-      description: 'A new client reaches out via the website, phone, or referral with a family law matter.',
-      automated: false,
-      x: 20,
-      y: 40,
-    },
-    {
-      id: '2',
-      label: 'Send Acknowledgment',
-      description: 'AI instantly sends a warm acknowledgment email with intake form and what to expect next.',
-      automated: true,
-      x: 200,
-      y: 40,
-    },
-    {
-      id: '3',
-      label: 'Weekly Case Update',
-      description: 'Every Monday, AI compiles a concise case status update and emails it to the client.',
-      automated: true,
-      x: 380,
-      y: 40,
-    },
-    {
-      id: '4',
-      label: 'Court Date Reminder',
-      description: 'AI sends a 7-day and 24-hour reminder before any court hearing, with a preparation checklist.',
-      automated: true,
-      x: 560,
-      y: 40,
-    },
-    {
-      id: '5',
-      label: 'Post-Resolution Archive',
-      description: 'Upon matter closure, AI generates a final summary, archives all documents, and sends a feedback survey.',
-      automated: true,
-      x: 380,
-      y: 160,
-    },
+    { id: '1', label: 'Confidential Inquiry', description: 'Prospective client reaches out via secure, encrypted portal.', automated: false, x: 20, y: 40 },
+    { id: '2', label: 'Conflict Sensitivity', description: 'AI flags sensitive cases (e.g. custody urgency) for immediate human review.', automated: true, x: 200, y: 40 },
+    { id: '3', label: 'Send Prep Guide', description: 'Automated "Transitions with Dignity" guide sent to ease initial anxiety.', automated: true, x: 380, y: 40 },
+    { id: '4', label: 'Intention Matching', description: 'AI matches client needs with mediation or litigation paths.', automated: true, x: 560, y: 40 },
+    { id: '5', label: 'Zero-Friction Booking', description: 'Instant scheduling for a private, 30-minute introductory call.', automated: true, x: 380, y: 160 },
   ],
   edges: [
     { from: '1', to: '2' },
@@ -78,364 +35,202 @@ const supportWorkflow: AgentWorkflow = {
   ],
 };
 
-const services = [
-  {
-    icon: Heart,
-    title: 'Divorce & Separation',
-    description: 'Mutual consent and contested divorce proceedings handled with sensitivity and strategic clarity.',
-    color: ROSE,
-  },
-  {
-    icon: Users,
-    title: 'Child Custody',
-    description: 'Custody, visitation, and parenting plan negotiations centred on the best interests of your child.',
-    color: TEAL,
-  },
-  {
-    icon: Shield,
-    title: 'Domestic Violence',
-    description: 'Emergency protective orders, shelter guidance, and comprehensive safety planning.',
-    color: '#E07A5F',
-  },
-  {
-    icon: Home,
-    title: 'Property Disputes',
-    description: 'Matrimonial property division, streedhan recovery, and real estate settlement agreements.',
-    color: TEAL,
-  },
-  {
-    icon: FileText,
-    title: 'Wills & Succession',
-    description: 'Will drafting, legal heirship certificates, and succession planning for family assets.',
-    color: ROSE,
-  },
-  {
-    icon: Handshake,
-    title: 'Mediation',
-    description: 'SAMA-certified family mediator helping parties reach durable agreements outside the courtroom.',
-    color: TEAL_MID,
-  },
+const specialties = [
+  { i: Handshake, t: 'Collaborative Divorce', d: 'Resolution without the courtroom. Protecting relationships and legacy.' },
+  { i: Heart, t: 'Child Custody', d: 'Child-centric planning and long-term co-parenting architecture.' },
+  { i: Scale, t: 'Asset Division', d: 'Fair, precise, and transparent distribution of matrimonial assets.' },
+  { i: ShieldCheck, t: 'Prenuptial Care', d: 'Proactive protection of personal interests before new beginnings.' },
 ];
-
-const faqs = [
-  {
-    q: 'How long does a mutual consent divorce take in India?',
-    a: 'A mutual consent divorce typically takes 6 to 18 months under Section 13B of the Hindu Marriage Act, which includes a mandatory 6-month cooling-off period (though this can be waived by the court in certain circumstances). The timeline depends on the complexity of asset division and child-related matters.',
-  },
-  {
-    q: 'What is the difference between mediation and litigation?',
-    a: 'Mediation is a voluntary, confidential process where a neutral mediator helps both parties reach a mutually acceptable agreement. It is faster, less expensive, less adversarial, and preserves relationships better than court litigation — making it especially valuable when children are involved.',
-  },
-  {
-    q: 'Can I get a protection order quickly if I am in danger?',
-    a: 'Yes. Under the Protection of Women from Domestic Violence Act, 2005, a Magistrate can issue an emergency protection order on the same day as the application in urgent situations. We assist clients in filing these applications with 24-hour responsiveness.',
-  },
-  {
-    q: 'Do you offer consultations before I decide to hire you?',
-    a: 'Yes. Adv. Lakshmi Pillai offers a confidential 30-minute initial consultation (in-person or online) at a nominal fee of ₹500. This gives you a clear understanding of your legal position and options before making any commitment.',
-  },
-];
-
-function FAQItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div
-      className="rounded-2xl overflow-hidden border transition-all cursor-pointer"
-      style={{ borderColor: open ? TEAL : '#E2E8F0', backgroundColor: BG_WHITE }}
-      onClick={() => setOpen(!open)}
-    >
-      <div className="flex items-center justify-between p-5 gap-4">
-        <span className="font-semibold text-gray-800 leading-snug">{q}</span>
-        <span className="flex-shrink-0" style={{ color: TEAL }}>
-          {open ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-        </span>
-      </div>
-      {open && (
-        <div className="px-5 pb-5 text-gray-600 text-sm leading-relaxed border-t" style={{ borderColor: TEAL_LIGHT }}>
-          <div className="pt-4">{a}</div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function LakshmiFamilyLaw() {
   return (
-    <MockLayout projectName="Adv. Lakshmi Pillai — Family Law" accentColor={TEAL} categoryId="legal">
-      <div style={{ backgroundColor: BG_WARM, color: '#1F2937' }}>
-
-        {/* ── Hero ── */}
-        <section className="relative overflow-hidden" style={{ backgroundColor: BG_WHITE }}>
-          {/* Warm wave decoration */}
-          <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-            <svg viewBox="0 0 1440 100" preserveAspectRatio="none" className="w-full h-20">
-              <path d="M0,60 C360,100 1080,20 1440,60 L1440,100 L0,100 Z" fill={BG_WARM} />
-            </svg>
+    <MockLayout projectName="Lakshmi — Family Law" accentColor={LILAC_DARK} categoryId="legal">
+      <div className="bg-[#FAF9FF] text-slate-900 selection:bg-indigo-50 overflow-hidden font-sans">
+        
+        {/* Compassionate Hero */}
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#FAF9FF]">
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1516216628859-9bccecd2d577?auto=format&fit=crop&q=80&w=2400" 
+              className="w-full h-full object-cover opacity-5 grayscale scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FAF9FF]/80 to-[#FAF9FF]" />
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left */}
-              <div>
-                <div
-                  className="inline-flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-full mb-6"
-                  style={{ backgroundColor: TEAL_LIGHT, color: TEAL }}
-                >
-                  <Handshake size={14} />
-                  Family Law & Mediation · 16 Years Experience
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="max-w-4xl">
+              <AnimatedSection animationType="blur">
+                <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white text-indigo-800 text-[11px] font-bold uppercase tracking-[0.25em] mb-12 shadow-sm border border-slate-100">
+                  <Lock size={14} className="text-indigo-500" />
+                  Absolute Confidentiality · Mediation First
                 </div>
 
-                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
-                  Your next chapter
+                <h1 className="text-7xl lg:text-[110px] font-bold leading-[0.9] tracking-tighter mb-10 text-slate-900">
+                  Transitions with
                   <br />
-                  begins with{' '}
-                  <span style={{ color: TEAL }}>clarity.</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-400 italic">unwavering dignity.</span>
                 </h1>
 
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
-                  Adv. Lakshmi Pillai guides individuals and families through life's most difficult legal moments
-                  with empathy, honesty, and strategic skill.
+                <p className="text-xl lg:text-2xl text-slate-500 max-w-2xl mb-16 font-medium leading-relaxed">
+                  Family law is deeply personal. We provide a calm, supportive, and legally rigorous path through your most sensitive transitions.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                  <button
-                    className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-white font-semibold transition-opacity hover:opacity-90"
-                    style={{ backgroundColor: TEAL }}
-                  >
-                    Book a Consultation
-                    <ChevronRight size={17} />
+                <div className="flex flex-col sm:flex-row gap-8 items-center">
+                  <button className="px-14 py-6 bg-indigo-600 text-white font-bold rounded-full text-lg shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3">
+                    Start Privately
+                    <ArrowRight size={20} />
                   </button>
-                  <button
-                    className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-semibold border-2 transition-colors hover:bg-teal-50"
-                    style={{ borderColor: TEAL, color: TEAL }}
-                  >
-                    <Phone size={16} />
-                    Call Now
+                  <button className="text-lg font-bold text-slate-400 hover:text-indigo-600 transition-colors border-b-2 border-transparent hover:border-indigo-600 pb-1">
+                    How We Help
                   </button>
                 </div>
-
-                <div className="flex flex-wrap gap-5 text-sm text-gray-500">
-                  {['High Court of Kerala', 'SAMA Certified Mediator', 'Legal Aid Panel Member', '800+ Families Helped'].map((b) => (
-                    <span key={b} className="flex items-center gap-1.5">
-                      <CheckCircle size={14} style={{ color: TEAL }} />
-                      {b}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right: profile card */}
-              <div className="flex justify-center lg:justify-end">
-                <div className="relative w-72">
-                  <div
-                    className="w-full rounded-3xl p-8 flex flex-col items-center text-center"
-                    style={{ background: `linear-gradient(160deg, ${TEAL_LIGHT} 0%, #C8EDE9 100%)` }}
-                  >
-                    <div
-                      className="w-28 h-28 rounded-full flex items-center justify-center text-4xl font-bold text-white mb-4"
-                      style={{ backgroundColor: TEAL }}
-                    >
-                      LP
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900">Adv. Lakshmi Pillai</h3>
-                    <p className="text-sm mt-1 mb-3" style={{ color: TEAL }}>B.L.S., LL.B (Hons) · MGA Mediation</p>
-                    <div className="flex gap-0.5 mb-2">
-                      {[1,2,3,4,5].map((s) => (
-                        <Star key={s} size={14} fill={ROSE} stroke="none" />
-                      ))}
-                    </div>
-                    <p className="text-xs text-gray-500">4.9 · 220 client reviews</p>
-
-                    <div
-                      className="mt-6 w-full rounded-2xl p-4 text-left"
-                      style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}
-                    >
-                      <p className="text-xs text-gray-500 mb-1">Next Available Slot</p>
-                      <p className="font-semibold text-gray-800 text-sm">Thursday, 8 May 2025</p>
-                      <p className="text-xs text-gray-400 mt-0.5">Ernakulam, Kochi / Video Call</p>
-                    </div>
-                  </div>
-
-                  {/* Floating badge */}
-                  <div
-                    className="absolute -top-3 -right-3 rounded-2xl px-4 py-3 text-white text-center shadow-lg"
-                    style={{ backgroundColor: ROSE }}
-                  >
-                    <p className="text-xs font-semibold opacity-90">Consultation</p>
-                    <p className="text-lg font-black">₹500</p>
-                  </div>
-                </div>
-              </div>
+              </AnimatedSection>
             </div>
           </div>
         </section>
 
-        {/* ── Services ── */}
-        <section className="py-24" style={{ backgroundColor: BG_WARM }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: TEAL }}>
-                Areas of Practice
-              </p>
-              <h2 className="text-3xl font-bold text-gray-900">How We Help</h2>
-              <p className="text-gray-500 mt-3 max-w-lg mx-auto">
-                From protective orders to estate planning, we handle every dimension of family law with care.
-              </p>
+        {/* Philosophy Strip */}
+        <div className="bg-white border-y border-slate-100 py-24">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
+              {[
+                { t: 'Mediation First', d: 'We believe the best resolutions are built through dialogue, not litigation.', i: Handshake },
+                { t: 'Total Support', d: 'A multidisciplinary approach including emotional and financial guidance.', i: Compass },
+                { t: 'Child-Centric', d: 'Ensuring the wellbeing of the next generation remains the top priority.', i: Heart },
+              ].map((item, i) => (
+                <div key={i} className="text-center group cursor-default">
+                  <item.i size={32} className="mx-auto mb-8 text-indigo-900/20 group-hover:text-indigo-600 transition-colors" />
+                  <h4 className="text-xl font-bold mb-4 tracking-tight text-slate-900">{item.t}</h4>
+                  <p className="text-sm text-slate-400 font-medium leading-relaxed px-8">{item.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Practice Grid */}
+        <section className="py-32 bg-[#FAF9FF]">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+              <AnimatedSection>
+                <p className="text-indigo-600 font-bold uppercase tracking-[0.4em] text-[11px] mb-6">Expertise</p>
+                <h2 className="text-6xl font-black tracking-tighter text-slate-900">Care.</h2>
+              </AnimatedSection>
+              <p className="text-lg text-slate-400 max-w-sm font-medium italic">"Peace is not the absence of conflict, but the ability to resolve it with grace."</p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map(({ icon: Icon, title, description, color }) => (
-                <div
-                  key={title}
-                  className="rounded-2xl p-6 bg-white border border-gray-100 hover:shadow-md transition-shadow group"
-                >
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
-                    style={{ backgroundColor: `${color}18` }}
-                  >
-                    <Icon size={22} style={{ color }} />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+              {specialties.map((s, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group bg-white rounded-[48px] p-10 hover:shadow-2xl transition-all duration-700 border border-transparent hover:border-white h-full flex flex-col">
+                    <div className="w-16 h-16 rounded-[24px] bg-indigo-50 flex items-center justify-center mb-10 group-hover:bg-indigo-600 transition-all duration-500">
+                      <s.i size={28} className="text-indigo-600 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight">{s.t}</h3>
+                    <p className="text-sm text-slate-500 font-medium leading-relaxed flex-1">{s.d}</p>
+                    <button className="mt-10 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-600 group-hover:gap-4 transition-all">
+                      First Steps <ArrowRight size={14} />
+                    </button>
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
-                </div>
+                </AnimatedSection>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Why Mediation ── */}
-        <section className="py-24" style={{ backgroundColor: BG_WHITE }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+        {/* AI Mediation Workflow */}
+        <section className="py-32 bg-indigo-900 text-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: TEAL }}>
-                  A Better Path
-                </p>
-                <h2 className="text-3xl font-bold text-gray-900 mb-5">Why Choose Mediation?</h2>
-                <p className="text-gray-600 leading-relaxed mb-8">
-                  Court battles can take years, cost lakhs, and leave both parties — and especially children —
-                  emotionally drained. Mediation offers a structured, private space to reach agreements that
-                  courts would often impose anyway, at a fraction of the time and cost.
-                </p>
-                <div className="space-y-4">
-                  {[
-                    { label: 'Faster Resolution', detail: '3–6 months vs. 3–7 years in court', color: TEAL },
-                    { label: 'Confidential', detail: 'No public record — your family\'s privacy is protected', color: ROSE },
-                    { label: 'Child-Centred', detail: 'Agreements built around your children\'s needs, not legal leverage', color: TEAL_MID },
-                    { label: 'Cost-Effective', detail: 'Typically 60–80% less expensive than contested litigation', color: TEAL },
-                  ].map(({ label, detail, color }) => (
-                    <div key={label} className="flex items-start gap-3">
-                      <div
-                        className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                        style={{ backgroundColor: `${color}18` }}
-                      >
-                        <CheckCircle size={14} style={{ color }} />
-                      </div>
-                      <div>
-                        <span className="font-semibold text-gray-900">{label} — </span>
-                        <span className="text-gray-500 text-sm">{detail}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { value: '75%', label: 'Matters Settled in Mediation', sub: 'Without going to trial' },
-                  { value: '4.5 mo', label: 'Avg. Mediation Duration', sub: 'vs. 4+ years in court' },
-                  { value: '800+', label: 'Families Supported', sub: 'Since 2009' },
-                  { value: '16 yrs', label: 'Experience', sub: 'High Court of Kerala' },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-2xl p-6 text-center"
-                    style={{ backgroundColor: TEAL_LIGHT }}
-                  >
-                    <p className="text-3xl font-black mb-1" style={{ color: TEAL }}>{stat.value}</p>
-                    <p className="text-sm font-semibold text-gray-800 leading-tight">{stat.label}</p>
-                    <p className="text-xs text-gray-400 mt-1">{stat.sub}</p>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 text-indigo-300 text-[11px] font-bold uppercase tracking-[0.25em] mb-10 border border-white/10">
+                    <Zap size={16} className="fill-indigo-400" />
+                    Intelligent Intake
                   </div>
+                  <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-10 leading-[0.95]">
+                    Thoughtful 
+                    <br />
+                    touchpoints.
+                  </h2>
+                  <p className="text-xl text-indigo-100/60 font-medium leading-relaxed mb-12">
+                    Taking the first step is often the hardest. Our proprietary journey agent ensures every client touchpoint is warm, confidential, and timely. From conflict sensitivity audits to automated "Transitions with Dignity" guides, technology serves the human experience.
+                  </p>
+                  
+                  <div className="space-y-8">
+                    {[
+                      { t: 'Confidential Audit', d: 'End-to-end encrypted briefing vaults for total privacy.' },
+                      { t: 'Transition Triage', d: 'AI-driven prioritization of urgent custody or safety concerns.' },
+                      { t: 'Pathway Mapping', d: 'Automated matching with mediation or litigation experts.' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex gap-4 group">
+                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0 group-hover:scale-150 transition-transform" />
+                        <div>
+                          <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-1">{item.t}</h4>
+                          <p className="text-xs text-indigo-100/40 font-medium leading-relaxed">{item.d}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </AnimatedSection>
+              </div>
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-white shadow-2xl border border-white/5 overflow-hidden">
+                  <AgentFlowChart workflow={mediationWorkflow} />
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Preview Strip */}
+        <div className="bg-white py-24 border-y border-slate-100 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <AnimatedSection>
+              <h2 className="text-4xl font-black mb-12 tracking-tighter text-slate-900">Understanding the path.</h2>
+              <div className="flex flex-wrap justify-center gap-8">
+                {[
+                  'What is Collaborative Divorce?',
+                  'How is Child Custody decided?',
+                  'Privacy & Matrimonial Assets',
+                  'The Mediation Process',
+                ].map((q, i) => (
+                  <button key={i} className="px-6 py-3 rounded-full border border-slate-100 text-sm font-bold text-slate-400 hover:text-indigo-600 hover:border-indigo-100 transition-all flex items-center gap-2">
+                    {q} <ChevronRight size={14} />
+                  </button>
                 ))}
               </div>
-            </div>
+            </AnimatedSection>
           </div>
-        </section>
+        </div>
 
-        {/* ── FAQ ── */}
-        <section className="py-24" style={{ backgroundColor: BG_WARM }}>
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <p className="text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: TEAL }}>
-                Common Questions
+        {/* Final CTA */}
+        <section className="py-40 bg-[#FAF9FF] relative overflow-hidden text-center text-slate-900">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <AnimatedSection animationType="scale">
+              <MessageCircle size={48} className="mx-auto text-indigo-600 mb-12" />
+              <h2 className="text-6xl lg:text-[100px] font-black tracking-tighter mb-12 leading-[0.85]">
+                Dignity is 
+                <br />
+                the practice.
+              </h2>
+              <p className="text-2xl text-slate-500 font-medium mb-16 max-w-2xl mx-auto leading-relaxed">
+                Currently booking H2 consultations for mediation and family law. Step into a space of clarity and support.
               </p>
-              <h2 className="text-3xl font-bold text-gray-900">Frequently Asked</h2>
-              <p className="text-gray-500 mt-3">
-                Honest answers to the questions clients most commonly ask before their first consultation.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              {faqs.map((item) => (
-                <FAQItem key={item.q} q={item.q} a={item.a} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── AI Agent Workflow ── */}
-        <section className="py-24 bg-gray-900">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <div
-                className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-5"
-                style={{ backgroundColor: `${TEAL}30`, color: '#6EE7E4' }}
-              >
-                <Zap size={12} />
-                Powered by AI Automation
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
+                <button className="px-14 py-6 bg-indigo-600 text-white font-bold rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Book Private Call
+                </button>
+                <button className="text-lg font-bold text-slate-400 hover:text-indigo-600 transition-colors flex items-center gap-2">
+                  View Public Calendar <Calendar size={20} />
+                </button>
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">Always Informed. Never Wondering.</h2>
-              <p className="text-gray-400 max-w-lg mx-auto text-sm">
-                Our AI support agent ensures clients always know what's happening with their case — no chasing,
-                no anxiety, just clear communication at every stage.
-              </p>
-            </div>
-
-            <AgentFlowChart workflow={supportWorkflow} />
+            </AnimatedSection>
           </div>
-        </section>
-
-        {/* ── CTA ── */}
-        <section className="py-20" style={{ backgroundColor: BG_WHITE }}>
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              You don't have to face this alone.
-            </h2>
-            <p className="text-gray-500 mb-8 leading-relaxed">
-              The first conversation is always confidential. There's no pressure, no commitment —
-              just clarity on where you stand and what your options are.
-            </p>
-            <button
-              className="px-8 py-4 rounded-2xl font-bold text-white text-base mb-8 hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: TEAL }}
-            >
-              Book Your ₹500 Consultation
-            </button>
-            <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-500">
-              <a href="#" className="flex items-center gap-2 hover:text-gray-800 transition-colors">
-                <Phone size={15} style={{ color: TEAL }} />
-                +91 94470 12345
-              </a>
-              <a href="#" className="flex items-center gap-2 hover:text-gray-800 transition-colors">
-                <Mail size={15} style={{ color: TEAL }} />
-                lakshmi@pillailawoffice.in
-              </a>
-              <span className="flex items-center gap-2">
-                <MapPin size={15} style={{ color: TEAL }} />
-                MG Road, Ernakulam, Kochi
-              </span>
-            </div>
-          </div>
+          
+          {/* Subtle Decorative Accents */}
+          <div className="absolute top-20 right-[-10%] w-96 h-96 bg-indigo-600/5 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-20 left-[-10%] w-96 h-96 bg-indigo-600/5 rounded-full blur-[120px] pointer-events-none" />
         </section>
 
       </div>

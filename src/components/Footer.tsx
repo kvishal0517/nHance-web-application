@@ -3,67 +3,69 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
-                <span className="text-white font-bold text-lg leading-none" style={{ fontFamily: 'Georgia, serif' }}>n</span>
+    <footer className="bg-apple-gray text-apple-black border-t border-slate-200">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-24">
+          <div className="col-span-2 md:col-span-1">
+            <Link to="/" className="flex items-center gap-2.5 mb-6 group">
+              <div className="w-8 h-8 rounded-lg bg-apple-black flex items-center justify-center">
+                <span className="text-white font-bold text-base leading-none" style={{ fontFamily: 'Georgia, serif' }}>n</span>
               </div>
-              <span className="text-xl font-bold text-white">
-                nH<span className="text-brand-400">&auml;</span>nce
+              <span className="text-lg font-semibold text-apple-black group-hover:opacity-80 transition-opacity">
+                nH<span className="text-apple-blue">&auml;</span>nce
               </span>
             </Link>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Tailored digital solutions for professionals. Websites, portfolios, apps, and AI agents crafted for your industry.
+            <p className="text-[13px] text-apple-darkGray leading-relaxed font-medium">
+              Precision digital ecosystems for the world's most demanding professionals.
             </p>
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Services</h4>
-            <ul className="space-y-2.5 text-sm text-slate-400">
-              <li><Link to="/services" className="hover:text-white transition-colors">Custom Websites</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">Professional Portfolios</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">Android Apps</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">AI Agents</Link></li>
+            <h4 className="text-[11px] font-bold text-apple-black uppercase tracking-wider mb-6">Services</h4>
+            <ul className="space-y-4 text-[13px] text-apple-darkGray font-medium">
+              <li><Link to="/services" className="hover:text-apple-black transition-colors">Websites</Link></li>
+              <li><Link to="/services" className="hover:text-apple-black transition-colors">Portfolios</Link></li>
+              <li><Link to="/services" className="hover:text-apple-black transition-colors">Apps</Link></li>
+              <li><Link to="/services" className="hover:text-apple-black transition-colors">AI Agents</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Company</h4>
-            <ul className="space-y-2.5 text-sm text-slate-400">
-              <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
-              <li><Link to="/portfolio" className="hover:text-white transition-colors">Portfolio</Link></li>
-              <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+            <h4 className="text-[11px] font-bold text-apple-black uppercase tracking-wider mb-6">Explore</h4>
+            <ul className="space-y-4 text-[13px] text-apple-darkGray font-medium">
+              <li><Link to="/portfolio" className="hover:text-apple-black transition-colors">Industries</Link></li>
+              <li><Link to="/about" className="hover:text-apple-black transition-colors">About</Link></li>
+              <li><Link to="/contact" className="hover:text-apple-black transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Contact</h4>
-            <ul className="space-y-2.5 text-sm text-slate-400">
-              <li className="flex items-center gap-2.5">
-                <Mail size={15} className="text-brand-400" />
+            <h4 className="text-[11px] font-bold text-apple-black uppercase tracking-wider mb-6">Contact</h4>
+            <ul className="space-y-4 text-[13px] text-apple-darkGray font-medium">
+              <li className="flex items-center gap-2 group cursor-pointer hover:text-apple-black transition-colors">
+                <Mail size={14} />
                 hello@nhanse.digital
               </li>
-              <li className="flex items-center gap-2.5">
-                <Phone size={15} className="text-brand-400" />
+              <li className="flex items-center gap-2">
+                <Phone size={14} />
                 +91 98765 43210
               </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin size={15} className="text-brand-400 mt-0.5" />
+              <li className="flex items-start gap-2">
+                <MapPin size={14} className="mt-0.5" />
                 Bangalore, India
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-500">
-            &copy; {new Date().getFullYear()} nH&auml;nce Digital. All rights reserved.
-          </p>
-          <p className="text-xs text-slate-600">
-            Crafted with precision for professionals who demand more.
+        <div className="mt-20 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex gap-8 text-[11px] text-apple-darkGray font-medium">
+            <p>&copy; {new Date().getFullYear()} nH&auml;nce Digital. All rights reserved.</p>
+            <Link to="/" className="hover:underline">Privacy Policy</Link>
+            <Link to="/" className="hover:underline">Terms of Service</Link>
+          </div>
+          <p className="text-[11px] text-slate-400">
+            Crafted for the future.
           </p>
         </div>
       </div>

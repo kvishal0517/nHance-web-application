@@ -1,485 +1,244 @@
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
+import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
 import {
   Scale,
   FileText,
-  Shield,
-  TrendingUp,
-  Globe,
-  Users,
-  CheckCircle,
   ArrowRight,
   Download,
   Zap,
-  BookOpen,
-  ChevronRight,
-  Mail,
-  Phone,
+  Gavel,
+  ShieldCheck,
+  Building2,
+  Lock
 } from 'lucide-react';
 
 const ACCENT = '#4361EE';
-const BG_DARK = '#1A1A2E';
-const BG_MID = '#16213E';
+
 const intakeWorkflow: AgentWorkflow = {
-  title: 'Client Intake & Document Review Agent',
+  title: 'Statutory Intake & Document Review Agent',
   nodes: [
-    {
-      id: '1',
-      label: 'Prospect Submits Quote',
-      description: 'Founder submits a project brief via website form describing their legal need.',
-      automated: false,
-      x: 20,
-      y: 40,
-    },
-    {
-      id: '2',
-      label: 'Categorize Request',
-      description: 'AI reads the brief and routes it to the right practice area — formation, IP, M&A, etc.',
-      automated: true,
-      x: 200,
-      y: 40,
-    },
-    {
-      id: '3',
-      label: 'Send Explainer',
-      description: 'Automatically sends a plain-language explainer PDF matched to the enquiry category.',
-      automated: true,
-      x: 380,
-      y: 40,
-    },
-    {
-      id: '4',
-      label: 'Book 20-min Call',
-      description: 'AI offers available calendar slots for a scoped discovery call — no back-and-forth.',
-      automated: true,
-      x: 560,
-      y: 40,
-    },
-    {
-      id: '5',
-      label: 'Draft Meeting Notes',
-      description: 'Post-call, AI generates structured notes and proposed next steps for the attorney.',
-      automated: true,
-      x: 200,
-      y: 160,
-    },
-    {
-      id: '6',
-      label: 'Contract Expiry Alert',
-      description: 'AI monitors key contract dates and fires renewal reminders 30 days in advance.',
-      automated: true,
-      x: 380,
-      y: 160,
-    },
+    { id: '1', label: 'Brief Submission', description: 'Client submits project brief or case summary via the portal.', automated: false, x: 20, y: 40 },
+    { id: '2', label: 'Technical Classification', description: 'AI identifies practice areas and regulatory overlaps (MCA/SEBI).', automated: true, x: 200, y: 40 },
+    { id: '3', label: 'Conflicts Audit', description: 'Automated audit of existing client roster for ethical conflicts.', automated: true, x: 380, y: 40 },
+    { id: '4', label: 'Route to Partner', description: 'Brief is routed to the relevant practice partner with a technical summary.', automated: true, x: 560, y: 40 },
+    { id: '5', label: '24h Action Plan', description: 'On approval, an automated 24-hour action plan is sent to the client.', automated: true, x: 380, y: 160 },
   ],
   edges: [
     { from: '1', to: '2' },
     { from: '2', to: '3' },
     { from: '3', to: '4' },
     { from: '4', to: '5' },
-    { from: '5', to: '6' },
   ],
 };
 
-const practiceAreas = [
-  {
-    icon: Users,
-    title: 'Startup Formation',
-    description: 'Pvt Ltd incorporation, shareholder agreements, founders\' pacts, and cap table structuring from day one.',
-  },
-  {
-    icon: FileText,
-    title: 'Term Sheet Review',
-    description: 'Rapid turnaround on VC term sheets, SAFEs, and convertible notes — we flag what actually matters.',
-  },
-  {
-    icon: TrendingUp,
-    title: 'ESOP Structuring',
-    description: 'Design and implement employee stock option plans that attract talent and survive due diligence.',
-  },
-  {
-    icon: Shield,
-    title: 'IP & Trademarks',
-    description: 'Brand protection strategy, trademark filings, patent landscapes, and IP assignment agreements.',
-  },
-  {
-    icon: Scale,
-    title: 'M&A',
-    description: 'Buy-side and sell-side M&A advisory, due diligence coordination, and SPA negotiations.',
-  },
-  {
-    icon: Globe,
-    title: 'Cross-border',
-    description: 'FEMA compliance, overseas holding structures, flip transactions, and cross-border IP licensing.',
-  },
-];
-
-const packages = [
-  {
-    name: 'Seed Package',
-    price: '₹49,000',
-    period: 'one-time',
-    tagline: 'Everything a pre-seed startup needs',
-    features: [
-      'Pvt Ltd incorporation',
-      'Founders\' agreement',
-      'IP assignment deed',
-      'First 3 NDAs included',
-      '30-day email support',
-    ],
-    highlight: false,
-  },
-  {
-    name: 'Series A Ready',
-    price: '₹1,49,000',
-    period: 'one-time',
-    tagline: 'Fundraise-grade legal infrastructure',
-    features: [
-      'All Seed Package items',
-      'ESOP pool creation',
-      'Term sheet review (2 rounds)',
-      'Investor agreement suite',
-      'Data privacy policy (PDPB)',
-      '3-month retainer included',
-    ],
-    highlight: true,
-  },
-  {
-    name: 'Retainer',
-    price: '₹25,000',
-    period: '/month',
-    tagline: 'Ongoing counsel for growing startups',
-    features: [
-      '10 hours/month legal time',
-      'Contract reviews',
-      'Regulatory advisory',
-      'Monthly compliance check',
-      'Priority response SLA',
-    ],
-    highlight: false,
-  },
-];
-
-const templates = [
-  {
-    icon: FileText,
-    name: 'Founders\' Agreement Template',
-    format: 'DOCX • Free',
-    description: 'A battle-tested agreement covering IP, vesting, exit, and deadlock resolution.',
-  },
-  {
-    icon: Shield,
-    name: 'NDA (Mutual & One-Way)',
-    format: 'DOCX • Free',
-    description: 'Two variants covering standard mutual and investor-facing one-way confidentiality.',
-  },
-  {
-    icon: BookOpen,
-    name: 'ESOP Policy Template',
-    format: 'DOCX • Free',
-    description: 'A startup-ready ESOP policy with vesting schedule and exercise mechanics.',
-  },
+const practices = [
+  { i: Building2, t: 'Corporate M&A', d: 'Due diligence, deal structuring, and SPA negotiations.' },
+  { i: Scale, t: 'Litigation', d: 'High-stakes dispute resolution across NCLT and High Courts.' },
+  { i: ShieldCheck, t: 'IP Protection', d: 'Trademark prosecution and comprehensive patent audits.' },
+  { i: FileText, t: 'Governance', d: 'Board-level advisory and regulatory compliance mapping.' },
 ];
 
 export default function MehraNairLaw() {
   return (
     <MockLayout projectName="Mehra & Nair — Corporate Law" accentColor={ACCENT} categoryId="legal">
-      <div style={{ backgroundColor: BG_DARK, color: '#E2E8F0' }}>
-
-        {/* ── Hero ── */}
-        <section
-          className="relative overflow-hidden"
-          style={{ background: `linear-gradient(135deg, ${BG_DARK} 0%, ${BG_MID} 70%, #0D1B35 100%)` }}
-        >
-          {/* Dot grid */}
-          <div
-            className="absolute inset-0 opacity-[0.06]"
-            style={{
-              backgroundImage: `radial-gradient(${ACCENT} 1px, transparent 1px)`,
-              backgroundSize: '32px 32px',
-            }}
-          />
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-            <div className="max-w-3xl">
-              <div
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full mb-8"
-                style={{ backgroundColor: `${ACCENT}20`, color: ACCENT, border: `1px solid ${ACCENT}40` }}
-              >
-                <Scale size={13} />
-                Corporate Law · Built for Founders
-              </div>
-
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-6 text-white">
-                We speak
-                <br />
-                <span style={{ color: ACCENT }}>founder.</span>
-              </h1>
-
-              <p className="text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl">
-                Mehra & Nair is a boutique corporate law firm obsessed with startups. Fixed fees. Plain English.
-                Fast turnarounds. No billing surprises.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <button
-                  className="flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-base transition-transform hover:scale-[1.02]"
-                  style={{ backgroundColor: ACCENT }}
-                >
-                  Get a Free Quote
-                  <ArrowRight size={18} />
-                </button>
-                <button
-                  className="flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base border transition-colors hover:border-white/60"
-                  style={{ borderColor: 'rgba(255,255,255,0.2)', color: '#E2E8F0' }}
-                >
-                  View Fixed-Fee Packages
-                </button>
-              </div>
-
-              <div className="flex flex-wrap gap-6 mt-10 text-sm text-slate-400">
-                {['500+ Startups Advised', 'Avg. 48-hr Turnaround', 'No Hidden Billing', 'Y Combinator Alumni Network'].map((item) => (
-                  <span key={item} className="flex items-center gap-2">
-                    <CheckCircle size={14} style={{ color: ACCENT }} />
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+      <div className="bg-white text-apple-black selection:bg-blue-50 overflow-hidden font-sans">
+        
+        {/* Majestic Hero */}
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#0A1A2F]">
+          {/* Subtle Institutional Background */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2400" 
+              className="w-full h-full object-cover opacity-10 grayscale scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A1A2F]/80 to-[#0A1A2F]" />
           </div>
-        </section>
 
-        {/* ── Stats strip ── */}
-        <div style={{ backgroundColor: ACCENT }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center text-white">
-              {[
-                { value: '500+', label: 'Startups Advised' },
-                { value: '₹2,400 Cr', label: 'Capital Raised by Clients' },
-                { value: '48 hrs', label: 'Avg. Contract Turnaround' },
-                { value: '98%', label: 'Client Retention Rate' },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-3xl font-black">{stat.value}</p>
-                  <p className="text-sm font-semibold opacity-80 mt-0.5">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── Practice Areas ── */}
-        <section className="py-24" style={{ backgroundColor: BG_MID }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: ACCENT }}>
-                What We Do
-              </p>
-              <h2 className="text-3xl font-black text-white">Practice Areas</h2>
-              <p className="text-slate-400 mt-3 max-w-xl mx-auto">
-                Every service is scoped and priced upfront — you always know what you're paying before we start.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {practiceAreas.map(({ icon: Icon, title, description }) => (
-                <div
-                  key={title}
-                  className="rounded-2xl p-6 border group hover:border-blue-500/40 transition-colors cursor-pointer"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}
-                >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                    style={{ backgroundColor: `${ACCENT}18` }}
-                  >
-                    <Icon size={22} style={{ color: ACCENT }} />
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div className="grid lg:grid-cols-12 gap-20 items-center">
+              <div className="lg:col-span-8">
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white text-[11px] font-bold uppercase tracking-[0.4em] mb-12">
+                    <Gavel size={14} className="text-blue-400" />
+                    Full-Spectrum Institutional Law · Est. 1994
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">{title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{description}</p>
-                  <div
-                    className="flex items-center gap-1 mt-4 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ color: ACCENT }}
-                  >
-                    Learn more <ChevronRight size={14} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* ── Fixed-Fee Packages ── */}
-        <section className="py-24" style={{ backgroundColor: BG_DARK }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: ACCENT }}>
-                Transparent Pricing
-              </p>
-              <h2 className="text-3xl font-black text-white">Fixed-Fee Packages</h2>
-              <p className="text-slate-400 mt-3 max-w-xl mx-auto">
-                No hourly billing. No meter running. Just clear scope, clear price, clear deliverables.
-              </p>
-            </div>
+                  <h1 className="text-7xl lg:text-[130px] font-black leading-[0.85] tracking-tighter mb-12 text-white">
+                    Built on 
+                    <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200 italic">decisive power.</span>
+                  </h1>
 
-            <div className="grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {packages.map((pkg) => (
-                <div
-                  key={pkg.name}
-                  className="rounded-2xl flex flex-col"
-                  style={{
-                    backgroundColor: pkg.highlight ? ACCENT : 'rgba(255,255,255,0.04)',
-                    border: pkg.highlight ? 'none' : '1px solid rgba(255,255,255,0.08)',
-                  }}
-                >
-                  {pkg.highlight && (
-                    <div className="text-center text-xs font-bold text-white/80 pt-4 uppercase tracking-widest">
-                      Most Popular
-                    </div>
-                  )}
-                  <div className="p-8 flex-1">
-                    <h3 className="text-xl font-black text-white mb-1">{pkg.name}</h3>
-                    <p className="text-sm mb-6" style={{ color: pkg.highlight ? 'rgba(255,255,255,0.75)' : '#94A3B8' }}>
-                      {pkg.tagline}
-                    </p>
-                    <div className="mb-6">
-                      <span className="text-4xl font-black text-white">{pkg.price}</span>
-                      <span className="text-sm ml-1" style={{ color: pkg.highlight ? 'rgba(255,255,255,0.7)' : '#64748B' }}>
-                        {pkg.period}
-                      </span>
-                    </div>
-                    <ul className="space-y-3">
-                      {pkg.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2.5 text-sm">
-                          <CheckCircle
-                            size={15}
-                            className="flex-shrink-0 mt-0.5"
-                            style={{ color: pkg.highlight ? 'rgba(255,255,255,0.9)' : ACCENT }}
-                          />
-                          <span style={{ color: pkg.highlight ? 'rgba(255,255,255,0.85)' : '#CBD5E1' }}>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="px-8 pb-8">
-                    <button
-                      className="w-full py-3 rounded-xl font-bold text-sm transition-opacity hover:opacity-90"
-                      style={{
-                        backgroundColor: pkg.highlight ? 'rgba(255,255,255,0.2)' : ACCENT,
-                        color: '#FFFFFF',
-                      }}
-                    >
-                      Get Started
+                  <p className="text-2xl lg:text-3xl text-slate-400 max-w-2xl mb-16 font-medium leading-relaxed">
+                    Corporate counsel for India's market leaders. We deliver strategic clarity in high-stakes environments through technical mastery and absolute integrity.
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-8 items-center">
+                    <button className="px-14 py-6 bg-blue-600 text-white font-black rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3">
+                      Secure Counsel
+                      <ArrowRight size={20} />
+                    </button>
+                    <button className="text-lg font-bold text-slate-400 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-400 pb-1">
+                      View Practice Areas
                     </button>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Free Template Library ── */}
-        <section className="py-24" style={{ backgroundColor: BG_MID }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: ACCENT }}>
-                Founder Resources
-              </p>
-              <h2 className="text-3xl font-black text-white">Free Template Library</h2>
-              <p className="text-slate-400 mt-3 max-w-lg mx-auto">
-                Lawyer-drafted, startup-tested. Download, adapt, and use — no strings attached.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {templates.map(({ icon: Icon, name, format, description }) => (
-                <div
-                  key={name}
-                  className="rounded-2xl p-6 border group cursor-pointer hover:border-blue-500/30 transition-colors"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}
-                >
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-                    style={{ backgroundColor: `${ACCENT}18` }}
-                  >
-                    <Icon size={20} style={{ color: ACCENT }} />
-                  </div>
-                  <h3 className="font-bold text-white mb-1 leading-snug">{name}</h3>
-                  <p className="text-xs mb-3" style={{ color: ACCENT }}>{format}</p>
-                  <p className="text-sm text-slate-400 leading-relaxed mb-5">{description}</p>
-                  <button
-                    className="flex items-center gap-2 text-sm font-semibold transition-colors"
-                    style={{ color: ACCENT }}
-                  >
-                    <Download size={14} />
-                    Download Free
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── AI Agent Workflow ── */}
-        <section className="py-24" style={{ backgroundColor: BG_DARK }}>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <div
-                className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-5"
-                style={{ backgroundColor: `${ACCENT}25`, color: ACCENT }}
-              >
-                <Zap size={12} />
-                Powered by AI Automation
+                </AnimatedSection>
               </div>
-              <h2 className="text-3xl font-black text-white mb-3">Instant Intake. Zero Admin.</h2>
-              <p className="text-slate-400 max-w-xl mx-auto text-sm">
-                Our AI agent qualifies your enquiry, sends relevant information, and books a discovery call —
-                all before our attorneys even open their inbox.
-              </p>
             </div>
+          </div>
 
-            <div
-              className="rounded-2xl p-6 lg:p-10 border"
-              style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: `${ACCENT}25` }}
-            >
-              <AgentFlowChart workflow={intakeWorkflow} />
+          {/* Institutional Stats Strip */}
+          <div className="absolute bottom-12 right-12 hidden lg:flex flex-col gap-10 text-right">
+            <div>
+              <p className="text-5xl font-black text-white tracking-tight">₹14k Cr+</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-400">Transaction Volume H1</p>
+            </div>
+            <div>
+              <p className="text-5xl font-black text-white tracking-tight">28yr</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-400">Legal Legacy</p>
             </div>
           </div>
         </section>
 
-        {/* ── CTA ── */}
-        <section className="py-20" style={{ backgroundColor: BG_MID }}>
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-black text-white mb-4">
-              Ready to build on a solid legal foundation?
-            </h2>
-            <p className="text-slate-400 mb-8">
-              Most founders wait too long to get legal right. Don't be one of them.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 mb-10">
-              <button
-                className="px-8 py-4 rounded-xl font-bold text-white text-base"
-                style={{ backgroundColor: ACCENT }}
-              >
-                Book a Free Discovery Call
-              </button>
-              <button
-                className="px-8 py-4 rounded-xl font-bold text-base border"
-                style={{ borderColor: 'rgba(255,255,255,0.2)', color: '#E2E8F0' }}
-              >
-                View All Packages
-              </button>
+        {/* Practice Grid */}
+        <section className="py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+              <AnimatedSection>
+                <p className="text-blue-600 font-bold uppercase tracking-[0.4em] text-[11px] mb-6">Expertise</p>
+                <h2 className="text-6xl font-black tracking-tighter">Practices.</h2>
+              </AnimatedSection>
+              <p className="text-lg text-slate-400 max-w-sm font-medium italic">"Strategy is the silent partner of every legal victory."</p>
             </div>
-            <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-400">
-              <a href="#" className="flex items-center gap-2 hover:text-white transition-colors">
-                <Mail size={15} style={{ color: ACCENT }} />
-                hello@mehranairlaw.in
-              </a>
-              <a href="#" className="flex items-center gap-2 hover:text-white transition-colors">
-                <Phone size={15} style={{ color: ACCENT }} />
-                +91 98765 43210
-              </a>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+              {practices.map((s, i) => (
+                <AnimatedSection key={i} delay={i * 100} animationType="scale">
+                  <div className="group bg-slate-50 rounded-[48px] p-10 hover:bg-blue-600 hover:shadow-2xl transition-all duration-700 border border-slate-100 flex flex-col h-full">
+                    <div className="w-16 h-16 rounded-[24px] bg-white flex items-center justify-center mb-10 group-hover:bg-blue-500 transition-all shadow-sm">
+                      <s.i size={28} className="text-blue-600 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight group-hover:text-white transition-colors">{s.t}</h3>
+                    <p className="text-sm text-slate-500 font-medium leading-relaxed flex-1 group-hover:text-blue-100 transition-colors">{s.d}</p>
+                    <button className="mt-10 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-blue-600 group-hover:text-white transition-all">
+                      Full Scope <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </AnimatedSection>
+              ))}
             </div>
+          </div>
+        </section>
+
+        {/* Free Resource Library - High end list */}
+        <section className="py-32 bg-slate-50 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-24">
+              <AnimatedSection>
+                <h2 className="text-5xl lg:text-7xl font-black tracking-tighter mb-6">Founders' Kit.</h2>
+                <p className="text-xl text-slate-500 font-medium max-w-xl mx-auto">Vetted legal templates for the modern ecosystem. Open to the community.</p>
+              </AnimatedSection>
+            </div>
+
+            <div className="space-y-4">
+              {[
+                { n: 'Mutual Non-Disclosure Agreement', f: 'DOCX · 2024 V3', d: '8.4k Downloads' },
+                { n: 'Founders\' Shareholders Agreement', f: 'PDF · Institutional Grade', d: '4.2k Downloads' },
+                { n: 'Standard Advisor Agreement', f: 'DOCX · Equity-ready', d: '3.1k Downloads' },
+              ].map((item, i) => (
+                <div key={i} className="group bg-white p-8 rounded-[32px] border border-slate-200 flex items-center justify-between hover:shadow-xl transition-all cursor-pointer">
+                  <div className="flex items-center gap-6">
+                    <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                      <Download size={20} className="text-blue-600 group-hover:text-white transition-colors" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-black text-slate-900 mb-1">{item.n}</h4>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{item.f}</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">{item.d}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Intake Workflow */}
+        <section className="py-32 bg-[#0A1A2F] text-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-24 items-center">
+              <div>
+                <AnimatedSection animationType="blur">
+                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 text-blue-400 text-[11px] font-bold uppercase tracking-[0.25em] mb-10 border border-white/10">
+                    <Zap size={16} className="fill-blue-400" />
+                    Intake Intelligence
+                  </div>
+                  <h2 className="text-5xl lg:text-6xl font-black tracking-tight mb-10 leading-[0.95]">
+                    Technical velocity,
+                    <br />
+                    AI-powered.
+                  </h2>
+                  <p className="text-xl text-slate-400 font-medium leading-relaxed mb-12">
+                    Legal intake shouldn't be a bottleneck. Our proprietary statutory agent handles the technical classification and ethical audit of every inquiry, ensuring partners receive a high-fidelity summary within minutes.
+                  </p>
+                  
+                  <div className="space-y-10">
+                    {[
+                      { t: 'Ethical Guard', d: 'Automated roster cross-referencing to prevent conflicts of interest.' },
+                      { t: 'Regulatory Mapping', d: 'AI-driven identification of MCA and SEBI statutory overlaps.' },
+                      { t: 'Velocity Audit', d: 'Proactive 24-hour action plan generation for every brief.' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex gap-8 group">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0 group-hover:scale-150 transition-transform" />
+                        <div>
+                          <h4 className="font-black text-white text-sm uppercase tracking-widest mb-2">{item.t}</h4>
+                          <p className="text-xs text-slate-500 font-medium leading-relaxed">{item.d}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </AnimatedSection>
+              </div>
+              <AnimatedSection delay={200} animationType="scale">
+                <div className="p-10 rounded-[64px] bg-white/[0.02] border border-white/5 shadow-inner backdrop-blur-3xl overflow-hidden">
+                  <AgentFlowChart workflow={intakeWorkflow} />
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-40 bg-white relative overflow-hidden text-center text-apple-black">
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <AnimatedSection animationType="scale">
+              <ShieldCheck size={48} className="mx-auto text-blue-600 mb-12" />
+              <h2 className="text-6xl lg:text-[100px] font-black tracking-tighter mb-12 leading-[0.85]">
+                Legacy is 
+                <br />
+                the bedrock.
+              </h2>
+              <p className="text-2xl text-slate-500 font-medium mb-16 max-w-2xl mx-auto leading-relaxed">
+                Currently booking H2 retainer consultations. For high-stakes institutional advisory, reach out via our secure partner portal.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
+                <button className="px-14 py-6 bg-blue-600 text-white font-black rounded-full text-xl shadow-2xl hover:scale-105 transition-all active:scale-95">
+                  Secure Counsel
+                </button>
+                <button className="text-lg font-bold text-slate-400 hover:text-blue-600 transition-colors flex items-center gap-2">
+                  Partner Portal <Lock size={20} />
+                </button>
+              </div>
+            </AnimatedSection>
+          </div>
+          
+          {/* Subtle Pattern Background */}
+          <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <path d="M0 0 L100 100 M100 0 L0 100" stroke="currentColor" strokeWidth="0.05" />
+            </svg>
           </div>
         </section>
 
