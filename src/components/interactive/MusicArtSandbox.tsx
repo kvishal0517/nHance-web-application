@@ -338,7 +338,7 @@ export function MusicArtSandbox({ projectName }: MusicArtSandboxProps) {
                   <div className="border-t border-slate-200/60 pt-4 mb-6">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mb-1">Final Design Estimate</span>
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-black text-apple-black">₹{finalFee.toLocaleString('en-IN')}</span>
+                      <span className="text-3xl font-black text-apple-black">₹{finalCost.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
                 </div>
