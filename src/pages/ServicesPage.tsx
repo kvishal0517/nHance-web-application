@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Globe, Smartphone, Bot, Briefcase, ArrowRight, Check } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
-import { MeshGradient } from '../components/VisualAssets';
+import { 
+  MeshGradient, FloatingGlow, ConfettiShower, AbstractBusinessGraphic 
+} from '../components/VisualAssets';
 
 export function ServicesPage() {
   const services = [
@@ -60,17 +62,41 @@ export function ServicesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white pt-24 lg:pt-32 pb-16 relative overflow-hidden">
-      <MeshGradient className="opacity-[0.15]" />
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
-        <AnimatedSection animationType="blur">
-          <div className="text-center mb-24">
-            <h1 className="text-5xl sm:text-7xl font-bold text-apple-black tracking-tight mb-6">Built for impact.</h1>
-            <p className="text-xl text-apple-darkGray max-w-2xl mx-auto font-medium leading-relaxed">
+    <div className="min-h-screen bg-white relative overflow-hidden">
+      {/* Background Graphics */}
+      <div className="absolute inset-0 pointer-events-none">
+        <MeshGradient className="opacity-[0.15]" />
+        <FloatingGlow />
+        <ConfettiShower />
+        <div className="absolute right-[-10%] top-[10%] w-1/2 h-1/2 opacity-[0.03]">
+          <AbstractBusinessGraphic />
+        </div>
+      </div>
+
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10 pt-24 lg:pt-32 pb-16">
+        <div className="text-center mb-24 relative">
+          <div className="hero-glow" />
+          
+          <AnimatedSection animationType="fade-up" delay={100}>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-apple-gray text-apple-black text-[13px] font-medium mb-10">
+              <span className="flex h-2 w-2 rounded-full bg-apple-blue animate-pulse" />
+              Precision Services
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection animationType="fade-up" delay={200}>
+            <h1 className="text-5xl sm:text-7xl lg:text-[100px] font-black leading-[0.9] tracking-tighter mb-8 animate-text-reveal">
+              Built for <br />
+              <span className="text-apple-blue">Impact.</span>
+            </h1>
+          </AnimatedSection>
+
+          <AnimatedSection animationType="fade-up" delay={300}>
+            <p className="text-xl sm:text-2xl text-apple-darkGray max-w-2xl mx-auto font-medium leading-relaxed">
               Every service we offer is engineered to elevate your professional presence. No compromise.
             </p>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
+        </div>
 
         <div className="space-y-32">
           {services.map((service, i) => (

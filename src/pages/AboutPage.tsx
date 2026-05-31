@@ -1,141 +1,239 @@
 import { Link } from 'react-router-dom';
-import { Target, Heart, Lightbulb, ArrowRight, Users, Shield, Rocket } from 'lucide-react';
+import { 
+  ArrowRight, Code2, Layout, Zap 
+} from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
+import { VisionCards } from '../components/VisionCards';
+import { 
+  MeshGradient, FloatingGlow, ConfettiShower, AbstractBusinessGraphic 
+} from '../components/VisualAssets';
+import logo from '../assets/logo.png';
 
 export function AboutPage() {
-  return (
-    <div className="min-h-screen bg-white pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection>
-          <div className="text-center mb-16">
-            <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-3">About</p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight mb-4">About nH&auml;nce</h1>
-            <p className="text-slate-500 max-w-2xl mx-auto">
-              We believe every professional deserves a digital presence that matches the quality of their work. No templates. No shortcuts. Just tailored solutions.
-            </p>
-          </div>
-        </AnimatedSection>
+  const pillars = [
+    {
+      icon: Code2,
+      title: 'Engineering Beyond Standards',
+      desc: 'We write clean, optimized code to ensure your site is fast, secure, and built to scale. We don\'t stop at perfect; we go one step further.',
+    },
+    {
+      icon: Layout,
+      title: 'Intentional Design',
+      desc: 'Every pixel, transition, and layout is crafted to guide your users seamlessly toward conversion through intuitive user experiences.',
+    },
+    {
+      icon: Zap,
+      title: 'Future-Proof Strategy',
+      desc: 'We build with the next generation of web technologies, ensuring your brand stays ahead of the curve in a crowded marketplace.',
+    },
+  ];
 
-        {/* Story */}
-        <AnimatedSection>
-          <div className="max-w-3xl mx-auto mb-20">
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100">
-              <h2 className="text-2xl font-bold text-slate-900 mb-5">Our Story</h2>
-              <div className="space-y-4 text-slate-600 leading-relaxed">
+  const checklist = [
+    'Pixel-Perfect Responsiveness',
+    'Cross-Browser Compatibility',
+    'Core Web Vitals Optimization',
+    'Clean Code Validation',
+    'SEO Foundation',
+    'Watertight Security',
+    'Accessibility (WCAG) Compliance',
+    'Broken Link & Redirect Audit',
+    'Form & Integration Testing',
+    'Automated Backups Setup',
+    'Client Empowerment Handover',
+  ];
+
+  return (
+    <div className="min-h-screen bg-white relative overflow-hidden">
+      {/* Background Graphics */}
+      <div className="absolute inset-0 pointer-events-none">
+        <MeshGradient className="opacity-[0.15]" />
+        <FloatingGlow />
+        <ConfettiShower />
+        <div className="absolute right-[-10%] top-[10%] w-1/2 h-1/2 opacity-[0.03]">
+          <AbstractBusinessGraphic />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 pt-24 pb-16">
+        {/* Brand Hero */}
+        <div className="text-center mb-24 relative">
+          <div className="hero-glow" />
+          
+          <AnimatedSection animationType="fade-up" delay={100}>
+            <p className="text-xs font-bold text-apple-blue uppercase tracking-[0.3em] mb-6">Brand Philosophy</p>
+          </AnimatedSection>
+
+          <AnimatedSection animationType="fade-up" delay={200}>
+            <h1 className="text-5xl sm:text-7xl lg:text-[100px] font-black leading-[0.9] tracking-tighter mb-8 animate-text-reveal">
+              The Standard is 10.<br />
+              <span className="text-apple-blue">We Are 11.</span>
+            </h1>
+          </AnimatedSection>
+
+          <AnimatedSection animationType="fade-up" delay={300}>
+            <p className="text-xl sm:text-2xl text-apple-darkGray max-w-3xl mx-auto font-medium leading-relaxed">
+              We build high-performance websites and digital experiences that break through the noise, scale your business, and outpace the competition.
+            </p>
+          </AnimatedSection>
+        </div>
+
+        {/* The Narrative */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
+          <AnimatedSection animationType="fade-up">
+            <div className="relative aspect-square rounded-[48px] bg-apple-gray overflow-hidden group border border-slate-100/50 shadow-2xl">
+               <div className="absolute inset-0 bg-gradient-to-br from-apple-blue/5 to-transparent transition-opacity duration-1000" />
+               
+               {/* Persistent Stunning Logo Background Graphic */}
+               <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none">
+                  <div className="relative w-2/3 h-2/3 flex items-center justify-center transition-all duration-[2000ms] scale-110 group-hover:scale-125 group-hover:rotate-6">
+                    <img 
+                      src={logo} 
+                      alt="" 
+                      className="w-full h-auto object-contain opacity-[0.1] group-hover:opacity-[0.25] transition-all duration-700" 
+                    />
+                    {/* Persistent Light Sweep */}
+                    <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent,#0071e366,transparent)] animate-spin-slow opacity-60 group-hover:opacity-100 transition-opacity" />
+                    
+                    {/* Hover Glow */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-apple-blue/10 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                  </div>
+               </div>
+
+               {/* Persistent "Beyond the Limit" Visual Streaks */}
+               <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-full">
+                    {[1, 2, 3].map((i) => (
+                      <div 
+                        key={i} 
+                        className="absolute top-0 w-[2px] h-full bg-gradient-to-b from-transparent via-apple-blue to-transparent transform -skew-x-12 animate-shimmer"
+                        style={{ 
+                          left: `${i * 30}%`, 
+                          animationDuration: `${3 + i}s`,
+                          opacity: 0.5
+                        }} 
+                      />
+                    ))}
+                  </div>
+               </div>
+
+               <div className="absolute bottom-12 left-12 right-12">
+                  <div className="p-8 bg-white/80 backdrop-blur-xl rounded-3xl border border-white/40 shadow-xl transform transition-all duration-700 group-hover:-translate-y-4 group-hover:shadow-2xl">
+                    <p className="text-apple-black font-black italic text-xl leading-tight">
+                      "Safe doesn't get noticed. <br />
+                      <span className="text-apple-blue">Safe doesn't scale."</span>
+                    </p>
+                  </div>
+               </div>
+            </div>
+          </AnimatedSection>
+          
+          <AnimatedSection animationType="fade-up" delay={200}>
+            <div>
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-8 mb-8">
+                <h2 className="text-4xl font-bold text-apple-black tracking-tight">Our Story</h2>
+                <div className="relative group/logo">
+                  <div className="absolute -inset-4 bg-apple-blue/10 blur-xl rounded-full opacity-0 group-hover/logo:opacity-100 transition-opacity duration-700" />
+                  <img 
+                    src={logo} 
+                    alt="ELEVEN" 
+                    className="h-12 w-auto object-contain relative z-10 animate-float drop-shadow-sm group-hover:scale-110 transition-transform duration-500" 
+                  />
+                  <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent,rgba(0,113,227,0.2),transparent)] rounded-full animate-spin-slow opacity-0 group-hover/logo:opacity-100 transition-opacity" />
+                </div>
+              </div>
+              <div className="space-y-6 text-apple-darkGray text-lg leading-relaxed font-medium">
                 <p>
-                  nH&auml;nce was born from a simple observation: most professionals \u2014 doctors, lawyers, coaches, artists, engineers \u2014 settle for digital presences that don&apos;t reflect who they are. Generic templates. Clunky layouts. Zero personality.
+                  Every industry has its upper limit. In the digital world, that limit is usually a "ten out of ten." It represents a standard that is good, predictable, and safe.
                 </p>
                 <p>
-                  We set out to change that. By building industry-specific mock projects that professionals can actually explore, we let you see what&apos;s possible before you commit. No guesswork. No surprises. Just clarity.
+                  We founded ELEVEN because we realized that the most impactful digital breakthroughs happen just beyond the conventional boundary. We didn’t want to build websites that just checked the boxes; we wanted to build platforms that shattered them.
                 </p>
                 <p>
-                  Today, we serve professionals across 10+ industries \u2014 from IIT coaching centers to family law practices, from Hindustani vocalists to SaaS founders. Each project is built from scratch, designed for that specific profession, and infused with AI automation that saves real time.
+                  The name 11 is our permanent reminder to go the extra mile. It represents that extra degree of effort, the clever pivot in the code, and the unexpected design choice that transforms a user into a loyal customer.
+                </p>
+                <p className="text-apple-black font-bold">
+                  We don't stop at perfect. We go one step further.
                 </p>
               </div>
             </div>
-          </div>
-        </AnimatedSection>
-
-        {/* Values */}
-        <AnimatedSection>
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-3">Values</p>
-            <h2 className="text-3xl font-bold text-slate-900 tracking-tight">What Drives Us</h2>
-          </div>
-        </AnimatedSection>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-          {[
-            {
-              icon: Target,
-              title: 'Precision',
-              desc: 'Every project is built for one specific profession. We don\'t adapt templates \u2014 we design from scratch based on how your industry works.',
-            },
-            {
-              icon: Heart,
-              title: 'Empathy',
-              desc: 'We study your clients, your workflow, and your pain points before writing a single line of code. The result feels like it was made by someone who understands your world.',
-            },
-            {
-              icon: Lightbulb,
-              title: 'Innovation',
-              desc: 'AI agents, smart automation, interactive demos \u2014 we bring the latest technology to professionals who\'ve been underserved by the digital world.',
-            },
-          ].map((value, i) => (
-            <AnimatedSection key={i} delay={i * 100}>
-              <div className="p-7 rounded-2xl bg-white border border-slate-100 shadow-soft hover:shadow-medium transition-all duration-300 h-full">
-                <div className="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center mb-5">
-                  <value.icon size={24} className="text-brand-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">{value.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{value.desc}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+          </AnimatedSection>
         </div>
 
-        {/* Process */}
-        <AnimatedSection>
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-3">Process</p>
-            <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Our Process</h2>
-          </div>
-        </AnimatedSection>
+        {/* Core Pillars */}
+        <div className="mb-32">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-5xl font-bold text-apple-black tracking-tight">Engineered to Elevate</h2>
+              <p className="mt-4 text-xl text-apple-darkGray font-medium">Our strategic approach to digital architecture.</p>
+            </div>
+          </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-          {[
-            {
-              icon: Users,
-              title: 'Discovery',
-              desc: 'We learn your profession, your clients, and your goals. We study what works in your industry and what doesn\'t.',
-            },
-            {
-              icon: Shield,
-              title: 'Design & Build',
-              desc: 'We design and develop your solution from scratch. Every element is intentional \u2014 from the color palette to the AI workflows.',
-            },
-            {
-              icon: Rocket,
-              title: 'Launch & Support',
-              desc: 'We deploy, test, and optimize. Post-launch, we\'re available for updates, enhancements, and ongoing support.',
-            },
-          ].map((step, i) => (
-            <AnimatedSection key={i} delay={i * 100}>
-              <div className="relative p-7 rounded-2xl bg-white border border-slate-100 shadow-soft hover:shadow-medium transition-all duration-300">
-                <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center shadow-brand">
-                  {i + 1}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pillars.map((pillar, i) => (
+              <AnimatedSection key={i} delay={i * 100}>
+                <div className="p-10 rounded-[40px] bg-apple-gray border border-transparent hover:border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-500 h-full group">
+                  <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <pillar.icon size={32} className="text-apple-blue" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-apple-black mb-4 tracking-tight">{pillar.title}</h3>
+                  <p className="text-apple-darkGray leading-relaxed font-medium">{pillar.desc}</p>
                 </div>
-                <div className="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center mb-5">
-                  <step.icon size={24} className="text-brand-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">{step.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
+
+        {/* 11-Point Quality Checklist */}
+        <section className="mb-32">
+          <AnimatedSection>
+            <div className="p-12 lg:p-20 rounded-[64px] bg-apple-black text-white overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+                <span className="text-[400px] font-black absolute -top-20 -right-20">11</span>
+              </div>
+              
+              <div className="relative z-10">
+                <div className="mb-16">
+                  <h2 className="text-4xl lg:text-6xl font-bold mb-6 tracking-tight">The 11-Point Quality Checklist</h2>
+                  <p className="text-xl text-apple-silver font-medium max-w-2xl">Our signature development workflow ensures flawless delivery before any platform goes live.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-12">
+                  {checklist.map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 py-4 border-b border-white/10 group">
+                      <div className="w-8 h-8 rounded-full bg-apple-blue/20 flex items-center justify-center shrink-0 text-apple-blue font-bold text-xs">
+                        {i + 1}
+                      </div>
+                      <span className="text-lg font-medium group-hover:text-apple-blue transition-colors">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </section>
+
+        {/* Vision Cards Section */}
+        <section className="mb-32">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-5xl font-bold text-apple-black tracking-tight text-balance">The EllEVEN Vision</h2>
+              <p className="mt-4 text-xl text-apple-darkGray font-medium">Breaking past the conventional limit in four stages.</p>
+            </div>
+            
+            <VisionCards />
+          </AnimatedSection>
+        </section>
 
         {/* CTA */}
         <AnimatedSection>
-          <div className="text-center p-8 sm:p-12 rounded-3xl bg-slate-900">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 tracking-tight">Let&apos;s Build Something Great</h2>
-            <p className="text-slate-300 max-w-lg mx-auto mb-8">
-              Ready to see what your professional digital presence could look like?
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to="/portfolio"
-                className="group flex items-center gap-2 px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-brand"
-              >
-                Explore Portfolio <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-              <Link
-                to="/contact"
-                className="flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold rounded-xl transition-all duration-200"
-              >
-                Contact Us
-              </Link>
-            </div>
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-apple-black mb-8 tracking-tight">Beyond the Binary.</h2>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-10 py-5 bg-apple-black text-white font-bold rounded-full hover:bg-apple-blue transition-all duration-300 hover:shadow-2xl active:scale-95"
+            >
+              Turn Your Digital Presence Up <ArrowRight size={20} />
+            </Link>
           </div>
         </AnimatedSection>
       </div>

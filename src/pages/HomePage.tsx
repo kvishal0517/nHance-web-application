@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Globe, Smartphone, Bot, Briefcase, Zap } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { CATEGORIES } from '../types';
-import { MeshGradient, AbstractBusinessGraphic, FloatingAppGraphic, FloatingGlow, ConfettiShower } from '../components/VisualAssets';
+import { 
+  MeshGradient, AbstractBusinessGraphic, FloatingAppGraphic, 
+  FloatingGlow, ConfettiShower, DigitalTransformationMonitor 
+} from '../components/VisualAssets';
 
 export function HomePage() {
   return (
@@ -29,18 +32,18 @@ export function HomePage() {
           </AnimatedSection>
 
           <AnimatedSection animationType="fade-up" delay={200}>
-            <h1 className="text-5xl sm:text-6xl md:text-[84px] font-bold leading-[1.15] tracking-tight mb-8 pb-4 animate-text-reveal">
+            <h1 className="text-5xl sm:text-7xl md:text-[100px] font-black leading-[0.9] tracking-tighter mb-8 pb-4 animate-text-reveal">
               The future of your
               <br />
-              digital presence.
+              <span className="text-apple-blue">digital presence.</span>
             </h1>
           </AnimatedSection>
 
           <AnimatedSection animationType="fade-up" delay={300}>
             <p className="text-xl sm:text-2xl text-apple-darkGray max-w-3xl mx-auto mb-12 font-medium">
-              We craft bespoke websites, portfolios, and AI agents 
+              We build high-performance websites and digital experiences
               <br className="hidden md:block" />
-              specifically designed for your industry.
+              that break through the noise and scale your business.
             </p>
           </AnimatedSection>
 
@@ -116,6 +119,22 @@ export function HomePage() {
               </div>
             </AnimatedSection>
           </div>
+        </div>
+      </section>
+
+      {/* Transformation Section */}
+      <section className="section-padding bg-white overflow-hidden">
+        <div className="container-wide">
+          <div className="text-center mb-16 lg:mb-24">
+            <AnimatedSection animationType="fade-up">
+              <h2 className="text-4xl sm:text-6xl font-bold text-apple-black tracking-tight mb-4 text-balance">Transform your business.</h2>
+              <p className="text-xl text-apple-darkGray font-medium max-w-2xl mx-auto">From legacy limitations to modern market leadership. Witness the evolution of your digital presence.</p>
+            </AnimatedSection>
+          </div>
+          
+          <AnimatedSection animationType="scale" delay={200}>
+            <DigitalTransformationMonitor />
+          </AnimatedSection>
         </div>
       </section>
 

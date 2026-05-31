@@ -1,4 +1,4 @@
-# nHance — Tailored Websites, Portfolios, Apps & AI Agents for Professionals
+# ELEVEN — Tailored Websites, Portfolios, Apps & AI Agents for Professionals
 
 A modern, production-grade web platform that helps professionals across industries discover and commission custom digital solutions. Built with React, TypeScript, and Tailwind CSS, featuring 20 interactive mock project demos across 10 industries with AI agent workflow visualizations.
 
@@ -6,7 +6,7 @@ A modern, production-grade web platform that helps professionals across industri
 
 ## Overview
 
-nHance is a digital solutions platform that offers tailored websites, portfolios, Android apps, and AI agents designed specifically for professionals. The site lets users explore interactive mock projects — fully functional previews of what their digital presence could look like — before making a commitment.
+ELEVEN is a digital solutions platform that offers tailored websites, portfolios, Android apps, and AI agents designed specifically for professionals. The site lets users explore interactive mock projects — fully functional previews of what their digital presence could look like — before making a commitment.
 
 ---
 
@@ -186,8 +186,8 @@ Automated workflows for lead nurturing, appointment scheduling, customer support
 ### Installation
 
 ```bash
-git clone https://github.com/kvishal0517/nHance-web-application.git
-cd nHance-web-application
+git clone https://github.com/kvishal0517/ELEVEN-web-application.git
+cd ELEVEN-web-application
 npm install
 ```
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -37,12 +38,10 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-12 lg:h-14">
-          <Link to="/" className="flex items-center gap-2 group transition-opacity hover:opacity-80">
-            <div className="w-8 h-8 rounded-lg bg-apple-black flex items-center justify-center shadow-sm">
-              <span className="text-white font-bold text-base leading-none" style={{ fontFamily: 'Georgia, serif' }}>n</span>
-            </div>
-            <span className="text-lg font-semibold tracking-tight text-apple-black">
-              nH<span className="text-apple-blue">&auml;</span>nce
+          <Link to="/" className="flex items-center gap-3 group transition-opacity hover:opacity-80">
+            <img src={logo} alt="ELEVEN" className="h-8 w-auto object-contain" />
+            <span className="text-xl font-bold tracking-[0.2em] text-apple-black uppercase">
+              ELEVEN
             </span>
           </Link>
 

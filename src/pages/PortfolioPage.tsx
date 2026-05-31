@@ -2,7 +2,9 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { CATEGORIES } from '../types';
 import { ProjectCard } from '../components/ProjectCard';
 import { AnimatedSection } from '../components/AnimatedSection';
-import { CategoryGraphic, MeshGradient } from '../components/VisualAssets';
+import { 
+  CategoryGraphic, MeshGradient, FloatingGlow, ConfettiShower, AbstractBusinessGraphic 
+} from '../components/VisualAssets';
 
 export function PortfolioPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,16 +17,25 @@ export function PortfolioPage() {
   const activeCat = CATEGORIES.find((c) => c.id === activeCategoryId) || CATEGORIES[0];
 
   return (
-    <div className="min-h-screen bg-white pt-24 lg:pt-32 pb-16 relative overflow-hidden">
-      <MeshGradient className="opacity-50" />
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+    <div className="min-h-screen bg-white relative overflow-hidden">
+      {/* Background Graphics */}
+      <div className="absolute inset-0 pointer-events-none">
+        <MeshGradient className="opacity-40" />
+        <FloatingGlow />
+        <ConfettiShower />
+        <div className="absolute right-[-10%] top-[10%] w-1/2 h-1/2 opacity-[0.03]">
+          <AbstractBusinessGraphic />
+        </div>
+      </div>
+
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10 pt-24 lg:pt-32 pb-16">
         {/* Header */}
         <AnimatedSection>
           <div className="text-center mb-16">
-            <h1 className="text-5xl sm:text-7xl font-bold text-apple-black tracking-tight mb-6">
-              Industries.
+            <h1 className="text-5xl sm:text-7xl lg:text-[100px] font-black leading-[0.9] tracking-tighter mb-8 animate-text-reveal">
+              Industries<span className="text-apple-blue">.</span>
             </h1>
-            <p className="text-xl text-apple-darkGray max-w-2xl mx-auto font-medium leading-relaxed">
+            <p className="text-xl sm:text-2xl text-apple-darkGray max-w-2xl mx-auto font-medium leading-relaxed">
               Explore how we tailor digital solutions for your specific profession. Every detail is crafted for impact.
             </p>
           </div>

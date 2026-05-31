@@ -49,6 +49,10 @@ const LakshmiFamilyLaw = lazy(() => import('./mocks/legal/LakshmiFamilyLaw'));
 const VikramStaffEngineer = lazy(() => import('./mocks/tech/VikramStaffEngineer'));
 const BuildfastCTO = lazy(() => import('./mocks/tech/BuildfastCTO'));
 
+// Fashion
+const ElevenFashion = lazy(() => import('./mocks/fashion/ElevenFashion'));
+const ElevenBeauty = lazy(() => import('./mocks/fashion/ElevenBeauty'));
+
 function LoadingFallback() {
   return (
     <div className="min-h-screen bg-apple-gray flex items-center justify-center">
@@ -128,6 +132,10 @@ function App() {
               {/* Tech */}
               <Route path="/portfolio/tech/vikram-staff-engineer" element={<VikramStaffEngineer />} />
               <Route path="/portfolio/tech/buildfast-cto" element={<BuildfastCTO />} />
+
+              {/* Fashion */}
+              <Route path="/portfolio/fashion/eleven-fashion" element={<ElevenFashion />} />
+              <Route path="/portfolio/fashion/eleven-beauty" element={<ElevenBeauty />} />
             </Routes>
           </Suspense>
         </main>

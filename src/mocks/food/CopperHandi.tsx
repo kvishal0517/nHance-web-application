@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { UtensilsCrossed, Star, Flame, ArrowRight, Zap, Award } from 'lucide-react';
 import { MockLayout } from '../../components/MockLayout';
 import { AgentFlowChart } from '../../components/AgentFlowChart';
 import { AnimatedSection } from '../../components/AnimatedSection';
 import type { AgentWorkflow } from '../../types';
+
 
 const SAFFRON = '#D4A574';
 
@@ -59,6 +61,12 @@ const timings = [
 ];
 
 export default function CopperHandi() {
+  const [selectedDate, setSelectedDate] = useState('Today');
+  const [selectedTime, setSelectedTime] = useState('8:15 PM');
+  const [guestCount, setGuestCount] = useState('2 Guests');
+  const [seatType, setSeatType] = useState('Classic Main Dining');
+  const [bookingConfirmed, setBookingConfirmed] = useState(false);
+
   return (
     <MockLayout projectName="The Copper Handi" accentColor={SAFFRON} categoryId="food">
       <div className="bg-[#1A0F08] text-white selection:bg-amber-900/50 overflow-hidden">
@@ -157,16 +165,127 @@ export default function CopperHandi() {
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="grid lg:grid-cols-2 gap-24 items-center">
               <AnimatedSection animationType="scale">
-                <div className="p-1 rounded-[64px] bg-gradient-to-br from-[#D4A574]/40 to-transparent border border-white/10 shadow-3xl overflow-hidden backdrop-blur-3xl">
-                  <div className="bg-black/80 rounded-[60px] p-16 text-center">
-                    <Award size={48} className="mx-auto text-[#D4A574] mb-10" />
-                    <h3 className="text-4xl font-bold mb-6 tracking-tight">The Darbar Room</h3>
-                    <p className="text-lg text-white/40 font-medium mb-12 leading-relaxed">
-                      An exclusive private sanctuary for up to 18 guests. Featuring a bespoke multi-course degustation menu and vintage wine pairings.
-                    </p>
-                    <button className="px-10 py-4 border border-[#D4A574] text-[#D4A574] font-bold rounded-full text-xs uppercase tracking-[0.2em] hover:bg-[#D4A574] hover:text-black transition-all">
-                      Enquire for Private Event
-                    </button>
+                <div className="p-1 rounded-[48px] bg-gradient-to-br from-[#D4A574]/40 to-transparent border border-white/10 shadow-3xl overflow-hidden backdrop-blur-3xl font-sans">
+                  <div className="bg-neutral-950/90 rounded-[44px] p-8 sm:p-10 flex flex-col gap-6 text-left">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                      <div>
+                        <span className="text-[10px] uppercase font-bold tracking-widest text-[#D4A574]">Simulated Dining Desk</span>
+                        <h3 className="text-xl font-bold text-white tracking-tight">Table Reservation</h3>
+                      </div>
+                      <span className="text-xs bg-[#D4A574]/15 text-[#D4A574] px-2.5 py-1 rounded-full font-bold border border-[#D4A574]/20 flex items-center gap-1">
+                        <Zap size={10} className="fill-[#D4A574]" /> Live Booking
+                      </span>
+                    </div>
+
+                    {bookingConfirmed ? (
+                      <div className="text-center py-12 flex flex-col items-center gap-6 animate-fade-in">
+                        <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shadow-lg">
+                          <UtensilsCrossed size={28} />
+                        </div>
+                        <div>
+                          <h4 className="text-xl font-bold text-white mb-2">Prime Table Reserved!</h4>
+                          <p className="text-xs text-white/50 leading-relaxed max-w-xs mx-auto">
+                            A warm confirmation has been scheduled for {selectedDate} at {selectedTime} for {guestCount} in the {seatType} section.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => setBookingConfirmed(false)}
+                          className="px-6 py-2 bg-white/5 border border-white/10 hover:bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-slate-300 transition-colors"
+                        >
+                          Modify Details
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {/* Date Toggles */}
+                        <div>
+                          <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider block mb-2">1. Select Dining Date</span>
+                          <div className="flex gap-2">
+                            {['Today', 'Tomorrow', '25th May'].map((d) => (
+                              <button
+                                key={d}
+                                onClick={() => setSelectedDate(d)}
+                                className={`flex-1 py-2 text-xs font-bold rounded-xl border transition-all ${
+                                  selectedDate === d
+                                    ? 'bg-[#D4A574] text-neutral-950 border-[#D4A574] shadow-lg shadow-[#D4A574]/20'
+                                    : 'bg-white/5 text-white/60 border-white/10 hover:bg-white/10'
+                                }`}
+                              >
+                                {d}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Guest Count */}
+                        <div>
+                          <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider block mb-2">2. Cover Guest Count</span>
+                          <div className="flex gap-2">
+                            {['2 Guests', '4 Guests', '6 Guests', '8+ (Darbar Room)'].map((g) => (
+                              <button
+                                key={g}
+                                onClick={() => setGuestCount(g)}
+                                className={`flex-1 py-1.5 text-[10px] font-bold rounded-xl border transition-all ${
+                                  guestCount === g
+                                    ? 'bg-white text-black border-white shadow-md'
+                                    : 'bg-white/5 text-white/50 border-white/10 hover:bg-white/10'
+                                }`}
+                              >
+                                {g}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Seat Style */}
+                        <div>
+                          <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider block mb-2">3. Seating Alcove Zone</span>
+                          <div className="flex gap-2 flex-wrap">
+                            {['Classic Main Dining', 'Cozy Booth alcove', 'Premium Darbar Room'].map((s) => (
+                              <button
+                                key={s}
+                                onClick={() => setSeatType(s)}
+                                className={`px-3 py-1.5 text-[9px] font-bold rounded-xl border transition-all ${
+                                  seatType === s
+                                    ? 'bg-[#D4A574]/20 text-[#D4A574] border-[#D4A574]/40 shadow-sm'
+                                    : 'bg-white/5 text-white/40 border-white/10 hover:bg-white/10'
+                                }`}
+                              >
+                                {s}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Time Toggles */}
+                        <div>
+                          <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider block mb-2">4. Dining Slots</span>
+                          <div className="grid grid-cols-4 gap-2">
+                            {['7:00 PM', '8:15 PM', '9:30 PM', '10:00 PM'].map((t) => (
+                              <button
+                                key={t}
+                                onClick={() => setSelectedTime(t)}
+                                className={`py-2 text-[10px] font-bold rounded-xl border transition-all ${
+                                  selectedTime === t
+                                    ? 'bg-[#D4A574] text-neutral-950 border-[#D4A574]'
+                                    : 'bg-white/5 text-white/40 border-white/10 hover:bg-white/10'
+                                }`}
+                              >
+                                {t}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* CTA */}
+                        <button
+                          onClick={() => setBookingConfirmed(true)}
+                          className="w-full mt-4 py-4 bg-[#D4A574] text-neutral-950 font-bold rounded-xl text-xs uppercase tracking-wider hover:bg-amber-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-2xl"
+                        >
+                          Book Prime Table <ArrowRight size={14} />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </AnimatedSection>

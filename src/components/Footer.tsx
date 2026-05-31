@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 export function Footer() {
   return (
@@ -7,12 +8,10 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-24">
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2.5 mb-6 group">
-              <div className="w-8 h-8 rounded-lg bg-apple-black flex items-center justify-center">
-                <span className="text-white font-bold text-base leading-none" style={{ fontFamily: 'Georgia, serif' }}>n</span>
-              </div>
-              <span className="text-lg font-semibold text-apple-black group-hover:opacity-80 transition-opacity">
-                nH<span className="text-apple-blue">&auml;</span>nce
+            <Link to="/" className="flex items-center gap-3 mb-6 group">
+              <img src={logo} alt="ELEVEN" className="h-8 w-auto object-contain" />
+              <span className="text-xl font-bold tracking-[0.2em] text-apple-black uppercase group-hover:opacity-80 transition-opacity">
+                ELEVEN
               </span>
             </Link>
             <p className="text-[13px] text-apple-darkGray leading-relaxed font-medium">
@@ -44,7 +43,7 @@ export function Footer() {
             <ul className="space-y-4 text-[13px] text-apple-darkGray font-medium">
               <li className="flex items-center gap-2 group cursor-pointer hover:text-apple-black transition-colors">
                 <Mail size={14} />
-                hello@nhanse.digital
+                hello@eleven.digital
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} />
@@ -60,7 +59,7 @@ export function Footer() {
 
         <div className="mt-20 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex gap-8 text-[11px] text-apple-darkGray font-medium">
-            <p>&copy; {new Date().getFullYear()} nH&auml;nce Digital. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} ELEVEN Digital. All rights reserved.</p>
             <Link to="/" className="hover:underline">Privacy Policy</Link>
             <Link to="/" className="hover:underline">Terms of Service</Link>
           </div>

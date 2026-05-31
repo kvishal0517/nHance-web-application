@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { 
   Megaphone, Palette, Layout, Bot, TrendingUp, Cloud, 
   ShieldCheck, Smartphone, Globe, ShoppingBag, Zap,
-  BarChart3, Cpu, Activity, Lock, Layers
+  BarChart3, Cpu, Activity, Lock, Layers, Monitor, AlertCircle, ArrowUpRight,
+  Briefcase
 } from 'lucide-react';
 
 export function ConfettiShower() {
@@ -282,22 +283,6 @@ export function FloatingAppGraphic() {
         {/* Notch */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-slate-900 rounded-b-3xl z-30" />
         
-        {/* Progress Bar Top */}
-        <div className="absolute top-10 left-0 right-0 h-1 bg-slate-100 z-20 flex px-6 gap-1">
-          {slides.map((_, i) => (
-            <div 
-              key={i}
-              className="flex-1 h-full rounded-full overflow-hidden bg-slate-200"
-            >
-              <div 
-                className={`h-full bg-apple-blue transition-all duration-[4000ms] linear ${
-                  i === currentSlide ? 'w-full' : i < currentSlide ? 'w-full' : 'w-0'
-                }`}
-              />
-            </div>
-          ))}
-        </div>
-
         {/* Screen Content */}
         <div className="relative h-full flex flex-col">
           {/* Main Display */}
@@ -366,6 +351,422 @@ export function FloatingAppGraphic() {
   );
 }
 
+export function DigitalTransformationMonitor() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const slides = [
+    {
+      phase: 'Legacy Burden',
+      title: 'Stagnant Growth',
+      desc: 'Outdated websites and weak digital portfolios fail to capture modern leads, causing business growth to stall and authority to fade.',
+      impact: 'Negative ROI',
+      icon: <AlertCircle className="text-red-500" size={24} />,
+      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-red-50',
+      visual: (
+        <div className="space-y-3">
+          <div className="h-2 bg-red-100 rounded-full w-full overflow-hidden">
+            <div className="h-full bg-red-500 w-1/4 animate-pulse" />
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-[10px] font-bold text-red-600 uppercase">Conversion</span>
+            <span className="text-[10px] font-bold text-red-600">0.4%</span>
+          </div>
+        </div>
+      )
+    },
+    {
+      phase: 'Java Legacy',
+      title: 'Obsolete Systems',
+      desc: 'Clunky Java Swing POS systems from 2005 slow down your checkout and frustrate employees. It\'s time to move to fluid, touch-optimized interfaces.',
+      impact: 'System Lag',
+      icon: <Cpu className="text-orange-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-orange-50',
+      visual: (
+        <div className="flex gap-1 items-end h-8">
+          {[30, 45, 25, 60, 40].map((h, i) => (
+            <div key={i} className="flex-1 bg-orange-400/40 rounded-t-sm animate-pulse" style={{ height: `${h}%` }} />
+          ))}
+        </div>
+      )
+    },
+    {
+      phase: 'Portfolio Gap',
+      title: 'Invisible Talent',
+      desc: 'In the digital world, if your portfolio doesn\'t wow them in 3 seconds, you don\'t exist. Weak portfolios fail to showcase your true value.',
+      impact: 'Lost Leads',
+      icon: <Briefcase className="text-slate-400" size={24} />,
+      image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-slate-50',
+      visual: (
+        <div className="grid grid-cols-2 gap-2">
+          <div className="h-3 bg-slate-200 rounded w-full" />
+          <div className="h-3 bg-slate-200 rounded w-3/4" />
+          <div className="h-3 bg-slate-200 rounded w-1/2" />
+        </div>
+      )
+    },
+    {
+      phase: 'Modern POS',
+      title: 'Fluid Transactions',
+      desc: 'Experience the ease of a modern React-powered POS. Real-time inventory, biometric checkout, and glassmorphic aesthetics that impress.',
+      impact: '3x Speed',
+      icon: <Zap className="text-apple-blue" size={24} />,
+      image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-blue-50',
+      visual: (
+        <div className="relative h-12 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full border-2 border-apple-blue animate-ping opacity-20" />
+          <Smartphone className="text-apple-blue" size={24} />
+        </div>
+      )
+    },
+    {
+      phase: 'Global Reach',
+      title: 'Worldwide Outreach',
+      desc: 'Break local barriers. A professional digital presence allows you to reach clients in London, Tokyo, and New York from a single hub.',
+      impact: '24/7 Access',
+      icon: <Globe className="text-indigo-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-indigo-50',
+      visual: (
+        <div className="flex justify-center gap-1">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: `${i * 0.2}s` }} />
+          ))}
+        </div>
+      )
+    },
+    {
+      phase: 'Paper Burden',
+      title: 'Manual Bottlenecks',
+      desc: 'Relying on physical files and paper trails slows down your response time and limits your ability to scale effectively.',
+      impact: 'High Cost',
+      icon: <Layers className="text-amber-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-amber-50',
+      visual: (
+        <div className="space-y-2">
+          <div className="h-2 bg-amber-200 rounded-full w-full" />
+          <div className="h-2 bg-amber-200 rounded-full w-3/4" />
+          <div className="h-2 bg-amber-200 rounded-full w-1/2" />
+        </div>
+      )
+    },
+    {
+      phase: 'Cloud Mastery',
+      title: 'Instant Intelligence',
+      desc: 'Migrate your paper trail to a secure, AI-powered cloud vault. Access every contract, lead, and metric from anywhere in the world.',
+      impact: 'Zero Friction',
+      icon: <Cloud className="text-cyan-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-cyan-50',
+      visual: (
+        <div className="flex items-center justify-center h-10">
+          <Activity className="text-cyan-500 animate-pulse" size={32} />
+        </div>
+      )
+    },
+    {
+      phase: 'Trust Factor',
+      title: 'Professional Authority',
+      desc: 'A high-end website isn\'t just "pretty"—it\'s a trust engine. Professionals who invest in quality are perceived as higher value.',
+      impact: 'Premium Brand',
+      icon: <ShieldCheck className="text-emerald-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-emerald-50',
+      visual: (
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+            <Lock className="text-emerald-600" size={16} />
+          </div>
+          <div className="h-2 bg-emerald-100 flex-1 rounded-full overflow-hidden">
+            <div className="h-full bg-emerald-500 w-full animate-pulse" />
+          </div>
+        </div>
+      )
+    },
+    {
+      phase: 'AI Evolution',
+      title: 'Automated Growth',
+      desc: 'Replace manual follow-ups with intelligent AI agents that qualify leads, book meetings, and handle support while you sleep.',
+      impact: '24/7 Sales',
+      icon: <Bot className="text-purple-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-purple-50',
+      visual: (
+        <div className="grid grid-cols-4 gap-1">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="h-8 bg-purple-200/50 rounded animate-bounce" style={{ animationDelay: `${i * 0.1}s` }} />
+          ))}
+        </div>
+      )
+    },
+    {
+      phase: 'The Visual Edge',
+      title: 'Immersive Portfolios',
+      desc: 'Go beyond static images. Showcase your projects with interactive 3D views and cinematic motion that captures imagination.',
+      impact: 'Max Impact',
+      icon: <Palette className="text-pink-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-pink-50',
+      visual: (
+        <div className="relative h-12 w-full bg-pink-100/30 rounded-lg overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-pink-400/20 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
+        </div>
+      )
+    },
+    {
+      phase: 'Data Blindness',
+      title: 'Guesswork Strategy',
+      desc: 'Running a business without real-time analytics is like flying blind. Stop guessing and start knowing exactly where your growth is.',
+      impact: 'Uncertainty',
+      icon: <BarChart3 className="text-red-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-red-50',
+      visual: (
+        <div className="flex gap-1 h-8 items-center">
+          {[20, 10, 15, 5].map((h, i) => (
+            <div key={i} className="flex-1 bg-red-300 rounded-sm" style={{ height: `${h}%` }} />
+          ))}
+        </div>
+      )
+    },
+    {
+      phase: 'Market Mastery',
+      title: 'Predictive Insights',
+      desc: 'Our dashboards turn data into a competitive advantage. Forecast trends and identify high-value opportunities before they peak.',
+      impact: 'Pure Precision',
+      icon: <TrendingUp className="text-apple-blue" size={24} />,
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-blue-50',
+      visual: (
+        <div className="relative h-12">
+          <svg viewBox="0 0 100 40" className="w-full h-full">
+            <path d="M0 35 Q 25 10, 50 25 T 100 5" fill="none" stroke="#0071e3" strokeWidth="2" className="animate-dash" strokeDasharray="100" />
+          </svg>
+        </div>
+      )
+    },
+    {
+      phase: 'Social Vacuum',
+      title: 'Isolated Brand',
+      desc: 'Without an integrated social and digital ecosystem, your brand exists in a vacuum. Connect with your audience where they live.',
+      impact: 'Low Reach',
+      icon: <Megaphone className="text-orange-500" size={24} />,
+      image: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-orange-50',
+      visual: (
+        <div className="flex justify-center h-10 items-center">
+          <div className="w-8 h-8 rounded-full border-2 border-orange-300 animate-ping" />
+        </div>
+      )
+    },
+    {
+      phase: 'Omnichannel',
+      title: 'Unified Experience',
+      desc: 'Deliver a consistent, premium experience across mobile, web, and physical touchpoints. Your brand, everywhere, all at once.',
+      impact: 'Total Sync',
+      icon: <Smartphone className="text-slate-800" size={24} />,
+      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-slate-50',
+      visual: (
+        <div className="grid grid-cols-3 gap-1">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="h-6 bg-slate-300 rounded animate-pulse" />
+          ))}
+        </div>
+      )
+    },
+    {
+      phase: 'Efficiency Trap',
+      title: 'Manual Grind',
+      desc: 'Hours spent on repetitive tasks are hours lost for innovation. Automation isn\'t a luxury; it\'s your ticket to high-level strategy.',
+      impact: 'Fatigue',
+      icon: <Activity className="text-red-400" size={24} />,
+      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-red-50',
+      visual: (
+        <div className="h-1 bg-red-200 rounded-full w-full overflow-hidden">
+          <div className="h-full bg-red-500 w-3/4 animate-pulse" />
+        </div>
+      )
+    },
+    {
+      phase: 'One-Click World',
+      title: 'Hyper Efficiency',
+      desc: 'Transform complex workflows into elegant, one-click actions. We engineer systems that work for you, not the other way around.',
+      impact: 'Max Flow',
+      icon: <Zap className="text-amber-500" size={24} />,
+      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-amber-50',
+      visual: (
+        <div className="relative h-12 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-amber-100 animate-spin-slow" />
+          <Zap className="absolute text-amber-600" size={20} />
+        </div>
+      )
+    },
+    {
+      phase: 'Security Risk',
+      title: 'Vulnerable Assets',
+      desc: 'Old systems are a playground for breaches. Protect your client data and business reputation with enterprise-grade security.',
+      impact: 'Risk High',
+      icon: <Lock className="text-red-600" size={24} />,
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-red-50',
+      visual: (
+        <div className="flex justify-center gap-1">
+          <div className="w-4 h-1 bg-red-400 rounded-full animate-pulse" />
+          <div className="w-4 h-1 bg-red-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+        </div>
+      )
+    },
+    {
+      phase: 'Ironclad',
+      title: 'Fortified Future',
+      desc: 'Zero-trust architecture, end-to-end encryption, and real-time threat monitoring. Peace of mind engineered into every pixel.',
+      impact: 'Safe Haven',
+      icon: <ShieldCheck className="text-emerald-500" size={24} />,
+      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-emerald-50',
+      visual: (
+        <div className="relative w-full h-10 flex items-center justify-center">
+          <div className="absolute inset-0 bg-emerald-500/10 rounded-full animate-ping" />
+          <Lock className="text-emerald-600" size={24} />
+        </div>
+      )
+    },
+    {
+      phase: 'Scalability Wall',
+      title: 'Growth Ceiling',
+      desc: 'When your system crashes under success, you\'ve failed. Build on a cloud-native foundation that scales with your ambition.',
+      impact: 'Capached',
+      icon: <Monitor className="text-red-500" size={24} />,
+      image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-red-50',
+      visual: (
+        <div className="h-4 bg-red-200 w-full rounded relative overflow-hidden">
+          <div className="absolute inset-0 bg-red-500 w-full" />
+        </div>
+      )
+    },
+    {
+      phase: 'Future Proof',
+      title: 'Unlimited Potential',
+      desc: 'Serverless architecture and auto-scaling ensure your digital presence is as ready for 1,000,000 users as it is for one.',
+      impact: 'No Limits',
+      icon: <TrendingUp className="text-apple-blue" size={24} />,
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+      color: 'bg-blue-50',
+      visual: (
+        <div className="flex gap-1 items-end h-10 w-full">
+          {[10, 25, 45, 70, 95].map((h, i) => (
+            <div key={i} className="flex-1 bg-apple-blue/60 rounded-t-sm" style={{ height: `${h}%` }} />
+          ))}
+        </div>
+      )
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  return (
+    <div className="relative w-full max-w-5xl mx-auto aspect-[16/10] lg:aspect-video group">
+      {/* Monitor Frame */}
+      <div className="absolute inset-0 bg-slate-900 rounded-[40px] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] border-[12px] border-slate-800 overflow-hidden animate-float">
+        {/* Screen Content */}
+        <div className="relative h-full w-full bg-white rounded-2xl overflow-hidden">
+          {slides.map((slide, i) => (
+            <div
+              key={i}
+              className={`absolute inset-0 transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                i === currentSlide 
+                  ? 'opacity-100 translate-y-0 scale-100 z-10' 
+                  : 'opacity-0 translate-y-12 scale-95 z-0 pointer-events-none invisible'
+              }`}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+                {/* Visual Side */}
+                <div className="relative h-64 lg:h-full overflow-hidden bg-slate-100">
+                   <img src={slide.image} alt={slide.title} className="w-full h-full object-cover opacity-90 transition-transform duration-[7000ms] ease-linear scale-110 group-hover:scale-100" />
+                   <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent" />
+                   
+                   {/* HUD Elements */}
+                   <div className="absolute top-6 left-6 right-6">
+                     <div className="bg-white p-5 rounded-2xl border border-white/50 shadow-2xl animate-float" style={{ animationDelay: '0.5s' }}>
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className={`p-2.5 ${slide.color} rounded-xl shadow-sm`}>
+                            {slide.icon}
+                          </div>
+                          <div>
+                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">Status Analysis</p>
+                            <p className="text-sm font-bold text-apple-black">{slide.impact}</p>
+                          </div>
+                        </div>
+                        {slide.visual}
+                     </div>
+                   </div>
+                   
+                   <div className="absolute bottom-6 left-6">
+                      <div className="px-3 py-1.5 bg-black text-white text-[10px] font-bold rounded-lg uppercase tracking-widest flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-apple-blue rounded-full animate-pulse" />
+                        Live Feed: Phase {i + 1}
+                      </div>
+                   </div>
+                </div>
+
+                {/* Content Side */}
+                <div className="p-8 lg:p-16 flex flex-col justify-center bg-white">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="h-px w-8 bg-apple-blue/30" />
+                    <span className="text-apple-blue font-bold tracking-[0.25em] uppercase text-[10px]">{slide.phase}</span>
+                  </div>
+                  
+                  <h3 className="text-3xl lg:text-5xl font-bold text-apple-black mb-6 tracking-tight leading-[1.1]">
+                    {slide.title}
+                  </h3>
+                  
+                  <p className="text-lg lg:text-xl text-apple-darkGray font-medium leading-relaxed mb-10">
+                    {slide.desc}
+                  </p>
+                  
+                  <div className="mt-auto pt-8 border-t border-slate-50 flex items-center justify-between">
+                     <div 
+                        className="flex items-center gap-2 text-apple-blue font-bold text-sm group/btn cursor-pointer"
+                        onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
+                      >
+                        Discover Next
+                        <ArrowUpRight size={18} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                     </div>
+                     <span className="text-[10px] font-bold text-slate-300 tabular-nums">
+                        {String(i + 1).padStart(2, '0')} / {slides.length}
+                     </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Monitor Stand Styling */}
+      <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-40 h-6 bg-slate-800 rounded-b-xl shadow-lg" />
+      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-64 h-2 bg-black/10 blur-md rounded-full" />
+
+      {/* Background Decor */}
+      <div className="absolute -top-12 -right-12 w-64 h-64 bg-apple-blue/10 rounded-full blur-[100px] animate-pulse pointer-events-none" />
+      <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-purple-500/5 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '1s' }} />
+    </div>
+  );
+}
+
 export function CategoryGraphic({ categoryId }: { categoryId: string }) {
   switch (categoryId) {
     case 'tech':
@@ -398,6 +799,17 @@ export function CategoryGraphic({ categoryId }: { categoryId: string }) {
             <circle cx="80" cy="100" r="40" fill="none" stroke="#0071e3" strokeWidth="1" />
             <circle cx="120" cy="100" r="40" fill="none" stroke="#1d1d1f" strokeWidth="1" />
             <circle cx="100" cy="80" r="40" fill="none" stroke="#0071e3" strokeWidth="1" opacity="0.5" />
+          </svg>
+        </div>
+      );
+    case 'fashion':
+      return (
+        <div className="relative w-full h-full flex items-center justify-center">
+          <div className="absolute w-40 h-40 bg-[#D4AF37]/10 rounded-full blur-3xl animate-pulse" />
+          <svg viewBox="0 0 200 200" className="w-48 h-48 relative">
+            <path d="M60 40 L140 40 L140 160 L100 140 L60 160 Z" fill="none" stroke="#1d1d1f" strokeWidth="1" className="animate-float" />
+            <path d="M80 60 L120 60 M100 60 L100 120" stroke="#D4AF37" strokeWidth="1.5" />
+            <circle cx="100" cy="140" r="4" fill="#D4AF37" className="animate-pulse" />
           </svg>
         </div>
       );
