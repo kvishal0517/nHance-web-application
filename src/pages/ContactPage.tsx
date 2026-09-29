@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Mail, Phone, Clock, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { useEnquiryForm } from '../hooks/useEnquiryForm';
 import { CATEGORIES } from '../types';
@@ -59,7 +59,7 @@ export function ContactPage() {
                     </div>
                     <div>
                       <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Email</div>
-                      <div className="text-lg font-bold text-apple-black">hello@eleven.digital</div>
+                      <div className="text-lg font-bold text-apple-black">kritieleven@gmail.com</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -67,17 +67,8 @@ export function ContactPage() {
                       <Phone size={18} className="text-apple-blue" />
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Phone</div>
-                      <div className="text-lg font-bold text-apple-black">+91 98765 43210</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0">
-                      <MapPin size={18} className="text-apple-blue" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Studio</div>
-                      <div className="text-lg font-bold text-apple-black">Bangalore, India</div>
+                      <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">WhatsApp</div>
+                      <div className="text-lg font-bold text-apple-black">7483696050</div>
                     </div>
                   </div>
                 </div>

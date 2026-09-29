@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import logo from '../assets/logo.png';
 
 export function Footer() {
@@ -43,15 +43,11 @@ export function Footer() {
             <ul className="space-y-4 text-[13px] text-apple-darkGray font-medium">
               <li className="flex items-center gap-2 group cursor-pointer hover:text-apple-black transition-colors">
                 <Mail size={14} />
-                hello@eleven.digital
+                kritieleven@gmail.com
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} />
-                +91 98765 43210
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin size={14} className="mt-0.5" />
-                Bangalore, India
+                7483696050
               </li>
             </ul>
           </div>
