@@ -80,7 +80,7 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/nHance-web-application">
       <ScrollToTop />
       <div className="min-h-screen bg-white flex flex-col selection:bg-apple-blue selection:text-white">
         <Navbar />
