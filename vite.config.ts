@@ -4,6 +4,7 @@ import obfuscator from 'vite-plugin-javascript-obfuscator';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/nHance-web-application/',
   plugins: [
     react(),
     obfuscator({
